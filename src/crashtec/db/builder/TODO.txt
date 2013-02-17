@@ -1,0 +1,12 @@
+1) create database description format ++
+2) create algorithm to aggregate several descriptions in single list ++
+3) read the style++
+4) create algorithm to collect descriptions from different files
+5) error handling? empty return or exceptions?
+6) add logging
+
+7) write unit tests
+
+7.5) write postgree sql create db generator 
+8) read about eggs and extention points
+9) implement hole package

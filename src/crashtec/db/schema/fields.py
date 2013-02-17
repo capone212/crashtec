@@ -1,0 +1,2 @@
+
+PRIMARY_KEY_FIELD = "id"
