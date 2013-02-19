@@ -14,6 +14,6 @@ TODO:
  	-- see db package 
 - application versions detector
 	- just port code from poirot
-	- think about serialization and desirialization
+	- think about serialization and deserialization
 - os platform detector
 - 

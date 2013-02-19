@@ -8,8 +8,24 @@ Created on 18.02.2013
 
 @author: anzor.apshev
 '''
+
+from crashtec.db.provider.filter import FieldFilterFactory
+from crashtec.db.provider import operations as dboperations 
+from dbmodel import *
+from public import taskutils
+
+#def enumerate
+
 def main():
-    pass
-
-
+    #TODO: find out how to catch terminating signal for proper cleanup resources 
+    
+    while (True):
+        f = FieldFilterFactory
+        cursor = dboperations.select_from(TASKS_TABLE,
+                        filter = (f(STATUS_FIELD) == taskutils.TASK_STATUS_AGENT_FINISHED)
+                    )
+        print cursor.fetch_one()
+        #TODO: replace with sleep
+        return
+        
 main()
