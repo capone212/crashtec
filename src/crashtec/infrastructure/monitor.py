@@ -10,18 +10,17 @@ Created on 18.02.2013
 '''
 
 from crashtec.db.provider.filter import FieldFilterFactory
-from crashtec.db.provider import operations as dboperations 
+from crashtec.db.provider import routines as dbroutines
 from dbmodel import *
 from public import taskutils
 
-#def enumerate
 
 def main():
     #TODO: find out how to catch terminating signal for proper cleanup resources 
     
     while (True):
         f = FieldFilterFactory
-        cursor = dboperations.select_from(TASKS_TABLE,
+        cursor = dbroutines.select_from(TASKS_TABLE,
                         filter = (f(STATUS_FIELD) == taskutils.TASK_STATUS_AGENT_FINISHED)
                     )
         print cursor.fetch_one()

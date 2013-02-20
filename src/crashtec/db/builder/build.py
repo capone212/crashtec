@@ -63,4 +63,4 @@ def main():
         _logger.error("Unexpected error occurred. DB schema was not created")
         sys.exit(1)
         
-#main()
+main()

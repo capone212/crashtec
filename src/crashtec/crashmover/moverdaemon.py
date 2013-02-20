@@ -5,12 +5,13 @@ Created on 09.02.2013
 '''
 from crashtec.config import mooverconfig 
 import dumpenumerator
-from crashtec.db.provider import operations as dboperations
+from crashtec.db.provider import routines as dbroutines 
 import shutil
 import os.path
 import definitions
 from crashtec.utils import system as utilssystem
 from crashtec.infrastructure.public import taskutils
+from dbmodel import *
 
 def enumerate_dump_files() :
     return dumpenumerator.get_input_dumps(mooverconfig.INPUT_DIR)
@@ -21,13 +22,13 @@ def move_dump_file(dump_file):
     new_file_name = os.path.join(mooverconfig.DUMPS_DIR, os.path.basename(dump_file))
     shutil.move(dump_file, new_file_name)
     #update DB info
-    new_task = dboperations.Record()
-    new_task.dump_file_name = dump_file
+    new_task = dbroutines.Record()
+    new_task[TASKS_DUMP_FILE_FIELD] = dump_file
     executor_instance_name = "%s@%s" % (
             definitions.EXECUTOR_CLASS_NAME, utilssystem.get_host_name())
     taskutils.mark_agent_finished(new_task, 
             definitions.EXECUTOR_CLASS_NAME, executor_instance_name)
-    dboperations.create_new_record('tasks', new_task)
+    dbroutines.create_new_record('tasks', new_task)
     
 def main():
     while (True):

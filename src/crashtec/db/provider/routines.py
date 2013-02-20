@@ -7,12 +7,14 @@ Provides acces to db.
 '''
 
 import psycopg2
+from psycopg2.extras import RealDictCursor
 from crashtec.config import dbconfig
 
 #TODO: think about error handling for these queries 
 
-class Record (object):
-    pass
+ID_FIELD = 'id'
+
+Record = dict
     
 class Cursor(object):
     def __init__(self, cursor_impl):
@@ -34,17 +36,18 @@ def exec_sql(sql, params):
 #            cursor.execute(sql, params)
     connection = psycopg2.connect(dbconfig.get_connection_url())
     connection.autocommit = True
-    cursor = connection.cursor();
+    cursor = connection.cursor(cursor_factory=RealDictCursor);
     cursor.execute(sql, params)
     return Cursor(cursor)
     
+
 
 # param record is instance of class Record
 def create_new_record(table, record):
     fields = str()
     placeholders = str()
     arguments = ()
-    for property, value in vars(record).iteritems():
+    for property, value in record.iteritems():
         if (fields) :
             fields += ', '
             placeholders += ', '
@@ -63,7 +66,21 @@ def select_from(table_name, field_list = [],  filter = None):
     if (filter):
         (filter_sql, params) = filter.to_sql()
         sql = "%s where %s" % (sql, filter_sql)
-    print sql
-    print params
+    print sql , ' | ' , params
     return exec_sql(sql, params)
 
+# TODO: add optional id parameter
+def update_record(table, record, key_field = ID_FIELD):
+    arguments = ()
+    fields = str()
+    for property, value in record.iteritems():
+        if property == key_field:
+            continue
+        if (fields) :
+            fields += ', '
+        fields += '%s=%%s' % property
+        arguments += (value,)
+    sql = 'update %s SET %s WHERE %s = %%s' % (table, fields, key_field)
+    arguments += (record[key_field],)
+    print sql, ' | ' , arguments
+    return exec_sql(sql, arguments)

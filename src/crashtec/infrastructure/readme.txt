@@ -1,2 +1,5 @@
 -  the way to handle different platforms:
-	- checker deduces platform type and each platform (win32, win64, lin, and so on) has separate job sequence 
+	- checker deduces platform type and each platform (win32, win64, lin, and so on) has separate job sequence
+	
+
+- Implement AGNENT GROUPS, they can handle several agent instances  
