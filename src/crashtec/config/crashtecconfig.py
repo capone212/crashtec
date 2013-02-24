@@ -2,13 +2,14 @@
     Contains system wide configuration of crashtec instance
 """
 
-import crashtec.crashmover.definitions
-import crashtec.checker.definitions
-
+from crashtec.crashmover.definitions import EXECUTOR_CLASS_NAME as CRASHMOVER_CLASS
+from crashtec.checker.definitions import EXECUTOR_CLASS_NAME as CHECKER_CLASS
+from crashtec.infrastructure.public.jobsequence import JobSequenceBuilder
 
 CRAHSTEC_MODULES = ['crashtec.crashmover']
 
 
-WIN32_JOB_SEQUENCE = [crashtec.crashmover.definitions.EXECUTOR_CLASS_NAME,
-                      crashtec.checker.definitions.EXECUTOR_CLASS_NAME
-                      ]
+
+JOB_SEQUENCE = [JobSequenceBuilder.straight_entry(CRASHMOVER_CLASS),
+                JobSequenceBuilder.straight_entry(CHECKER_CLASS)
+                ]

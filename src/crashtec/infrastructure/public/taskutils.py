@@ -6,6 +6,7 @@ Created on 17.02.2013
 from crashtec.infrastructure.dbmodel import *
 
 TASK_STATUS_AGENT_FINISHED = 'agent_finished'
+TASK_STATUS_SUCCESS = 'success'
 
 # Adjusts record values to mark task finished for specific agent.
 # task_record record is instance of class Record

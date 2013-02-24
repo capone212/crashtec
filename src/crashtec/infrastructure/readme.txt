@@ -3,3 +3,13 @@
 	
 
 - Implement AGNENT GROUPS, they can handle several agent instances  
+
+HAVE TO implement
+- agent groups -- to handle several agent hosts (symbol downloader should be)
+
+
+-------------- think about sequencing!!!
+- how to represent tree
+mover
+checker
+selector<field_name: dict(value1: tree, value2:tree, value3:tree, default = "")>
