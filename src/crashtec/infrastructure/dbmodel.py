@@ -21,6 +21,7 @@ AGNETS_INSTANCE_FIELD = 'instance_name'
 AGNETS_REGISTRED_TIME_FIELD = 'registered_time'
 AGNETS_KEEPALIVE_FIELD = 'last_keepalive'
 
+
 _agents = {
             AGNETS_CLASS_TYPE_FIELD : DBSchemaTypes.short_string(),
             AGNETS_INSTANCE_FIELD :  DBSchemaTypes.short_string(),
