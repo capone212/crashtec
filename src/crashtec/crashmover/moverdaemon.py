@@ -11,7 +11,8 @@ import os.path
 import definitions
 from crashtec.utils import system as utilssystem
 from crashtec.infrastructure.public import taskutils
-from dbmodel import *
+import dbmodel
+from crashtec.infrastructure.public import agentutils
 
 def enumerate_dump_files() :
     return dumpenumerator.get_input_dumps(mooverconfig.INPUT_DIR)
@@ -23,12 +24,12 @@ def move_dump_file(dump_file):
     shutil.move(dump_file, new_file_name)
     #update DB info
     new_task = dbroutines.Record()
-    new_task[TASKS_DUMP_FILE_FIELD] = dump_file
+    new_task[dbmodel.TASKS_DUMP_FILE_FIELD] = dump_file
     executor_instance_name = "%s@%s" % (
             definitions.EXECUTOR_CLASS_NAME, utilssystem.get_host_name())
     taskutils.mark_agent_finished(new_task, 
             definitions.EXECUTOR_CLASS_NAME, executor_instance_name)
-    dbroutines.create_new_record('tasks', new_task)
+    dbroutines.create_new_record(dbmodel.TASKS_TABLE, new_task)
     
 def main():
     while (True):
@@ -37,6 +38,10 @@ def main():
         for dump_file in dump_files:
             move_dump_file(dump_file)
         return
-        
+
+executor_instance_name = "%s@%s" % (
+            definitions.EXECUTOR_CLASS_NAME, utilssystem.get_host_name())
+
+agentutils.register_agent(executor_instance_name, definitions.EXECUTOR_CLASS_NAME)        
 main()        
         

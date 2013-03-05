@@ -1,7 +1,7 @@
 
 
-class BaseException(RuntimeError):
+class CtBaseException(RuntimeError):
     pass
 
-class GeneralError(BaseException):
+class CtGeneralError(CtBaseException):
     pass

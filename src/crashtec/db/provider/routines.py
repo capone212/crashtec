@@ -66,7 +66,7 @@ def select_from(table_name, field_list = [],  filter = None):
     if (filter):
         (filter_sql, params) = filter.to_sql()
         sql = "%s where %s" % (sql, filter_sql)
-    print sql , ' | ' , params
+    #print sql , ' | ' , params
     return exec_sql(sql, params)
 
 # TODO: add optional id parameter
@@ -82,5 +82,5 @@ def update_record(table, record, key_field = ID_FIELD):
         arguments += (value,)
     sql = 'update %s SET %s WHERE %s = %%s' % (table, fields, key_field)
     arguments += (record[key_field],)
-    print sql, ' | ' , arguments
+    #print sql, ' | ' , arguments
     return exec_sql(sql, arguments)

@@ -1,6 +1,6 @@
 from crashtec.db.schema.types import DBSchemaTypes
 import logging
-from crashtec.utils.exceptions import GeneralError, BaseException
+from crashtec.utils.exceptions import CtGeneralError, CtBaseException
 import sys
 from crashtec.db.schema.fields import *
 import postgres_binding
@@ -16,7 +16,7 @@ def collect_model_descriptions(packages_list):
             result.append(temp.model)
         except ImportError:
             _logger.error("can't import dbmodule.py for %s package", [package_name])
-            raise GeneralError()
+            raise CtGeneralError()
     return result
 
 def _init_logging():
@@ -59,7 +59,7 @@ def main():
             sql = postgres_binding.generate_table_sql(table_name, fields)
             print sql 
         
-    except BaseException:
+    except CtBaseException:
         _logger.error("Unexpected error occurred. DB schema was not created")
         sys.exit(1)
         

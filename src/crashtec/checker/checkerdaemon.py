@@ -5,6 +5,7 @@ Created on 22.02.2013
 '''
 import threading
 from crashtec.infrastructure.public import agentutils
+import definitions
 
 class RegistrationHolder(threading.Thread):
     def __init__(self, class_type, instance_name):
@@ -15,6 +16,7 @@ class RegistrationHolder(threading.Thread):
     
     def stop_thread(self):
         self.m_stop_event.set()
+        self.join()
     
     def run(self):
         while (not self.m_stop_event.is_set()):
@@ -26,7 +28,8 @@ class AgentBase(object):
     def __init__(self, class_type, instance_name):
         self.m_register_holder = RegistrationHolder(class_type, instance_name)
         
-        
+
+agent = AgentBase(definitions.EXECUTOR_CLASS_NAME, 'simple_checker')        
 
 print "exit"
         
