@@ -1,4 +1,3 @@
-from msilib.text import tables
 from crashtec.db.schema.types import DBSchemaTypes
 
 EXPECTED_RESULT = {'task': {'finishTime': 'datetime', 'status': 'short_string', 'analyseAgent': 'string', 
