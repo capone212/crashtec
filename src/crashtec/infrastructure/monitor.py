@@ -85,4 +85,3 @@ ctdebug.init_debug_logger(_logger)
 default_implementation = Implementation()
 _monitor = AgentsMonitor(default_implementation)
 _monitor.run()
- 

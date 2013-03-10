@@ -3,33 +3,20 @@ Created on 22.02.2013
 
 @author: anzor.apshev
 '''
-import threading
-from crashtec.infrastructure.public import agentutils
+
 import definitions
+from crashtec.infrastructure.public import agentbase 
 
-class RegistrationHolder(threading.Thread):
+class Checker(agentbase.AgentBase):
     def __init__(self, class_type, instance_name):
-        agentutils.register_agent(class_type, instance_name)
-        self.m_stop_event = threading.Event()
-        self.instance_name = instance_name
-        threading.Thread.__init__(self)
+        agentbase.AgentBase.__init__(self, class_type, instance_name)
     
-    def stop_thread(self):
-        self.m_stop_event.set()
-        self.join()
-    
-    def run(self):
-        while (not self.m_stop_event.is_set()):
-            agentutils.send_keepalive_message(self.instance_name)
-            self.m_stop_event.wait(5)
-            
-
-class AgentBase(object):
-    def __init__(self, class_type, instance_name):
-        self.m_register_holder = RegistrationHolder(class_type, instance_name)
+    def process_task(self, task):
+        print 'should be processed task ',  task
         
 
-agent = AgentBase(definitions.EXECUTOR_CLASS_NAME, 'simple_checker')        
+checker = Checker(definitions.EXECUTOR_CLASS_NAME, 'simple_checker')        
+checker.run()
 
 print "exit"
         

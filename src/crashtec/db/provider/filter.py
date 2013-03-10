@@ -13,7 +13,7 @@ class _AggregatedCondition(object):
     def to_sql(self):
         (lvalue_sql, lvalue_params) = self.m_lvalue.to_sql()
         (rvalue_sql, rvalue_params) = self.m_rvalue.to_sql()
-        sql_string = sql_string = "(%s) %s (%s)" % (lvalue_sql, self.m_tag, rvalue_sql)
+        sql_string = "(%s) %s (%s)" % (lvalue_sql, self.m_tag, rvalue_sql)
         
         tuple_params = dict(lvalue_params)
         tuple_params.update(rvalue_params)
@@ -25,10 +25,10 @@ class _ConditionBase(object):
         self.m_field = field
         self.m_tag = tag
         self.m_value = value
-    
+    # | operator
     def __or__(self, other):
         return _AggregatedCondition(self, 'or', other)
-    
+    # & operator
     def __and__(self, other):
         return _AggregatedCondition(self, 'and', other)
     
@@ -78,6 +78,21 @@ class FieldFilterFactory(object):
     
     def __ne__(self, value):
         return self.not_equal_to(value)
+
+
+class Descent(object):
+    def __init__(self, column_name):
+        self.column_name = column_name
+    
+    def to_sql(self):
+        return '%s DESC' % self.column_name
+    
+class Ascent(object):
+    def __init__(self, column_name):
+        self.column_name = column_name
+    
+    def to_sql(self):
+        return '%s ASC' % self.column_name
 
 #f = FieldFilterFactory
 #h = (f('agent_instance_name') != 'hello')  | (f('agent_instance_name') == 'hell') 

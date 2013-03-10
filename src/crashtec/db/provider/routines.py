@@ -40,8 +40,6 @@ def exec_sql(sql, params):
     cursor.execute(sql, params)
     return Cursor(cursor)
     
-
-
 # param record is instance of class Record
 def create_new_record(table, record):
     fields = str()
@@ -59,14 +57,17 @@ def create_new_record(table, record):
     exec_sql(sql, arguments)
 
 # execute SELECT sql request and returns Cursor object
-def select_from(table_name, field_list = [],  filter = None):
+def select_from(table_name, field_list=[],  filter=None, order=None):
     # TODO: handle field_list
     sql = "select * from %s" % (table_name)
     params = dict()
     if (filter):
         (filter_sql, params) = filter.to_sql()
         sql = "%s where %s" % (sql, filter_sql)
-    #print sql , ' | ' , params
+    
+    if (order):
+        sql = "%s order by %s" % (sql, order.to_sql())
+    print sql , ' | ' , params
     return exec_sql(sql, params)
 
 # TODO: add optional id parameter

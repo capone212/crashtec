@@ -1,6 +1,5 @@
 import crashtec.db.builder.build as build
 import unittest
-import crashtec
 
 DB_DESCRIPTION_LIST = [{'task': {'finishTime': 'datetime', 'logFile': 'long_string', 'dumpFileName': 'long_string', 'pubDate': 'datetime', 'resultFile': 'long_string'}}, 
                            {'task': {'finishTime': 'datetime', 'status': 'short_string', 'analyseAgent': 'string', 

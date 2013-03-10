@@ -39,4 +39,4 @@ http://www2.cs.uni-paderborn.de/fachbereich/AG/monien/RESEARCH/LOADBAL/basics.ht
 
 
 ---------------------------
-Find the way to customizing alghorithms for infrastrocure 
+Find the way to customizing alghorithms for infrastrocture 

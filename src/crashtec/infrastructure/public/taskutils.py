@@ -15,4 +15,4 @@ TASK_STATUS_FAILED = 'failed'
 def mark_agent_finished(task_record, agent_class_name, agent_instance_name):
     task_record[TASKS_AGENT_CLASS_FIELD] = agent_class_name
     task_record[TASKS_AGENT_INSTANCE_FIELD] = agent_instance_name
-    task_record[TASKS_STATUS_FIELD] = TASK_STATUS_AGENT_FINISHED
+    task_record[TASKS_STATUS_FIELD] = TASK_STATUS_AGENT_FINISHED    
