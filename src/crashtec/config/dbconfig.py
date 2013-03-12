@@ -32,8 +32,8 @@ PORT_PARAM = 'port'
 
 db_connection_info = {   
     SERVER_NAME_PARAM : 'localhost',
-    PORT_PARAM : '5432',
-    #PORT_PARAM : '49998',
+    #PORT_PARAM : '5432',
+    PORT_PARAM : '49998',
     DB_NAME_PARAM : 'crashtec',
     USER_NAME_PARAM : "postgres",
     PASSWORD_PARAM : 'crashtec'
