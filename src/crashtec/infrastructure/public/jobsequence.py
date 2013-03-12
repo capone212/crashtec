@@ -3,7 +3,7 @@ Created on 24.02.2013
 
 @author: capone
 '''
-    
+#TODO: write unit test    
 class StraightEntry(object):
     def __init__(self, class_type):
         self.m_class_type = class_type

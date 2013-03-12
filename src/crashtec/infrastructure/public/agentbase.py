@@ -3,15 +3,16 @@ Created on 07.03.2013
 
 @author: capone
 '''
-
 import threading
-from crashtec.infrastructure.public import agentutils
+import time
+
 from crashtec.db.provider import routines as dbroutines
 from crashtec.db.provider import filter as dbfilter
+from crashtec.db.schema import fields
 from crashtec.infrastructure import dbmodel
-from  crashtec.db.schema import fields
+
+import agentutils
 import taskutils
-import time
 
 class RegistrationHolder(threading.Thread):
     def __init__(self, class_type, instance_name):
@@ -46,7 +47,14 @@ class AgentBase(object):
         
     def process_task(self, task):
         raise  RuntimeError("This function should be delegated to derived class impl")
-            
+    
+    def task_failed(self, task):
+        taskutils.mark_agent_failed(task, self.class_type, self.instance_name)
+        dbroutines.update_record(dbmodel.TASKS_TABLE, task)
+    
+    def task_finished(self, task):
+        taskutils.mark_agent_finished(task, self.class_type, self.instance_name)
+        dbroutines.update_record(dbmodel.TASKS_TABLE, task)
     
     def fetch_task(self):
         d = dbmodel

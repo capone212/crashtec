@@ -24,7 +24,7 @@ def move_dump_file(dump_file):
     shutil.move(dump_file, new_file_name)
     #update DB info
     new_task = dbroutines.Record()
-    new_task[dbmodel.TASKS_DUMP_FILE_FIELD] = dump_file
+    new_task[dbmodel.TASKS_DUMP_FILE_FIELD] = new_file_name
     executor_instance_name = "%s@%s" % (
             definitions.EXECUTOR_CLASS_NAME, utilssystem.get_host_name())
     taskutils.mark_agent_finished(new_task, 

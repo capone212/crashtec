@@ -4,6 +4,7 @@ Created on 17.02.2013
 @author: capone
 '''
 from crashtec.infrastructure.dbmodel import *
+from crashtec.infrastructure import dbmodel
 
 TASK_STATUS_AGENT_FINISHED = 'agent_finished'
 TASK_STATUS_AGENT_SCHEDULED = 'agent_scheduled'
@@ -15,4 +16,12 @@ TASK_STATUS_FAILED = 'failed'
 def mark_agent_finished(task_record, agent_class_name, agent_instance_name):
     task_record[TASKS_AGENT_CLASS_FIELD] = agent_class_name
     task_record[TASKS_AGENT_INSTANCE_FIELD] = agent_instance_name
-    task_record[TASKS_STATUS_FIELD] = TASK_STATUS_AGENT_FINISHED    
+    task_record[TASKS_STATUS_FIELD] = TASK_STATUS_AGENT_FINISHED
+    
+def mark_agent_failed(task_record, agent_class_name, agent_instance_name):
+    task_record[TASKS_AGENT_CLASS_FIELD] = agent_class_name
+    task_record[TASKS_AGENT_INSTANCE_FIELD] = agent_instance_name
+    task_record[TASKS_STATUS_FIELD] = TASK_STATUS_FAILED
+    
+def set_platform_for_task(task_record, platform):
+    task_record[dbmodel.TASKS_PLATFORM_FIELD] = platform

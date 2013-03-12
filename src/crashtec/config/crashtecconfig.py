@@ -9,7 +9,7 @@ from crashtec.infrastructure.public.jobsequence import JobSequenceBuilder
 CRAHSTEC_MODULES = ['crashtec.crashmover']
 
 
-
-JOB_SEQUENCE = [JobSequenceBuilder.straight_entry(CRASHMOVER_CLASS),
+JOB_SEQUENCE = [
+                JobSequenceBuilder.straight_entry(CRASHMOVER_CLASS),
                 JobSequenceBuilder.straight_entry(CHECKER_CLASS)
                 ]
