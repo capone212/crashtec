@@ -1,0 +1,357 @@
+
+Microsoft (R) Windows Debugger Version 6.2.8400.0 X86
+Copyright (c) Microsoft Corporation. All rights reserved.
+
+
+Loading Dump File [C:\dumps_destination\intellect.19-12-2012.09-23-56.dmp]
+User Mini Dump File: Only registers, stack and portions of memory are available
+
+Symbol search path is: *** Invalid ***
+****************************************************************************
+* Symbol loading may be unreliable without a symbol search path.           *
+* Use .symfix to have the debugger choose a symbol path.                   *
+* After setting your symbol path, use .reload to refresh symbol locations. *
+****************************************************************************
+Executable search path is: 
+Windows 7 Version 7601 (Service Pack 1) MP (8 procs) Free x86 compatible
+Product: WinNt, suite: SingleUserTS
+Machine Name:
+Debug session time: Wed Dec 19 09:23:56.000 2012 (UTC + 4:00)
+System Uptime: not available
+Process Uptime: 0 days 0:01:47.000
+................................................................
+................................................................
+...............................
+This dump file has an exception of interest stored in it.
+The stored exception information can be accessed via .ecxr.
+(1a54.1ab0): Access violation - code c0000005 (first/second chance not available)
+----- User Mini Dump Analysis
+
+MINIDUMP_HEADER:
+Version         A793 (61B1)
+NumberOfStreams 8
+Flags           0
+                0000 MiniDumpNormal
+
+Streams:
+Stream 0: type ThreadListStream (3), size 00000A84, RVA 00000248
+  56 threads
+  RVA 0000024C, ID 24C, Teb:000000007EFDD000
+  RVA 0000027C, ID C38, Teb:000000007EFDA000
+  RVA 000002AC, ID 1BA0, Teb:000000007EFD7000
+  RVA 000002DC, ID CF0, Teb:000000007EFAF000
+  RVA 0000030C, ID 10E4, Teb:000000007EFAC000
+  RVA 0000033C, ID 1600, Teb:000000007EFA9000
+  RVA 0000036C, ID 1850, Teb:000000007EFA3000
+  RVA 0000039C, ID 830, Teb:000000007EF9D000
+  RVA 000003CC, ID 25C, Teb:000000007EF9A000
+  RVA 000003FC, ID 1AB0, Teb:000000007EF97000
+  RVA 0000042C, ID 1A10, Teb:000000007EF94000
+  RVA 0000045C, ID 1AE4, Teb:000000007EF8E000
+  RVA 0000048C, ID 14B8, Teb:000000007EF8B000
+  RVA 000004BC, ID 468, Teb:000000007EF88000
+  RVA 000004EC, ID 1A3C, Teb:000000007EF85000
+  RVA 0000051C, ID E24, Teb:000000007EF82000
+  RVA 0000054C, ID C88, Teb:000000007EF7F000
+  RVA 0000057C, ID C34, Teb:000000007EF7C000
+  RVA 000005AC, ID 5CC, Teb:000000007EF79000
+  RVA 000005DC, ID 1A80, Teb:000000007EF76000
+  RVA 0000060C, ID 700, Teb:000000007EF73000
+  RVA 0000063C, ID 1008, Teb:000000007EF70000
+  RVA 0000066C, ID C18, Teb:000000007EF6D000
+  RVA 0000069C, ID 1BF0, Teb:000000007EF6A000
+  RVA 000006CC, ID 5E8, Teb:000000007EF67000
+  RVA 000006FC, ID 18E4, Teb:000000007EF64000
+  RVA 0000072C, ID 19E8, Teb:000000007EF61000
+  RVA 0000075C, ID 1688, Teb:000000007EF5E000
+  RVA 0000078C, ID 17CC, Teb:000000007EF5B000
+  RVA 000007BC, ID 1920, Teb:000000007EF58000
+  RVA 000007EC, ID 1BAC, Teb:000000007EF55000
+  RVA 0000081C, ID 15A8, Teb:000000007EF52000
+  RVA 0000084C, ID 28C, Teb:000000007EF4F000
+  RVA 0000087C, ID 1BB8, Teb:000000007EF4C000
+  RVA 000008AC, ID 1998, Teb:000000007EF49000
+  RVA 000008DC, ID 1488, Teb:000000007EF46000
+  RVA 0000090C, ID 101C, Teb:000000007EF43000
+  RVA 0000093C, ID A74, Teb:000000007EF40000
+  RVA 0000096C, ID 15E8, Teb:000000007EF3D000
+  RVA 0000099C, ID 1918, Teb:000000007EF3A000
+  RVA 000009CC, ID 1B1C, Teb:000000007EF37000
+  RVA 000009FC, ID 14F0, Teb:000000007EF34000
+  RVA 00000A2C, ID 834, Teb:000000007EF31000
+  RVA 00000A5C, ID B50, Teb:000000007EF2E000
+  RVA 00000A8C, ID 1650, Teb:000000007EF2B000
+  RVA 00000ABC, ID ED4, Teb:000000007EF28000
+  RVA 00000AEC, ID CF8, Teb:000000007EF25000
+  RVA 00000B1C, ID 1910, Teb:000000007EF22000
+  RVA 00000B4C, ID 1538, Teb:000000007EF1F000
+  RVA 00000B7C, ID 18CC, Teb:000000007EF1C000
+  RVA 00000BAC, ID 15B0, Teb:000000007EF19000
+  RVA 00000BDC, ID 1670, Teb:000000007EF16000
+  RVA 00000C0C, ID 15D4, Teb:000000007EF13000
+  RVA 00000C3C, ID 175C, Teb:000000007EF10000
+  RVA 00000C6C, ID 1858, Teb:000000007EF0D000
+  RVA 00000C9C, ID 1AAC, Teb:000000007EF91000
+Stream 1: type ModuleListStream (4), size 00004318, RVA 00000CD8
+  159 modules
+  RVA 00000CDC, 00400000 - 00824000: 'C:\Program Files (x86)\Интеллект\intellect.exe', 0
+  RVA 00000D48, 77400000 - 77580000: 'C:\Windows\SysWOW64\ntdll.dll', 0
+  RVA 00000DB4, 74ca0000 - 74db0000: 'C:\Windows\SysWOW64\kernel32.dll', 0
+  RVA 00000E20, 74f80000 - 74fc6000: 'C:\Windows\SysWOW64\KERNELBASE.dll', 0
+  RVA 00000E8C, 70cd0000 - 70d02000: 'C:\Windows\System32\winmm.dll', 0
+  RVA 00000EF8, 76a90000 - 76b3c000: 'C:\Windows\SysWOW64\msvcrt.dll', 0
+  RVA 00000F64, 76650000 - 76750000: 'C:\Windows\SysWOW64\user32.dll', 0
+  RVA 00000FD0, 753a0000 - 75430000: 'C:\Windows\SysWOW64\gdi32.dll', 0
+  RVA 0000103C, 773d0000 - 773da000: 'C:\Windows\SysWOW64\lpk.dll', 0
+  RVA 000010A8, 74fd0000 - 7506d000: 'C:\Windows\SysWOW64\usp10.dll', 0
+  RVA 00001114, 769c0000 - 76a60000: 'C:\Windows\SysWOW64\advapi32.dll', 0
+  RVA 00001180, 74c80000 - 74c99000: 'C:\Windows\SysWOW64\sechost.dll', 0
+  RVA 000011EC, 76870000 - 76960000: 'C:\Windows\SysWOW64\rpcrt4.dll', 0
+  RVA 00001258, 74af0000 - 74b50000: 'C:\Windows\SysWOW64\sspicli.dll', 0
+  RVA 000012C4, 74ae0000 - 74aec000: 'C:\Windows\SysWOW64\CRYPTBASE.dll', 0
+  RVA 00001330, 70dc0000 - 70dc8000: 'C:\Windows\System32\secur32.dll', 0
+  RVA 0000139C, 67340000 - 6745c000: 'C:\Windows\System32\mfc42.dll', 0
+  RVA 00001408, 75600000 - 7575c000: 'C:\Windows\SysWOW64\ole32.dll', 0
+  RVA 00001474, 75970000 - 759ff000: 'C:\Windows\SysWOW64\oleaut32.dll', 0
+  RVA 000014E0, 672b0000 - 6733c000: 'C:\Windows\System32\odbc32.dll', 0
+  RVA 0000154C, 75a00000 - 7664a000: 'C:\Windows\SysWOW64\shell32.dll', 0
+  RVA 000015B8, 757f0000 - 75847000: 'C:\Windows\SysWOW64\shlwapi.dll', 0
+  RVA 00001624, 6a260000 - 6a2e4000: 'C:\Windows\winsxs\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.7601.17514_none_ec83dffa859149af\comctl32.dll', 0
+  RVA 00001690, 70dd0000 - 70dd7000: 'C:\Windows\System32\wsock32.dll', 0
+  RVA 000016FC, 75310000 - 75345000: 'C:\Windows\SysWOW64\ws2_32.dll', 0
+  RVA 00001768, 75390000 - 75396000: 'C:\Windows\SysWOW64\nsi.dll', 0
+  RVA 000017D4, 67240000 - 672a6000: 'C:\Windows\System32\msvcp60.dll', 0
+  RVA 00001840, 67230000 - 6723f000: 'C:\Windows\System32\wsnmp32.dll', 0
+  RVA 000018AC, 70e50000 - 70e6c000: 'C:\Windows\System32\IPHLPAPI.DLL', 0
+  RVA 00001918, 70e40000 - 70e47000: 'C:\Windows\System32\winnsi.dll', 0
+  RVA 00001984, 75760000 - 75765000: 'C:\Windows\SysWOW64\psapi.dll', 0
+  RVA 000019F0, 74a10000 - 74a19000: 'C:\Windows\System32\version.dll', 0
+  RVA 00001A5C, 710f0000 - 71101000: 'C:\Windows\System32\netapi32.dll', 0
+  RVA 00001AC8, 710e0000 - 710e9000: 'C:\Windows\System32\netutils.dll', 0
+  RVA 00001B34, 710c0000 - 710d9000: 'C:\Windows\System32\srvcli.dll', 0
+  RVA 00001BA0, 710b0000 - 710bf000: 'C:\Windows\System32\wkscli.dll', 0
+  RVA 00001C0C, 676a0000 - 676af000: 'C:\Windows\System32\samcli.dll', 0
+  RVA 00001C78, 67200000 - 67222000: 'C:\Windows\System32\logoncli.dll', 0
+  RVA 00001CE4, 74b50000 - 74bb0000: 'C:\Windows\SysWOW64\imm32.dll', 0
+  RVA 00001D50, 74bb0000 - 74c7c000: 'C:\Windows\SysWOW64\msctf.dll', 0
+  RVA 00001DBC, 671c0000 - 671f8000: 'C:\Windows\System32\odbcint.dll', 0
+  RVA 00001E28, 71110000 - 7114c000: 'C:\Windows\System32\mswsock.dll', 0
+  RVA 00001E94, 70de0000 - 70de5000: 'C:\Windows\System32\WSHTCPIP.DLL', 0
+  RVA 00001F00, 69ec0000 - 69f40000: 'C:\Windows\System32\uxtheme.dll', 0
+  RVA 00001F6C, 698c0000 - 698ca000: 'C:\Program Files (x86)\Yandex\Punto Switcher\pshook.dll', 0
+  RVA 00001FD8, 75430000 - 7545a000: 'C:\Windows\SysWOW64\imagehlp.dll', 0
+  RVA 00002044, 75280000 - 75303000: 'C:\Windows\SysWOW64\clbcatq.dll', 0
+  RVA 000020B0, 74e70000 - 74f80000: 'C:\Windows\SysWOW64\urlmon.dll', 0
+  RVA 0000211C, 750c0000 - 75276000: 'C:\Windows\SysWOW64\iertutil.dll', 0
+  RVA 00002188, 76750000 - 7686a000: 'C:\Windows\SysWOW64\wininet.dll', 0
+  RVA 000021F4, 75350000 - 75353000: 'C:\Windows\SysWOW64\normaliz.dll', 0
+  RVA 00002260, 6f760000 - 6f773000: 'C:\Windows\System32\dwmapi.dll', 0
+  RVA 000022CC, 73200000 - 7329b000: 'C:\Windows\winsxs\x86_microsoft.vc80.crt_1fc8b3b9a1e18e3b_8.0.50727.6195_none_d09154e044272b9a\msvcr80.dll', 0
+  RVA 00002338, 03500000 - 035d3000: 'C:\Program Files (x86)\Интеллект\Languages\ru\intellect.resources.dll', 0
+  RVA 000023A4, 71850000 - 71866000: 'C:\Windows\System32\cryptsp.dll', 0
+  RVA 00002410, 71810000 - 7184b000: 'C:\Windows\System32\rsaenh.dll', 0
+  RVA 0000247C, 71800000 - 7180e000: 'C:\Windows\System32\RpcRtRemote.dll', 0
+  RVA 000024E8, 676d0000 - 676e2000: 'C:\Windows\System32\samlib.dll', 0
+  RVA 00002554, 738c0000 - 7390c000: 'C:\Windows\System32\apphelp.dll', 0
+  RVA 000025C0, 66fc0000 - 670b9000: 'C:\Program Files (x86)\Common Files\System\ado\msado15.dll', 0
+  RVA 0000262C, 671a0000 - 671bf000: 'C:\Windows\System32\msdart.dll', 0
+  RVA 00002698, 670c0000 - 67194000: 'C:\Program Files (x86)\Common Files\System\Ole DB\oledb32.dll', 0
+  RVA 00002704, 67a90000 - 67aa7000: 'C:\Windows\System32\bcrypt.dll', 0
+  RVA 00002770, 6a0a0000 - 6a23e000: 'C:\Windows\winsxs\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.7601.17514_none_41e6975e2bd6f2b2\comctl32.dll', 0
+  RVA 000027DC, 66fa0000 - 66fb4000: 'C:\Program Files (x86)\Common Files\System\Ole DB\oledb32r.dll', 0
+  RVA 00002848, 66e60000 - 66f96000: 'C:\Windows\System32\comsvcs.dll', 0
+  RVA 000028B4, 674a0000 - 674b4000: 'C:\Windows\System32\atl.dll', 0
+  RVA 00002920, 67a50000 - 67a8d000: 'C:\Windows\SysWOW64\bcryptprimitives.dll', 0
+  RVA 0000298C, 66020000 - 66101000: 'C:\Program Files (x86)\Common Files\System\Ole DB\sqloledb.dll', 0
+  RVA 000029F8, 75850000 - 7596d000: 'C:\Windows\SysWOW64\crypt32.dll', 0
+  RVA 00002A64, 75380000 - 7538c000: 'C:\Windows\SysWOW64\msasn1.dll', 0
+  RVA 00002AD0, 66e40000 - 66e58000: 'C:\Program Files (x86)\Common Files\System\Ole DB\msdatl3.dll', 0
+  RVA 00002B3C, 66dc0000 - 66de1000: 'C:\Windows\System32\dbnetlib.dll', 0
+  RVA 00002BA8, 676f0000 - 676f3000: 'C:\Windows\System32\security.dll', 0
+  RVA 00002C14, 67ba0000 - 67ba8000: 'C:\Windows\System32\credssp.dll', 0
+  RVA 00002C80, 67b50000 - 67b92000: 'C:\Windows\SysWOW64\msv1_0.dll', 0
+  RVA 00002CEC, 67b30000 - 67b41000: 'C:\Windows\System32\cryptdll.dll', 0
+  RVA 00002D58, 66da0000 - 66db8000: 'C:\Windows\System32\ntdsapi.dll', 0
+  RVA 00002DC4, 70d90000 - 70d96000: 'C:\Windows\System32\wship6.dll', 0
+  RVA 00002E30, 70e80000 - 70ec4000: 'C:\Windows\System32\dnsapi.dll', 0
+  RVA 00002E9C, 70df0000 - 70df6000: 'C:\Windows\System32\rasadhlp.dll', 0
+  RVA 00002F08, 70e00000 - 70e38000: 'C:\Windows\System32\FWPUCLNT.DLL', 0
+  RVA 00002F74, 67af0000 - 67b2a000: 'C:\Windows\SysWOW64\schannel.dll', 0
+  RVA 00002FE0, 67ab0000 - 67ae8000: 'C:\Windows\System32\ncrypt.dll', 0
+  RVA 0000304C, 65f90000 - 6601a000: 'C:\Program Files (x86)\Common Files\System\msadc\msadce.dll', 0
+  RVA 000030B8, 66e30000 - 66e32000: 'C:\Program Files (x86)\Common Files\System\msadc\msadcer.dll', 0
+  RVA 00003124, 10000000 - 1008b000: 'C:\Program Files (x86)\Интеллект\Modules\ARCHPANEL.mdl', 0
+  RVA 00003190, 038a0000 - 038aa000: 'C:\Program Files (x86)\Интеллект\Languages\ru\ARCHPANEL.mdl.resources.dll', 0
+  RVA 000031FC, 04890000 - 0492a000: 'C:\Program Files (x86)\Интеллект\Modules\audio.mdl', 0
+  RVA 00003268, 03b20000 - 03b2a000: 'C:\Program Files (x86)\Интеллект\Languages\ru\audio.mdl.resources.dll', 0
+  RVA 000032D4, 04930000 - 049b7000: 'C:\Program Files (x86)\Интеллект\Modules\AudioAnalytic.mdl', 0
+  RVA 00003340, 03cc0000 - 03cc6000: 'C:\Program Files (x86)\Интеллект\Languages\ru\AudioAnalytic.mdl.resources.dll', 0
+  RVA 000033AC, 049c0000 - 04a4f000: 'C:\Program Files (x86)\Интеллект\Modules\Camzone.mdl', 0
+  RVA 00003418, 04540000 - 0454b000: 'C:\Program Files (x86)\Интеллект\Languages\ru\Camzone.mdl.resources.dll', 0
+  RVA 00003484, 04a50000 - 04ad5000: 'C:\Program Files (x86)\Интеллект\Modules\cam_facecapture.mdl', 0
+  RVA 000034F0, 04560000 - 0456a000: 'C:\Program Files (x86)\Интеллект\Languages\ru\cam_facecapture.mdl.resources.dll', 0
+  RVA 0000355C, 04580000 - 045b8000: 'C:\Program Files (x86)\Интеллект\Modules\cam_title.mdl', 0
+  RVA 000035C8, 04810000 - 0481a000: 'C:\Program Files (x86)\Интеллект\Languages\ru\cam_title.mdl.resources.dll', 0
+  RVA 00003634, 04ae0000 - 04b67000: 'C:\Program Files (x86)\Интеллект\Modules\ConfCheckUtil.mdl', 0
+  RVA 000036A0, 04830000 - 0483a000: 'C:\Program Files (x86)\Интеллект\Languages\ru\ConfCheckUtil.mdl.resources.dll', 0
+  RVA 0000370C, 05ab0000 - 05b34000: 'C:\Program Files (x86)\Интеллект\Modules\drs.mdl', 0
+  RVA 00003778, 04b70000 - 04b79000: 'C:\Program Files (x86)\Интеллект\Languages\ru\drs.mdl.resources.dll', 0
+  RVA 000037E4, 05b50000 - 05bee000: 'C:\Program Files (x86)\Интеллект\Modules\Event_counter.mdl', 0
+  RVA 00003850, 05bf0000 - 05bfa000: 'C:\Program Files (x86)\Интеллект\Languages\ru\Event_counter.mdl.resources.dll', 0
+  RVA 000038BC, 05c10000 - 05cc3000: 'C:\Program Files (x86)\Интеллект\Modules\Event_viewer.mdl', 0
+  RVA 00003928, 05cd0000 - 05cda000: 'C:\Program Files (x86)\Интеллект\Languages\ru\Event_viewer.mdl.resources.dll', 0
+  RVA 00003994, 05cf0000 - 05d8e000: 'C:\Program Files (x86)\Интеллект\Modules\FishEye.mdl', 0
+  RVA 00003A00, 05d90000 - 05d99000: 'C:\Program Files (x86)\Интеллект\Languages\ru\FishEye.mdl.resources.dll', 0
+  RVA 00003A6C, 05db0000 - 05e6d000: 'C:\Program Files (x86)\Интеллект\Modules\IpStorage.mdl', 0
+  RVA 00003AD8, 05e70000 - 05e7a000: 'C:\Program Files (x86)\Интеллект\Languages\ru\IpStorage.mdl.resources.dll', 0
+  RVA 00003B44, 05e90000 - 05f19000: 'C:\Program Files (x86)\Интеллект\Modules\LivePlayer.mdl', 0
+  RVA 00003BB0, 05f20000 - 05f2a000: 'C:\Program Files (x86)\Интеллект\Languages\ru\LivePlayer.mdl.resources.dll', 0
+  RVA 00003C1C, 05f40000 - 05fd8000: 'C:\Program Files (x86)\Интеллект\Modules\map.mdl', 0
+  RVA 00003C88, 05fe0000 - 05fea000: 'C:\Program Files (x86)\Интеллект\Languages\ru\map.mdl.resources.dll', 0
+  RVA 00003CF4, 07140000 - 071df000: 'C:\Program Files (x86)\Интеллект\Modules\mc_client.mdl', 0
+  RVA 00003D60, 071e0000 - 071ea000: 'C:\Program Files (x86)\Интеллект\Languages\ru\mc_client.mdl.resources.dll', 0
+  RVA 00003DCC, 07200000 - 072a4000: 'C:\Program Files (x86)\Интеллект\Modules\mc_server.mdl', 0
+  RVA 00003E38, 072b0000 - 072ba000: 'C:\Program Files (x86)\Интеллект\Languages\ru\mc_server.mdl.resources.dll', 0
+  RVA 00003EA4, 072d0000 - 07357000: 'C:\Program Files (x86)\Интеллект\Modules\mms.mdl', 0
+  RVA 00003F10, 07360000 - 0736a000: 'C:\Program Files (x86)\Интеллект\Languages\ru\mms.mdl.resources.dll', 0
+  RVA 00003F7C, 07380000 - 07439000: 'C:\Program Files (x86)\Интеллект\Modules\monitor.mdl', 0
+  RVA 00003FE8, 07440000 - 0744e000: 'C:\Program Files (x86)\Интеллект\Languages\ru\monitor.mdl.resources.dll', 0
+  RVA 00004054, 07460000 - 07504000: 'C:\Program Files (x86)\Интеллект\Modules\OperatorProtocol.mdl', 0
+  RVA 000040C0, 07510000 - 0751a000: 'C:\Program Files (x86)\Интеллект\Languages\ru\OperatorProtocol.mdl.resources.dll', 0
+  RVA 0000412C, 07530000 - 07650000: 'C:\Program Files (x86)\Интеллект\Modules\script.mdl', 0
+  RVA 00004198, 07650000 - 0765b000: 'C:\Program Files (x86)\Интеллект\Languages\ru\script.mdl.resources.dll', 0
+  RVA 00004204, 08070000 - 080f6000: 'C:\Program Files (x86)\Интеллект\Modules\sms.mdl', 0
+  RVA 00004270, 08100000 - 0810a000: 'C:\Program Files (x86)\Интеллект\Languages\ru\sms.mdl.resources.dll', 0
+  RVA 000042DC, 08120000 - 081bd000: 'C:\Program Files (x86)\Интеллект\Modules\sss.mdl', 0
+  RVA 00004348, 081c0000 - 08538000: 'C:\Program Files (x86)\Интеллект\ProfUIS252m6.dll', 0
+  RVA 000043B4, 67860000 - 67879000: 'C:\Windows\System32\olepro32.dll', 0
+  RVA 00004420, 6a2f0000 - 6a2f5000: 'C:\Windows\System32\msimg32.dll', 0
+  RVA 0000448C, 08540000 - 0854a000: 'C:\Program Files (x86)\Интеллект\Languages\ru\sss.mdl.resources.dll', 0
+  RVA 000044F8, 086a0000 - 08728000: 'C:\Program Files (x86)\Интеллект\Modules\StreamingServer.mdl', 0
+  RVA 00004564, 08730000 - 087c4000: 'C:\Program Files (x86)\Интеллект\Modules\telemetry.mdl', 0
+  RVA 000045D0, 087d0000 - 087da000: 'C:\Program Files (x86)\Интеллект\Languages\ru\telemetry.mdl.resources.dll', 0
+  RVA 0000463C, 089f0000 - 08a7b000: 'C:\Program Files (x86)\Интеллект\Modules\telemetry_panel.mdl', 0
+  RVA 000046A8, 08a80000 - 08a8a000: 'C:\Program Files (x86)\Интеллект\Languages\ru\telemetry_panel.mdl.resources.dll', 0
+  RVA 00004714, 08aa0000 - 08b2b000: 'C:\Program Files (x86)\Интеллект\Modules\titleviewer.mdl', 0
+  RVA 00004780, 08b30000 - 08b3a000: 'C:\Program Files (x86)\Интеллект\Languages\ru\titleviewer.mdl.resources.dll', 0
+  RVA 000047EC, 08b50000 - 08d76000: 'C:\Program Files (x86)\Интеллект\Modules\video.mdl', 0
+  RVA 00004858, 69c10000 - 69da0000: 'C:\Windows\winsxs\x86_microsoft.windows.gdiplus_6595b64144ccf1df_1.1.7601.17514_none_72d18a4386696c80\GdiPlus.dll', 0
+  RVA 000048C4, 08d80000 - 08d97000: 'C:\Program Files (x86)\Интеллект\Languages\ru\video.mdl.resources.dll', 0
+  RVA 00004930, 08db0000 - 08e37000: 'C:\Program Files (x86)\Интеллект\Modules\vms.mdl', 0
+  RVA 0000499C, 08e40000 - 08e4a000: 'C:\Program Files (x86)\Интеллект\Languages\ru\vms.mdl.resources.dll', 0
+  RVA 00004A08, 08e60000 - 08ee5000: 'C:\Program Files (x86)\Интеллект\Modules\vns.mdl', 0
+  RVA 00004A74, 08ef0000 - 08efa000: 'C:\Program Files (x86)\Интеллект\Languages\ru\vns.mdl.resources.dll', 0
+  RVA 00004AE0, 08f10000 - 08fc5000: 'C:\Program Files (x86)\Интеллект\Modules\web2.mdl', 0
+  RVA 00004B4C, 08fd0000 - 08fda000: 'C:\Program Files (x86)\Интеллект\Languages\ru\web2.mdl.resources.dll', 0
+  RVA 00004BB8, 08ff0000 - 0908e000: 'C:\Program Files (x86)\Интеллект\Modules\WebServer.mdl', 0
+  RVA 00004C24, 09090000 - 0909a000: 'C:\Program Files (x86)\Интеллект\Languages\ru\WebServer.mdl.resources.dll', 0
+  RVA 00004C90, 090b0000 - 09134000: 'C:\Program Files (x86)\Интеллект\Modules\Window.mdl', 0
+  RVA 00004CFC, 09140000 - 0914a000: 'C:\Program Files (x86)\Интеллект\Languages\ru\Window.mdl.resources.dll', 0
+  RVA 00004D68, 62700000 - 62704000: 'C:\Program Files (x86)\Common Files\System\Ole DB\sqloledb.rll', 0
+  RVA 00004DD4, 70f30000 - 7101b000: 'C:\Windows\System32\dbghelp.dll', 0
+  RVA 00004E40, 67830000 - 67855000: 'C:\Windows\System32\powrprof.dll', 0
+  RVA 00004EAC, 75460000 - 755fd000: 'C:\Windows\SysWOW64\setupapi.dll', 0
+  RVA 00004F18, 74db0000 - 74dd7000: 'C:\Windows\SysWOW64\cfgmgr32.dll', 0
+  RVA 00004F84, 75360000 - 75372000: 'C:\Windows\SysWOW64\devobj.dll', 0
+Stream 2: type MemoryListStream (5), size 000003F4, RVA 000157AF
+  63 memory ranges
+  range#    RVA      Address      Size
+       0 00015BA3    7741f841   00000100
+       1 00015CA3    7741fd01   0000017c
+       2 00015E1F    774200cd   00000100
+       3 00015F1F    77420bb2   00000100
+       4 0001601F    77421eb6   00000100
+       5 0001611F    0040d6fe   00000100
+       6 0001621F    76667857   00000100
+       7 0001631F    0018edd4   0000122c
+       8 0001754B    02e2fe84   0000017c
+       9 000176C7    02f2fe84   0000017c
+      10 00017843    0213fdf0   00000210
+      11 00017A53    034efd70   00000290
+      12 00017CE3    0388fdf0   00000210
+      13 00017EF3    055afe24   000001dc
+      14 000180CF    057efe80   00000180
+      15 0001824F    0592fe80   00000180
+      16 000183CF    059ae5f0   00001a10
+      17 00019DDF    05a2fcf4   0000030c
+      18 0001A0EB    041ffe64   0000019c
+      19 0001A287    044bfcb8   00000348
+      20 0001A5CF    044ffe64   0000019c
+      21 0001A76B    0613fe70   00000190
+      22 0001A8FB    0869fe84   0000017c
+      23 0001AA77    09cbfc60   000003a0
+      24 0001AE17    0a86fc2c   000003d4
+      25 0001B1EB    0a8efc2c   000003d4
+      26 0001B5BF    0a96fc2c   000003d4
+      27 0001B993    0a9efc2c   000003d4
+      28 0001BD67    0aa6fc2c   000003d4
+      29 0001C13B    0aaefc2c   000003d4
+      30 0001C50F    0ab6fc2c   000003d4
+      31 0001C8E3    0abefc2c   000003d4
+      32 0001CCB7    0ac6fc2c   000003d4
+      33 0001D08B    0acefc2c   000003d4
+      34 0001D45F    0ad6fc2c   000003d4
+      35 0001D833    0adefc2c   000003d4
+      36 0001DC07    0ae6fc2c   000003d4
+      37 0001DFDB    0aeefc2c   000003d4
+      38 0001E3AF    0af6fc2c   000003d4
+      39 0001E783    0b0efc2c   000003d4
+      40 0001EB57    0b16fc2c   000003d4
+      41 0001EF2B    0b1efc2c   000003d4
+      42 0001F2FF    0b26fc2c   000003d4
+      43 0001F6D3    0b2efc2c   000003d4
+      44 0001FAA7    0b36fc2c   000003d4
+      45 0001FE7B    0b3efc2c   000003d4
+      46 0002024F    0b46fc2c   000003d4
+      47 00020623    0b4efc2c   000003d4
+      48 000209F7    0b56fc2c   000003d4
+      49 00020DCB    0b5efc2c   000003d4
+      50 0002119F    0b66fc2c   000003d4
+      51 00021573    0b6efc2c   000003d4
+      52 00021947    0b76fc2c   000003d4
+      53 00021D1B    0b7efc2c   000003d4
+      54 000220EF    0b86fc2c   000003d4
+      55 000224C3    0b8efc2c   000003d4
+      56 00022897    0b96fb68   00000498
+      57 00022D2F    0b9efe70   00000190
+      58 00022EBF    0ba6fb3c   000004c4
+      59 00023383    09d4fe70   00000190
+      60 00023513    09dcfb3c   000004c4
+      61 000239D7    09f1fec8   00000138
+      62 00023B0F    0a11fe24   000001dc
+  Total memory: e148
+Stream 3: type ExceptionStream (6), size 000000A8, RVA 000001A0
+  ThreadID 6832
+  ExceptionCode C0000005
+  ExceptionRecord 0
+  ExceptionAddress 40d77e
+  Context record RVA 8ef6, size 2cc
+Stream 4: type SystemInfoStream (7), size 00000038, RVA 00000080
+  ProcessorArchitecture   0000 (PROCESSOR_ARCHITECTURE_INTEL)
+  ProcessorLevel          0015
+  ProcessorRevision       0102
+  NumberOfProcessors      08
+  MajorVersion            00000006
+  MinorVersion            00000001
+  BuildNumber             00001DB1 (7601)
+  PlatformId              00000002 (VER_PLATFORM_WIN32_NT)
+  CSDVersionRva           00004FF0
+                            Length: 28
+                            Buffer: {'Service Pack 1'}
+  Product: WinNt, suite: SingleUserTS
+Stream 5: type MiscInfoStream (15), size 000000E8, RVA 000000B8
+Stream 6: type UnusedStream (0), size 00000000, RVA 00000000
+Stream 7: type UnusedStream (0), size 00000000, RVA 00000000
+
+
+Windows 7 Version 7601 (Service Pack 1) MP (8 procs) Free x86 compatible
+Product: WinNt, suite: SingleUserTS
+Machine Name:
+Debug session time: Wed Dec 19 09:23:56.000 2012 (UTC + 4:00)
+System Uptime: not available
+Process Uptime: 0 days 0:01:47.000
+  Kernel time: 0 days 0:00:01.000
+  User time: 0 days 0:00:01.000
+*** ERROR: Symbol file could not be found.  Defaulted to export symbols for ntdll.dll - 
+PEB NULL...
+Finished dump check

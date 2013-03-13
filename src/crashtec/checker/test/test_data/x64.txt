@@ -1,0 +1,223 @@
+
+Microsoft (R) Windows Debugger Version 6.2.8400.0 X86
+Copyright (c) Microsoft Corporation. All rights reserved.
+
+
+Loading Dump File [C:\dumps_destination\notepad.dmp]
+User Mini Dump File: Only registers, stack and portions of memory are available
+
+Symbol search path is: *** Invalid ***
+****************************************************************************
+* Symbol loading may be unreliable without a symbol search path.           *
+* Use .symfix to have the debugger choose a symbol path.                   *
+* After setting your symbol path, use .reload to refresh symbol locations. *
+****************************************************************************
+Executable search path is: 
+Windows 7 Version 7601 (Service Pack 1) MP (4 procs) Free x64
+Product: WinNt, suite: SingleUserTS Personal
+Machine Name:
+Debug session time: Tue Mar 12 22:52:37.000 2013 (UTC + 4:00)
+System Uptime: not available
+Process Uptime: 0 days 0:00:46.000
+..........................
+----- User Mini Dump Analysis
+
+MINIDUMP_HEADER:
+Version         A793 (61B1)
+NumberOfStreams 10
+Flags           1105
+                0001 MiniDumpWithDataSegs
+                0004 MiniDumpWithHandleData
+                0100 MiniDumpWithProcessThreadData
+                1000 MiniDumpWithThreadInfo
+
+Streams:
+Stream 0: type ThreadListStream (3), size 00000034, RVA 000001B8
+  1 threads
+  RVA 000001BC, ID 1704, Teb:000007FFFFFDE000
+Stream 1: type ThreadInfoListStream (17), size 0000004C, RVA 000001EC
+  RVA 000001F8, ID 1704
+Stream 2: type ModuleListStream (4), size 00000AFC, RVA 00000238
+  26 modules
+  RVA 0000023C, 00000000`fff10000 - 00000000`fff45000: 'C:\Windows\System32\notepad.exe', 0
+  RVA 000002A8, 00000000`777a0000 - 00000000`77949000: 'C:\Windows\System32\ntdll.dll', 0
+  RVA 00000314, 00000000`77370000 - 00000000`7748f000: 'C:\Windows\System32\kernel32.dll', 0
+  RVA 00000380, 000007fe`fde80000 - 000007fe`fdeec000: 'C:\Windows\System32\KERNELBASE.dll', 0
+  RVA 000003EC, 000007fe`ff9d0000 - 000007fe`ffaab000: 'C:\Windows\System32\advapi32.dll', 0
+  RVA 00000458, 000007fe`feed0000 - 000007fe`fef6f000: 'C:\Windows\System32\msvcrt.dll', 0
+  RVA 000004C4, 000007fe`fef70000 - 000007fe`fef8f000: 'C:\Windows\System32\sechost.dll', 0
+  RVA 00000530, 000007fe`ff710000 - 000007fe`ff83d000: 'C:\Windows\System32\rpcrt4.dll', 0
+  RVA 0000059C, 000007fe`fee60000 - 000007fe`feec7000: 'C:\Windows\System32\gdi32.dll', 0
+  RVA 00000608, 00000000`776a0000 - 00000000`7779a000: 'C:\Windows\System32\user32.dll', 0
+  RVA 00000674, 000007fe`ff1c0000 - 000007fe`ff1ce000: 'C:\Windows\System32\lpk.dll', 0
+  RVA 000006E0, 000007fe`fe000000 - 000007fe`fe0c9000: 'C:\Windows\System32\usp10.dll', 0
+  RVA 0000074C, 000007fe`ff600000 - 000007fe`ff697000: 'C:\Windows\System32\comdlg32.dll', 0
+  RVA 000007B8, 000007fe`ff4c0000 - 000007fe`ff531000: 'C:\Windows\System32\shlwapi.dll', 0
+  RVA 00000824, 000007fe`fc660000 - 000007fe`fc854000: 'C:\Windows\winsxs\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.7601.17514_none_fa396087175ac9ac\comctl32.dll', 0
+  RVA 00000890, 000007fe`fe0d0000 - 000007fe`fee58000: 'C:\Windows\System32\shell32.dll', 0
+  RVA 000008FC, 000007fe`f9e20000 - 000007fe`f9e91000: 'C:\Windows\System32\winspool.drv', 0
+  RVA 00000968, 000007fe`ff2b0000 - 000007fe`ff4b3000: 'C:\Windows\System32\ole32.dll', 0
+  RVA 000009D4, 000007fe`ff1d0000 - 000007fe`ff2a7000: 'C:\Windows\System32\oleaut32.dll', 0
+  RVA 00000A40, 000007fe`fcd20000 - 000007fe`fcd2c000: 'C:\Windows\System32\version.dll', 0
+  RVA 00000AAC, 000007fe`fdfd0000 - 000007fe`fdffe000: 'C:\Windows\System32\imm32.dll', 0
+  RVA 00000B18, 000007fe`ff840000 - 000007fe`ff949000: 'C:\Windows\System32\msctf.dll', 0
+  RVA 00000B84, 000007fe`fdbe0000 - 000007fe`fdc00000: 'C:\Windows\System32\nvinitx.dll', 0
+  RVA 00000BF0, 000007fe`fdad0000 - 000007fe`fdadf000: 'C:\Windows\System32\CRYPTBASE.dll', 0
+  RVA 00000C5C, 000007fe`fc350000 - 000007fe`fc3a6000: 'C:\Windows\System32\uxtheme.dll', 0
+  RVA 00000CC8, 000007fe`fbc00000 - 000007fe`fbc18000: 'C:\Windows\System32\dwmapi.dll', 0
+Stream 3: type MemoryListStream (5), size 00000214, RVA 00001D2F
+  33 memory ranges
+  range#    RVA      Address             Size
+       0 00001F43    000007fe`feebc000   00000000`00001848
+       1 0000378B    000007fe`fe083000   00000000`00002a10
+       2 0000619B    000007fe`ff293000   00000000`00002630
+       3 000087CB    000007fe`fdee1000   00000000`00001ba8
+       4 0000A373    000007fe`ff485000   00000000`00006b28
+       5 00010E9B    000007fe`ff81f000   00000000`000019b4
+       6 0001284F    00000000`7747a000   00000000`00001980
+       7 000141CF    000007fe`f9e72000   00000000`00001810
+       8 000159DF    000007fe`ff670000   00000000`00004780
+       9 0001A15F    000007fe`fcd28000   00000000`0000091a
+      10 0001AA79    000007fe`fef61000   00000000`00005602
+      11 0002007B    000007fe`fc7fc000   00000000`000030fc
+      12 00023177    000007fe`fef89000   00000000`00002a90
+      13 00025C07    00000000`fff20000   00000000`00002844
+      14 0002844B    00000000`776b9dea   00000000`00000100
+      15 0002854B    000007ff`fffd4000   00000000`00000380
+      16 000288CB    000007fe`ffa78000   00000000`00004260
+      17 0002CB2B    000007ff`fffde000   00000000`00002000
+      18 0002EB2B    000007fe`fdbf9000   00000000`00003980
+      19 000324AB    000007fe`ff527000   00000000`00001508
+      20 000339B3    00000000`778d2000   00000000`0000ba60
+      21 0003F413    000007fe`ff1ca000   00000000`00000890
+      22 0003FCA3    000007fe`ff8f9000   00000000`000025e8
+      23 0004228B    00000000`00151320   00000000`0000232c
+      24 000445B7    00000000`001538f8   00000000`00000020
+      25 000445D7    000007fe`fdff2000   00000000`00001028
+      26 000455FF    00000000`77732000   00000000`00001a58
+      27 00047057    000007fe`fbc0e000   00000000`000031e0
+      28 0004A237    00000000`00194b10   00000000`00000410
+      29 0004A647    000007fe`fdadb000   00000000`00000760
+      30 0004ADA7    000007fe`fe5b0000   00000000`000094e0
+      31 00054287    000007fe`fc39b000   00000000`00002d20
+      32 00056FA7    00000000`000bf838   00000000`000007c8
+  Total memory: 5582c
+Stream 4: type SystemInfoStream (7), size 00000038, RVA 00000098
+  ProcessorArchitecture   0009 (PROCESSOR_ARCHITECTURE_AMD64)
+  ProcessorLevel          0006
+  ProcessorRevision       2505
+  NumberOfProcessors      04
+  MajorVersion            00000006
+  MinorVersion            00000001
+  BuildNumber             00001DB1 (7601)
+  PlatformId              00000002 (VER_PLATFORM_WIN32_NT)
+  CSDVersionRva           00000D34
+                            Length: 28
+                            Buffer: {'Service Pack 1'}
+  Product: WinNt, suite: SingleUserTS Personal
+Stream 5: type MiscInfoStream (15), size 000000E8, RVA 000000D0
+Stream 6: type HandleDataStream (12), size 00000920, RVA 00058A03
+  58 descriptors, header size is 16, descriptor size is 40
+    Handle(0000000000000004,"Key","\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options")
+    Handle(0000000000000008,"Event","")
+    Handle(000000000000000C,"Directory","\KnownDlls")
+    Handle(0000000000000010,"File","")
+    Handle(0000000000000014,"File","")
+    Handle(0000000000000018,"Key","\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Nls\Sorting\Versions")
+    Handle(000000000000001C,"ALPC Port","")
+    Handle(0000000000000020,"Mutant","")
+    Handle(0000000000000024,"Key","\REGISTRY\MACHINE")
+    Handle(0000000000000028,"Event","")
+    Handle(000000000000002C,"Key","\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\SESSION MANAGER")
+    Handle(0000000000000000,"Key","\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\SESSION MANAGER")
+    Handle(0000000000000034,"Event","")
+    Handle(0000000000000038,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(000000000000003C,"Desktop","\Default")
+    Handle(0000000000000040,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(0000000000000000,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(0000000000000000,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(0000000000000000,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(0000000000000000,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(0000000000000000,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(0000000000000000,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(0000000000000000,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(0000000000000000,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(0000000000000000,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(0000000000000000,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(0000000000000000,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(0000000000000000,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(0000000000000000,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(0000000000000000,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(0000000000000000,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(0000000000000000,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(0000000000000000,"WindowStation","\Sessions\1\Windows\WindowStations\WinSta0")
+    Handle(0000000000000088,"Event","")
+    Handle(000000000000008C,"Event","")
+    Handle(0000000000000090,"Event","")
+    Handle(0000000000000094,"Event","")
+    Handle(0000000000000098,"Event","")
+    Handle(000000000000009C,"Event","")
+    Handle(00000000000000A0,"Directory","\Sessions\1\BaseNamedObjects")
+    Handle(00000000000000A4,"Event","")
+    Handle(00000000000000A8,"File","")
+    Handle(0000000000000000,"File","")
+    Handle(0000000000000000,"File","")
+    Handle(00000000000000B4,"ALPC Port","")
+    Handle(00000000000000B8,"Section","")
+    Handle(00000000000000BC,"Key","\REGISTRY\USER\S-1-5-21-3487783803-2848708171-2165934204-1001")
+    Handle(0000000000000000,"Key","\REGISTRY\USER\S-1-5-21-3487783803-2848708171-2165934204-1001")
+    Handle(0000000000000000,"Key","\REGISTRY\USER\S-1-5-21-3487783803-2848708171-2165934204-1001")
+    Handle(00000000000000C8,"Key","\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Nls\Locale")
+    Handle(00000000000000CC,"Key","\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Nls\Locale\Alternate Sorts")
+    Handle(00000000000000D0,"Key","\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Nls\Language Groups")
+    Handle(00000000000000D4,"File","")
+    Handle(00000000000000D8,"Section","")
+    Handle(00000000000000DC,"Section","\Sessions\1\BaseNamedObjects\windows_shell_global_counters")
+    Handle(00000000000000E0,"File","")
+    Handle(00000000000000E4,"ALPC Port","")
+    Handle(00000000000000E8,"Mutant","\Sessions\1\BaseNamedObjects\MSCTF.Asm.MutexDefault1")
+Stream 7: type UnusedStream (0), size 00000000, RVA 00000000
+Stream 8: type UnusedStream (0), size 00000000, RVA 00000000
+Stream 9: type UnusedStream (0), size 00000000, RVA 00000000
+
+
+Windows 7 Version 7601 (Service Pack 1) MP (4 procs) Free x64
+Product: WinNt, suite: SingleUserTS Personal
+Machine Name:
+Debug session time: Tue Mar 12 22:52:37.000 2013 (UTC + 4:00)
+System Uptime: not available
+Process Uptime: 0 days 0:00:46.000
+  Kernel time: 0 days 0:00:00.000
+  User time: 0 days 0:00:00.000
+*** WARNING: Unable to verify timestamp for user32.dll
+*** ERROR: Module load completed but symbols could not be loaded for user32.dll
+PEB at 000007fffffd4000
+Unable to load image C:\Windows\System32\ntdll.dll, Win32 error 0n2
+*** WARNING: Unable to verify timestamp for ntdll.dll
+*** ERROR: Module load completed but symbols could not be loaded for ntdll.dll
+*************************************************************************
+***                                                                   ***
+***                                                                   ***
+***    Either you specified an unqualified symbol, or your debugger   ***
+***    doesn't have full symbol information.  Unqualified symbol      ***
+***    resolution is turned off by default. Please either specify a   ***
+***    fully qualified symbol module!symbolname, or enable resolution ***
+***    of unqualified symbols by typing ".symopt- 100". Note that   ***
+***    enabling unqualified symbol resolution with network symbol     ***
+***    server shares in the symbol path may cause the debugger to     ***
+***    appear to hang for long periods of time when an incorrect      ***
+***    symbol name is typed or the network symbol server is down.     ***
+***                                                                   ***
+***    For some commands to work properly, your symbol path           ***
+***    must point to .pdb files that have full type information.      ***
+***                                                                   ***
+***    Certain .pdb files (such as the public OS symbols) do not      ***
+***    contain the required information.  Contact the group that      ***
+***    provided you with these symbols if you need this command to    ***
+***    work.                                                          ***
+***                                                                   ***
+***    Type referenced: ntdll!_PEB                                    ***
+***                                                                   ***
+*************************************************************************
+error 3 InitTypeRead( nt!_PEB at 000007fffffd4000)...
+Finished dump check

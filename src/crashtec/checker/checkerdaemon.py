@@ -13,7 +13,6 @@ import definitions
 import checkerdetails
 import dbmodel
 
-
 _logger = logging.getLogger("checker.checkerdeamon")
 
 # TODO: write unit tests
@@ -36,7 +35,6 @@ class Checker(agentbase.AgentBase):
         try:
             checker_output = self.impl.execute_dump_checker(
                                 task[dbmodel.TASKS_DUMP_FILE_FIELD])
-            
             params_map = self.impl.parse_checker_output(checker_output)
             taskutils.set_platform_for_task(task, params_map[definitions.PLATFORM_PARAM])
             self.task_finished(task)
@@ -44,11 +42,4 @@ class Checker(agentbase.AgentBase):
             _logger.error('Exception occurred while checking dump: %s', e)
             self.task_failed(task)
 
-from crashtec.utils import debug
-
-debug.init_debug_logger(_logger)
-checker = Checker(implementation(), definitions.EXECUTOR_CLASS_NAME, 'simple_checker')
-checker.run()
-
-print "exit"
         
