@@ -1,8 +1,12 @@
-from crashtec.db.schema.types import DBSchemaTypes
+
 import logging
-from crashtec.utils.exceptions import CtGeneralError, CtBaseException
 import sys
+
+from crashtec.utils.exceptions import CtGeneralError, CtBaseException
+from crashtec.config import crashtecconfig
+from crashtec.db.schema.types import DBSchemaTypes
 from crashtec.db.schema.fields import *
+
 import postgres_binding
 
 _logger = logging.getLogger("db.builder")
@@ -37,7 +41,7 @@ def agregate_descriptions(model_descriptions):
                 # TODO: add fault when types is not equal
                 aggregated_list[element_name].update(db_model[element_name])
             else:
-                #we should take copy here
+                # We should take copy here
                 aggregated_list[element_name] = dict(db_model[element_name])
     return aggregated_list
     
@@ -46,7 +50,7 @@ def main():
     try:
         _init_logging()
         # TODO: get package lists
-        packages_list = ['crashtec.crashmover', 'crashtec.infrastructure']
+        packages_list = crashtecconfig.CRAHSTEC_MODULES
         # enumerate all db model definitions from all packages
         model_descriptions = collect_model_descriptions(packages_list)
         # aggregate all definitions to single updated db definition

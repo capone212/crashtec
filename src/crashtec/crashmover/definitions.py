@@ -5,4 +5,4 @@ Created on 10.02.2013
 Contains cross-module definitions of crash-moover
 '''
 
-EXECUTOR_CLASS_NAME = "crash_mover"
+AGENT_CLASS_TYPE = "crash_mover"

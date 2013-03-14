@@ -40,8 +40,8 @@ def main():
         return
 
 executor_instance_name = "%s@%s" % (
-            definitions.EXECUTOR_CLASS_NAME, utilssystem.get_host_name())
+            definitions.AGENT_CLASS_TYPE, utilssystem.get_host_name())
 
-agentutils.register_agent(executor_instance_name, definitions.EXECUTOR_CLASS_NAME)        
+agentutils.register_agent(executor_instance_name, definitions.AGENT_CLASS_TYPE)        
 main()        
         
