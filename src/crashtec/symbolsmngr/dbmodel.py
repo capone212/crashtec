@@ -37,9 +37,12 @@ BRANCHES_TABLE = 'product_branches'
 BRANCHES_PRODUCT_ID = 'product_id'
 BRANCHES_BRANCH_ID = 'branch_id'
 BRANCHES_BRANCH_NAME = 'branch_name'
+# version match regular expression
+BRANCHES_RE_VERSION = 're_image_version' 
 _branches = {
                 BRANCHES_PRODUCT_ID : DBSchemaTypes.short_string(),
                 BRANCHES_BRANCH_ID : DBSchemaTypes.short_string(),
+                BRANCHES_RE_VERSION : DBSchemaTypes.long_string(),
                 BRANCHES_BRANCH_NAME : DBSchemaTypes.string(),
              }
 
@@ -52,17 +55,6 @@ _products2imagename = {
                         IMAGES2PROD_PRODUCT_ID : DBSchemaTypes.short_string()
                        }
 
-#---------------------------------------------------------------
-VERSIONS2BRANCHES = 'imageversions2branches'
-VERSIONS2BRANCHES_RE_VERSION = 're_image_version'
-VERSIONS2BRANCHES_BRANCH_ID = 'branch_id'
-VERSIONS2BRANCHES_PRODUCT_ID = 'product_id'
-
-_versions2branches = {
-                        VERSIONS2BRANCHES_RE_VERSION : DBSchemaTypes.long_string(),
-                        VERSIONS2BRANCHES_BRANCH_ID : DBSchemaTypes.short_string(),
-                        VERSIONS2BRANCHES_PRODUCT_ID : DBSchemaTypes.short_string() 
-                     }
 
 #---------------------------------------------------------------
 BRANCHES2BINARY = 'branches2binary'
@@ -81,7 +73,6 @@ model = {
             PRODUCTS_TABLE : _products,
             BRANCHES_TABLE : _branches,
             IMAGES2PROD : _products2imagename,
-            VERSIONS2BRANCHES : _versions2branches,
             BRANCHES2BINARY : _branches2binary
          }
 
