@@ -20,7 +20,7 @@ class TestModuleParser(unittest.TestCase):
         modules_info = modules.Modules(self.logger, os.path.dirname(__file__) + \
                         "/testData/406/AppHost-4408-APP_HOST.Ipint_12-11-07_2011-12-16.dmp")
         for module_name in TEST_CASES.keys():
-            self.assertEqual(TEST_CASES[module_name], modules_info.get_module_by_imagename(module_name).m_imagePath)
+            self.assertEqual(TEST_CASES[module_name], modules_info.get_module_by_imagename(module_name).image_path)
     
     def test_get_module_mask(self): 
         TEST_CASES = { 

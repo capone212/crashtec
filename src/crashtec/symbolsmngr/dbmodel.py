@@ -3,6 +3,8 @@ Created on 14.03.2013
 
 @author: capone
 '''
+
+#TODO: move it to axxonsoft.*
 from crashtec.db.schema.types import DBSchemaTypes
 
 
