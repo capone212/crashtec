@@ -10,8 +10,11 @@ from crashtec.db.schema.types import DBSchemaTypes
 
 TASKS_TABLE ='tasks'
 TASKS_DUMP_FILE_FIELD = 'dump_file_name'
+TASKS_PLATFORM_FIELD = 'platform'
+
 _task = {
-            TASKS_DUMP_FILE_FIELD : DBSchemaTypes.long_string()
+            TASKS_DUMP_FILE_FIELD : DBSchemaTypes.long_string(),
+            TASKS_PLATFORM_FIELD : DBSchemaTypes.short_string()
         } 
  
 #------------------------------------------------------------    
@@ -62,10 +65,26 @@ _products2imagename = {
 BRANCHES2BINARY = 'branches2binary'
 BRANCHES2BINARY_BRANCH_ID = 'branch_id'
 BRANCHES2BINARY_BINARY_URL = 're_binary_url'
+BRANCHES2BINARY_BUILDSERVER_ID = 'buildserver_id'
+BRANCHES2BINARY_PLATFORM = 'platform'
 _branches2binary = {
                         BRANCHES2BINARY_BRANCH_ID : DBSchemaTypes.short_string(),
+                        BRANCHES2BINARY_PLATFORM : DBSchemaTypes.short_string(),
+                        BRANCHES2BINARY_BUILDSERVER_ID : DBSchemaTypes.short_string(),
                         BRANCHES2BINARY_BINARY_URL : DBSchemaTypes.long_string()
                     }
+
+#---------------------------------------------------------------
+BUILDSERVERS_TABLE = 'build_servers'
+BUILDSERVERS_SERVER_ID = 'build_server_id'
+BUILDSERVERS_URL_PATTERN = 'url_pattern'
+BUILDSERVERS_DESCRIPTION = 'description'
+
+_buildservers = {
+                    BUILDSERVERS_SERVER_ID : DBSchemaTypes.short_string(),
+                    BUILDSERVERS_URL_PATTERN : DBSchemaTypes.long_string(),
+                    BUILDSERVERS_DESCRIPTION : DBSchemaTypes.long_string()
+                 }
 
 
 #---------------------------------------------------------------
@@ -75,7 +94,8 @@ model = {
             PRODUCTS_TABLE : _products,
             BRANCHES_TABLE : _branches,
             IMAGES2PROD : _products2imagename,
-            BRANCHES2BINARY : _branches2binary
+            BRANCHES2BINARY : _branches2binary,
+            BUILDSERVERS_TABLE : _buildservers
          }
 
 
