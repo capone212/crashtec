@@ -5,3 +5,4 @@ Created on 14.03.2013
 '''
 
 AGENT_X86_CLASS_TYPE = 'symbols_manager'
+EMPTY_TRANSACTION = "0"
