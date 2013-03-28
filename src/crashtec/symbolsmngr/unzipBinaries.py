@@ -4,7 +4,6 @@ gLogger = logging.getLogger("symbolsmngr.symbolsmngr")
 
 # TODO: Style!!!
 
-
 def getPlaceForUnzipFile(filename):
     pattern = "(.+).zip"
     matchObj = re.match(pattern, filename)

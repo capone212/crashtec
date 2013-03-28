@@ -13,6 +13,8 @@ import definitions
 import dbmodel
 
 _logger = logging.getLogger("symbolsmngr.symbolsmngr")
+
+# TODO: So, use dependency injection pattern here. And read about it first... :)
     
 class SymbolsManager(agentbase.AgentBase):
     def __init__(self, products_detector, class_type, instance_name):

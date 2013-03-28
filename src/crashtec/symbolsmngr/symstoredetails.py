@@ -8,7 +8,7 @@ import shlex
 import re
 import logging
 
-#TODO: stile!!!!
+#TODO: style!!!!
 
 from crashtec.utils.exceptions import CtGeneralError
 from crashtec.config import symbolsmngrconfig
@@ -16,8 +16,9 @@ _logger = logging.getLogger("symbolsmngr.symbolsmngr")
 
 def _execute_add_command(binaryNetworkPath):
     binaryNetworkPath = binaryNetworkPath.decode('ascii', 'ignore')
+    # TODO: think about /t and /v switchs
     commandLine = r"symstore add /r /p /f '" + binaryNetworkPath + r"*.*' /s " + symbolsmngrconfig.SYMBOLS_STORE_LOCAL_DIR + \
-        r" /t ASIP /v 1045";
+        r" /t crashtec /v 1000";
     commandLine = str(commandLine)
     _logger.debug(commandLine)
     args = shlex.split(commandLine)
@@ -28,7 +29,6 @@ def _execute_add_command(binaryNetworkPath):
         
 def _execute_delete_command(transactionId):
     transactionId = transactionId.decode('ascii', 'ignore')
-    # symstore del /i  0000000219  /s C:\poirot\ItvSymbolsStore\
     commandLine = r"symstore del /i " + transactionId + r" /s " + symbolsmngrconfig.SYMBOLS_STORE_LOCAL_DIR;
     commandLine = str(commandLine)
     _logger.debug(commandLine)
@@ -53,13 +53,13 @@ def _parseTransactionIdFromAddOutput(commandOutput):
     return str(matchTransaction.group(1))
 
 def add_binary_to_symbol_store(binary_network_path):
-    _logger.info("Adding binary to ITV Symbol Store: %s", binary_network_path)
+    _logger.info("Adding binary to Symbol Store: %s", binary_network_path)
     commandOutput = _execute_add_command(binary_network_path)
     _logger.debug(commandOutput)
     return _parseTransactionIdFromAddOutput(commandOutput)
     
 def delete_binaries_from_transaction(transactionId):
-    _logger.info("Deleting binaries from ITV Symbol Store: transaction id: %s", transactionId)
+    _logger.info("Deleting binaries from Symbol Store: transaction id: %s", transactionId)
     commandOutput = _execute_delete_command(transactionId)
     if not commandOutput:
         return str()
