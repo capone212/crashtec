@@ -19,10 +19,12 @@ _task = {
  
 #------------------------------------------------------------    
 SYMBOLS_TABLE = 'binary_symbols'
+SYMBOLS_AGENT_ID = 'agent_instance' 
 SYMBOLS_URL = 'url'
 SYMBOLS_LOCAL_DIR = 'lical_dir_path'
 SYMBOLS_TRANSACTION_ID = 'symsrv_transaction_id'
 _symbols = {
+                SYMBOLS_AGENT_ID : DBSchemaTypes.short_string(),
                 SYMBOLS_URL : DBSchemaTypes.long_string(),
                 SYMBOLS_LOCAL_DIR : DBSchemaTypes.long_string(),
                 SYMBOLS_TRANSACTION_ID :  DBSchemaTypes.short_string()

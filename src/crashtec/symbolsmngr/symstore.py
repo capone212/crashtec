@@ -18,6 +18,8 @@ import bindownloader
 
 _logger = logging.getLogger("symbolsmngr.symbolsmngr")
 
+#TODO: split downloader from symbol store
+
 class SymbolsStore(object):
     # Add's binaries to symbol store.
     # param urls_list - a list of url to zip files with binary data. 

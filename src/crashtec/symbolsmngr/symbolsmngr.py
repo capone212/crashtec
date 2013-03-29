@@ -22,7 +22,7 @@ class SymbolsManager(agentbase.AgentBase):
         agentbase.AgentBase.__init__(self, class_type, instance_name)
     
     def process_task(self, task):
-        _logger.debug('About to start processing task: %s',  task)
+        _logger.debug('About to start processing task: %s', task)
         try:
             products_list = self.products_detector.get_products_list_for_task(task)
             self.task_finished(task)

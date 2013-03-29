@@ -5,3 +5,6 @@ class CtBaseException(RuntimeError):
 
 class CtGeneralError(CtBaseException):
     pass
+
+class CtCriticalError(CtBaseException):
+    pass
