@@ -218,3 +218,4 @@ pip-log.txt
 ## Crashtec
 #############
 src/axxonsoft/
+src/crashtec/symbolsmngr/test/test_data/temp

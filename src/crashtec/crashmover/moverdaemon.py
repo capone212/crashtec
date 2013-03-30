@@ -26,9 +26,9 @@ def move_dump_file(dump_file):
     new_task = dbroutines.Record()
     new_task[dbmodel.TASKS_DUMP_FILE_FIELD] = new_file_name
     executor_instance_name = "%s@%s" % (
-            definitions.EXECUTOR_CLASS_NAME, utilssystem.get_host_name())
+            definitions.AGENT_CLASS_TYPE, utilssystem.get_host_name())
     taskutils.mark_agent_finished(new_task, 
-            definitions.EXECUTOR_CLASS_NAME, executor_instance_name)
+            definitions.AGENT_CLASS_TYPE, executor_instance_name)
     dbroutines.create_new_record(dbmodel.TASKS_TABLE, new_task)
     
 def main():

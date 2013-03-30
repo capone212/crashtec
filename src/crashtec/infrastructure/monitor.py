@@ -12,6 +12,8 @@ from crashtec.utils import exceptions as ctexceptions
 
 _logger = logging.getLogger("infrastructure.monitor")
 
+# Rewrite it using using template design patter and Dependency Injection. 
+
 class AgentsMonitor(object):
     def __init__(self, impl):
         self.impl = impl

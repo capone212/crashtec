@@ -22,9 +22,8 @@ import definitions
 
 _logger = logging.getLogger('symbolsmngr')
 
-# TODO: write unit tests!!!!!!!!!!! it should be easy
 
-# Strips dangerous (like authentication info) 
+# Strips dangerous info (like credentials) 
 def safe_log_url(url):
     return url
 
@@ -96,7 +95,7 @@ class HttpDownloader(object):
         file_name = os.path.join(dest_folder, os.path.basename(parsed_url.path))
         try:
             socket.setdefaulttimeout(10)
-            result = urllib.urlretrieve(url, file_name, self.reportHook);
+            urllib.urlretrieve(url, file_name, self.reportHook);
         except Exception as exc:
             raise CtGeneralError("Failed to download %s error: %s" % (url, exc))
         finally:

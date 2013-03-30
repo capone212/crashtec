@@ -9,27 +9,28 @@ import re
 import logging
 
 #TODO: style!!!!
-
 from crashtec.utils.exceptions import CtGeneralError
-from crashtec.config import symbolsmngrconfig
-_logger = logging.getLogger("symbolsmngr.symbolsmngr")
 
-def _execute_add_command(binaryNetworkPath):
+_logger = logging.getLogger("symbolsmngr")
+
+def _execute_add_command(binaryNetworkPath, symstore_root):
     binaryNetworkPath = binaryNetworkPath.decode('ascii', 'ignore')
+    symstore_root = symstore_root.decode('ascii', 'ignore')
     # TODO: think about /t and /v switchs
-    commandLine = r"symstore add /r /p /f '" + binaryNetworkPath + r"*.*' /s " + symbolsmngrconfig.SYMBOLS_STORE_LOCAL_DIR + \
-        r" /t crashtec /v 1000";
+    commandLine = r"symstore add /r /p /l /f '" + binaryNetworkPath + \
+        r"\*.*' /s '" + symstore_root + r"' /t crashtec /v 1000";
     commandLine = str(commandLine)
+    print commandLine
     _logger.debug(commandLine)
     args = shlex.split(commandLine)
     try:
         return subprocess.check_output(args)
     except subprocess.CalledProcessError as err:
-        raise CtGeneralError("Add binary to symbols store. error: %" % err)
+        raise CtGeneralError("Add binary to symbols store. error: %s" % err)
         
-def _execute_delete_command(transactionId):
+def _execute_delete_command(transactionId, symstore_root):
     transactionId = transactionId.decode('ascii', 'ignore')
-    commandLine = r"symstore del /i " + transactionId + r" /s " + symbolsmngrconfig.SYMBOLS_STORE_LOCAL_DIR;
+    commandLine = r"symstore del /i " + transactionId + r" /s " + symstore_root
     commandLine = str(commandLine)
     _logger.debug(commandLine)
     args = shlex.split(commandLine)
@@ -52,14 +53,15 @@ def _parseTransactionIdFromAddOutput(commandOutput):
         raise CtGeneralError("Can't find out transaction id for added binaries")
     return str(matchTransaction.group(1))
 
-def add_binary_to_symbol_store(binary_network_path):
+def add_binary_to_symbol_store(binary_network_path, symstore_root):
     _logger.info("Adding binary to Symbol Store: %s", binary_network_path)
-    commandOutput = _execute_add_command(binary_network_path)
+    commandOutput = _execute_add_command(binary_network_path, symstore_root)
     _logger.debug(commandOutput)
     return _parseTransactionIdFromAddOutput(commandOutput)
     
-def delete_binaries_from_transaction(transactionId):
-    _logger.info("Deleting binaries from Symbol Store: transaction id: %s", transactionId)
+def delete_binaries_from_transaction(transactionId, symstore_root):
+    _logger.info("Deleting binaries from Symbol Store: transaction id: %s", 
+                 transactionId)
     commandOutput = _execute_delete_command(transactionId)
     if not commandOutput:
         return str()

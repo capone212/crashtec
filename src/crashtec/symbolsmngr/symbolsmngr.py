@@ -12,7 +12,7 @@ from crashtec.utils.exceptions import CtBaseException
 import definitions
 import dbmodel
 
-_logger = logging.getLogger("symbolsmngr.symbolsmngr")
+_logger = logging.getLogger("symbolsmngr")
 
 # TODO: So, use dependency injection pattern here. And read about it first... :)
     

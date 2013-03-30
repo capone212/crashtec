@@ -33,17 +33,17 @@ def iterate_over(job_sequence, task):
 
 def get_next_agent_class(task):
     current_agent = task[dbmodel.TASKS_AGENT_CLASS_FIELD]
-    iter = itertools.dropwhile(lambda x: x != current_agent,
+    iterator = itertools.dropwhile(lambda x: x != current_agent,
                                iterate_over(crashtecconfig.JOB_SEQUENCE, task))
     # locate current element in JOB_SEQUENCE
     try:
-        iter.next()
+        iterator.next()
     except StopIteration:
         _logger.error("Can't find current agent in a sequence. Current cgent_class %s" % current_agent)
         raise ctexceptions.CtGeneralError()
     # advance to next agent 
     try:
-        return iter.next()
+        return iterator.next()
     except StopIteration:
         # this means that current agent is the last in the job sequence
         return None
