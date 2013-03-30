@@ -148,7 +148,8 @@ class BinaryDownloader(object):
         _logger.debug("Start processing binary url : %s", safe_log_url(url))
         destination_folder = self.storage.create_place_for_binary(url)
         package_file = self.downloader.download_binary(url, destination_folder)
-        unpacked_binaries_folder = self.unpacker.unpack(package_file)
+        unpacked_binaries_folder = self.unpacker.unpack(package_file,
+                                                        destination_folder)
         self.drop_package_file(package_file)
         _logger.debug("Processing binary url finished : %s", safe_log_url(url))
         return unpacked_binaries_folder
