@@ -20,7 +20,7 @@ import unzipBinaries
 import dbmodel
 import definitions
 
-_logger = logging.getLogger("symbolsmngr.symbolsmngr")
+_logger = logging.getLogger('symbolsmngr')
 
 # TODO: write unit tests!!!!!!!!!!! it should be easy
 
@@ -62,29 +62,72 @@ class Cache(object):
     def strip_url(self, binary_url):
         parsed_url = urlparse.urlparse(binary_url)
         if (not parsed_url):
-            raise CtCriticalError("Could not parse url: %s" % safe_log_url(binary_url))
+            raise CtCriticalError("Could not parse url: %s" %
+                                   safe_log_url(binary_url))
+        return parsed_url.path
     
 
 class StorageProvider(object):
     # Returns directory where binary may be placed
     # the path is unique for passed url 
     # and guarantied to be empty (at least for first time).
-    # Throws on error.
+    # Throws on errors.
     def create_place_for_binary(self, binary_url):
-        pass
-    #TODO: write it down
+        parsed_url = urlparse.urlparse(binary_url)
+        if (not parsed_url):
+            raise CtCriticalError("Could not parse url: %s" %
+                                   safe_log_url(binary_url))
+        
+        dirrectory = symbolsmngrconfig.BINARY_LOCAL_ROOT + parsed_url.path
+        try:
+            if (not os.path.exists(dirrectory)):
+                os.makedirs(dirrectory) 
+        except OSError as err:
+            raise CtGeneralError("Error while creating dirrectory: %s" % err) 
+        return dirrectory
     
 class HttpDownloader(object):
     # Downloads specified url to destination folder.
     # Returns downloaded file path, throws on error.
-    def download_binary(self, url, destination_path):
-        pass
+    def download_binary(self, url, dest_folder):
+        self.reset_state()
+        time_out = socket.getdefaulttimeout()
+        parsed_url = urlparse.urlparse(url)
+        file_name = os.path.join(dest_folder, os.path.basename(parsed_url.path))
+        try:
+            socket.setdefaulttimeout(10)
+            result = urllib.urlretrieve(url, file_name, self.reportHook);
+        except Exception as exc:
+            raise CtGeneralError("Failed to download %s error: %s" % (url, exc))
+        finally:
+            socket.setdefaulttimeout(time_out)
+        return file_name
+    
+    def reset_state(self):
+        self._percents = 0;
+    
+    def reportHook(self, downloaded, blockSize, totalFileSize):
+        blocks_amount = totalFileSize / blockSize
+        if (blocks_amount == 0):
+            return
+        percents = (downloaded * 100) / blocks_amount
+        # report every X percent downloaded
+        REPORT_EACH_PERCENT = 10
+        percents = (percents / REPORT_EACH_PERCENT) * REPORT_EACH_PERCENT;
+        if (percents !=  self._percents):
+            _logger.info("Downloaded %s%%", percents)
+            self._percents = percents
+        
 
 class ZipUnpacker(object):
     # Unpacks specified binary package and returns destination folder.
     # Throws on errors.
-    def unpack(self, package_file):
-        pass
+    def unpack(self, package_file, destination):
+        _logger.info("Unzipping binary %s ..." % package_file)
+        binary_dirrectory = unzipBinaries.unzipBinary(package_file, destination)
+        if (not binary_dirrectory):
+            raise CtGeneralError("Can't extract zip file %s" % package_file)
+        return binary_dirrectory
 
 
 class BinaryDownloader(object):
@@ -106,60 +149,11 @@ class BinaryDownloader(object):
         destination_folder = self.storage.create_place_for_binary(url)
         package_file = self.downloader.download_binary(url, destination_folder)
         unpacked_binaries_folder = self.unpacker.unpack(package_file)
+        self.drop_package_file(package_file)
         _logger.debug("Processing binary url finished : %s", safe_log_url(url))
         return unpacked_binaries_folder
-        
-        
-
-def reportHook(downloaded, blockSize, totalFileSize):
-    percents = (downloaded * 100) / (totalFileSize / blockSize)
-    _logger.info("downloaded %s\%", percents)
     
-
-def downloadUrlToFile(url, toFile):
-    timeOut = socket.getdefaulttimeout()
-    result = None
-    try:
-        socket.setdefaulttimeout(10)
-        result = urllib.urlretrieve(url, toFile, reportHook);
-    except Exception as exc:
-        _logger.warning("Failed download %s error: %s", url, str(exc))
-    finally:
-        socket.setdefaulttimeout(timeOut)
-    if result:
-        return toFile;
- 
-def createPlaceForUrl(url):
-    parsedUrl = urlparse.urlparse(url)
-    if (not parsedUrl):
-        _logger.error("Could not parse url for obtain local binary location : %s", url)
-        return
-    
-    dirrectory = symbolsmngrconfig.BINARY_LOCAL_ROOT + os.path.dirname(parsedUrl.path) 
-    try:
-        if (not os.path.exists(dirrectory)):
-            os.makedirs(dirrectory) 
-    except OSError as err:
-        _logger.warning("error while creating dirrectory: %s", str(err)) 
-    return os.path.join(dirrectory, os.path.basename(parsedUrl.path)) 
-
-def downloadUrl(url):
-    if (not url):
-        return str()
-    fileName = createPlaceForUrl(url)
-    _logger.info("Downloading %s to file %s", url, fileName)
-    result = downloadUrlToFile(url, fileName)
-    if result : 
-        _logger.info("Downloaded successfully %s", fileName)
-    else:
-        _logger.warning("Failed to download from: %s", url)
-    return result
-            
-def download_and_unzip_url(url):
-    zipFile = downloadUrl(url)
-    if zipFile:
-        _logger.info("Unzipping file %s....", zipFile)
-        binaryDirrectory = unzipBinaries.unzipBinary(zipFile)
-        # drop zip file 
-        os.remove(zipFile)
-        return binaryDirrectory
+    # Feel free to override it in subclasses
+    def drop_package_file(self, package_file):
+        # Delete package_file file 
+        os.remove(package_file)
