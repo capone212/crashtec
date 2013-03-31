@@ -24,7 +24,8 @@ def iterate_over(job_sequence, task):
         element_value = entry.value(task)
         if not element_value:
             continue
-        if isinstance(element_value, collections.Iterable) and not isinstance(element_value, basestring):
+        if (isinstance(element_value, collections.Iterable) and 
+            not isinstance(element_value, basestring)):
             for sub in iterate_over(element_value, task):
                 yield sub
         else:
@@ -39,7 +40,8 @@ def get_next_agent_class(task):
     try:
         iterator.next()
     except StopIteration:
-        _logger.error("Can't find current agent in a sequence. Current cgent_class %s" % current_agent)
+        _logger.error("Can't find current agent in a sequence." \
+                      " Current agent_class %s" % current_agent)
         raise ctexceptions.CtGeneralError()
     # advance to next agent 
     try:
@@ -73,7 +75,8 @@ def fetch_unscheduled_tasks():
     f = dbfilter.FieldFilterFactory
     d = dbmodel 
     cursor = dbroutines.select_from(d.TASKS_TABLE,
-                            filter = (f(d.TASKS_STATUS_FIELD) == taskutils.TASK_STATUS_AGENT_FINISHED)
+                            filter = (f(d.TASKS_STATUS_FIELD) == 
+                                      taskutils.TASK_STATUS_AGENT_FINISHED)
                         )
     return cursor.fetch_all()
     

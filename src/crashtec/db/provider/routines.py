@@ -14,7 +14,7 @@ from crashtec.config import dbconfig
 
 ID_FIELD = 'id'
 
-# TODO: BIG TODO: replace simple dict with smart one, 
+# FIXME: replace simple dict with smart one, 
 # which should remember old initial values. 
 # Update routine must use this to filter unchanged values, this should 
 # reduce amount of data collisions.
