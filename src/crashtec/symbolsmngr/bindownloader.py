@@ -129,7 +129,7 @@ class ZipUnpacker(object):
         return binary_dirrectory
 
 
-class BinaryDownloader(object):
+class BinaryDownloader(object):    
     def __init__(self, cache, storage, downloader, unpacker):
         self.cache = cache
         self.storage = storage
@@ -157,3 +157,10 @@ class BinaryDownloader(object):
     def drop_package_file(self, package_file):
         # Delete package_file file 
         os.remove(package_file)
+
+
+def craete_default_downloader(instance_name):
+    return BinaryDownloader(Cache(instance_name), 
+                                StorageProvider(),
+                                HttpDownloader(),
+                                ZipUnpacker())

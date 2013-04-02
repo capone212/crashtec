@@ -57,7 +57,8 @@ class Test02_StorageProvider(unittest.TestCase):
         second_dir = storage.create_place_for_binary(second_url)
         self.assertTrue(first_dir)
         self.assertTrue(second_dir)
-        self.assertNotEquals(first_dir, second_dir, "Two folders path should be different")
+        self.assertNotEquals(first_dir, second_dir,
+                              "Two folders path should be different")
         shutil.rmtree(first_dir)
         shutil.rmtree(second_dir)
 

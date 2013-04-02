@@ -71,7 +71,7 @@ def select_from(table_name, field_list=[],  filter=None, order=None):
     
     if (order):
         sql = "%s order by %s" % (sql, order.to_sql())
-    print sql , ' | ' , params
+    #print sql , ' | ' , params
     return exec_sql(sql, params)
 
 # TODO: add optional id parameter
