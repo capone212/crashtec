@@ -13,6 +13,7 @@ from crashtec.utils import system as utilssystem
 from crashtec.infrastructure.public import taskutils
 import dbmodel
 from crashtec.infrastructure.public import agentutils
+from crashtec.infrastructure.public import definitions as infradefs
 
 def enumerate_dump_files() :
     return dumpenumerator.get_input_dumps(mooverconfig.INPUT_DIR)
@@ -25,6 +26,8 @@ def move_dump_file(dump_file):
     #update DB info
     new_task = dbroutines.Record()
     new_task[dbmodel.TASKS_DUMP_FILE_FIELD] = new_file_name
+    new_task[dbmodel.TASKS_PROBLEM_ID] = infradefs.PROBLEMID_CRASH
+    
     executor_instance_name = "%s@%s" % (
             definitions.AGENT_CLASS_TYPE, utilssystem.get_host_name())
     taskutils.mark_agent_finished(new_task, 

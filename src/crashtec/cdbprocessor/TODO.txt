@@ -1,0 +1,14 @@
+Processor steps:
+	- 
+
+
+Results:
+	- Modules List
+	- Threads call stack
+	- AnalyzeResult (raw file)
+	- Signature Analzye Info :
+			- fault signature
+			- followUpProduct
+	
+Tasks:	
+1) Do refactoring utils.modules.py to separate parsing from debugger execution  

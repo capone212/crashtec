@@ -32,7 +32,7 @@ class SymbolsStore(object):
         self.symtable = symtable
         self.symstore_root = symstore_root
     
-    def add_binary_path(self, folder):
+    def add_binary_path(self, folder, task):
         record = self.symtable.select_binary_by_path(folder)
         d = dbmodel;
         if (record[d.SYMBOLS_TRANSACTION_ID] != definitions.EMPTY_TRANSACTION):
@@ -42,7 +42,8 @@ class SymbolsStore(object):
         _logger.info("Adding binary to symbol store...")
         record[d.SYMBOLS_TRANSACTION_ID] = \
             symstoredetails.add_binary_to_symbol_store(folder, 
-                                                       self.symstore_root)
+                                                self.symstore_root,
+                                                task[d.TASKS_PLATFORM_FIELD])
         self.symtable.update_record(record)
         _logger.info("Binary successfully added to symbol store.")
     

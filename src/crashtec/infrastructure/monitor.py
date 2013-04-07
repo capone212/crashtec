@@ -140,8 +140,3 @@ class Implementation(object):
     def get_agent_id(self, agent_record):
         return monitordetails.get_agent_id(agent_record)
 
-# from crashtec.utils import debug as ctdebug
-# ctdebug.init_debug_logger(_logger)
-# default_implementation = Implementation()
-# _monitor = AgentsMonitor(default_implementation)
-# _monitor.run()

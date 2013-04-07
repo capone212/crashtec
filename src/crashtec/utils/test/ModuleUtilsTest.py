@@ -3,7 +3,9 @@ from crashtec.utils import modules
 import logging
 from crashtec.utils import debug
 
-        
+from crashtec.infrastructure.public import definitions as infradefs
+
+#TODO: Style!!!
 
 class TestModuleParser(unittest.TestCase):
     @classmethod 
@@ -18,9 +20,11 @@ class TestModuleParser(unittest.TestCase):
                 "TAO_Codeset.dll" : "C:/Windows/System32/TAO_Codeset.dll",
             }
         modules_info = modules.Modules(self.logger, os.path.dirname(__file__) + \
-                        "/testData/406/AppHost-4408-APP_HOST.Ipint_12-11-07_2011-12-16.dmp")
+                                       "/testData/406/AppHost-4408-APP_HOST.Ipint_12-11-07_2011-12-16.dmp",
+                                       infradefs.PLATFORM_WIN64)
         for module_name in TEST_CASES.keys():
-            self.assertEqual(TEST_CASES[module_name], modules_info.get_module_by_imagename(module_name).image_path)
+            self.assertEqual(TEST_CASES[module_name], 
+                modules_info.get_module_by_imagename(module_name).image_path)
     
     def test_get_module_mask(self): 
         TEST_CASES = { 
@@ -29,9 +33,12 @@ class TestModuleParser(unittest.TestCase):
                 "TAO_Codeset.dll" : "C:/Windows/System32/.+"
             }
         modules_info = modules.Modules(self.logger, os.path.dirname(__file__) + \
-                        "/testData/406/AppHost-4408-APP_HOST.Ipint_12-11-07_2011-12-16.dmp")
+                        "/testData/406/AppHost-4408-APP_HOST.Ipint_12-11-07_2011-12-16.dmp",
+                        infradefs.PLATFORM_WIN64)
         for module_name in TEST_CASES.keys():
-            self.assertEqual(TEST_CASES[module_name], modules_info.get_module_by_imagename(module_name).get_module_dirrectory_mask())
+            self.assertEqual(TEST_CASES[module_name], 
+                            modules_info.get_module_by_imagename(
+                                    module_name).get_module_dirrectory_mask())
  
 
 if __name__ == '__main__':

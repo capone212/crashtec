@@ -2,7 +2,7 @@
     Contains system wide configuration of crashtec instance
 """
 
-from crashtec.crashmover.definitions import AGENT_CLASS_TYPE as CRASHMOVER_CLASS
+from crashtec.mover.definitions import AGENT_CLASS_TYPE as CRASHMOVER_CLASS
 from crashtec.checker.definitions import AGENT_CLASS_TYPE as CHECKER_CLASS
 
 from crashtec.infrastructure.public.jobsequence import JobSequenceBuilder
@@ -11,7 +11,7 @@ from crashtec.infrastructure.dbmodel import TASKS_PLATFORM_FIELD
 from crashtec.infrastructure.public import definitions as infradefs
 
 CRAHSTEC_MODULES = ['crashtec.infrastructure',
-                    'crashtec.crashmover',
+                    'crashtec.mover',
                     'crashtec.checker',
                     'crashtec.symbolsmngr'
                     ]

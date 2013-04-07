@@ -13,6 +13,7 @@ from crashtec.db.provider import routines as dbroutines
 from crashtec.utils import debug
 from crashtec.symbolsmngr import dbmodel
 from crashtec.symbolsmngr import definitions
+from crashtec.infrastructure.public import definitions as infradefs
 
 def setup_log():
     logger = logging.getLogger('symbolsmngr')
@@ -31,7 +32,9 @@ def clean_temp_folder(folder):
 class TestHttpDownloader(unittest.TestCase):        
     def test_add_binary_path(self):
         store = symstore.SymbolsStore(self, self.temp_dir)
-        store.add_binary_path(self.test_data_dir)
+        record = dbroutines.Record()
+        record[dbmodel.TASKS_PLATFORM_FIELD] = infradefs.PLATFORM_WIN64
+        store.add_binary_path(self.test_data_dir, record)
     
     def setUp(self):
         self.temp_dir = os.path.join(os.path.dirname(__file__),

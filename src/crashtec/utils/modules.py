@@ -3,19 +3,18 @@ Created on 16.03.2013
 
 @author: capone
 '''
-import shlex
-import subprocess
 import re
 import os
 
 from crashtec.utils.exceptions import CtGeneralError
+from crashtec.utils import windebuggers
 
-def escape_re_characters(input):
+def escape_re_characters(input_string):
     # \\ should be the first character to screen
     RE_ESCAPE_CHARACTERS = "\\.^$*+?{}[]|()"
     for ch in RE_ESCAPE_CHARACTERS:
-        input = input.replace(ch, "\\"+ch)
-    return input
+        input_string = input_string.replace(ch, "\\"+ch)
+    return input_string
     
 class ModuleInfo(object):
     def __init__(self, parser_match):
@@ -28,18 +27,16 @@ class ModuleInfo(object):
         return escape_re_characters(os.path.dirname(self.image_path)) + "/.+"
 
 class Modules(object):
-    """A class for representing modules from memory dump (lm command of Windbg)"""
-    def __init__(self, logger, dump_file_name):
+    """A class for representing modules from memory
+       dump (lm command of Windbg)"""
+    def __init__(self, logger, dump_file_name, platform_id):
         try:
             self.logger = logger
-            cdb_output = _list_dump_modules(dump_file_name)
-            self.modules_list = _parse_modules_info(cdb_output)
-        except subprocess.CalledProcessError as err:
-            self.logger.error("CalledProcessError exception while listing modules: code = %s message %s",
-                  err.returncode, err.output)
-            raise CtGeneralError("Can't list dump modules: CalledProcessError")
+            cdb_output = _list_dump_modules(dump_file_name, platform_id)
+            self.modules_list = parse_modules_info(cdb_output)
         except RuntimeError as err:
-            self.logger.error("RuntimeError occurred while listing modules: %s", str(err))
+            self.logger.error("RuntimeError occurred while listing modules: %s",
+                               str(err))
             raise CtGeneralError("Can't list dump modules: RuntimeError")
     
     # Module name with extention, for example 'rcpp.dll' 
@@ -55,15 +52,22 @@ class Modules(object):
             if module.module_name == moduleName:
                 return module
 
-def _list_dump_modules(dumpFile):
-    commandLine = "cdb -z \"" + dumpFile + \
-    "\" -c \"!for_each_module .echo ModuleName = '@#ModuleName' FileVersion = '@#FileVersion' ImageName = '@#ImageName';q\"";
-    args = shlex.split(commandLine)
-    return subprocess.check_output(args)
 
-def _parse_modules_info(inputString):
-#ModuleName = 'AxxonNext' FileVersion = '3.0.0.465' ImageName = 'C:\Program Files\AxxonSoft\AxxonSmart\bin\AxxonNext.exe'
-    reModulesExpr = "(?<=\n)ModuleName = '(?P<module_name>[^']+)' FileVersion = '(?P<file_version>[^']+)' ImageName = '(?P<image_name>[^']+)'"
+
+LIST_MODULES_COMMAND = "!for_each_module .echo ModuleName = '@#ModuleName'" \
+        " FileVersion = '@#FileVersion' ImageName = '@#ImageName'"
+
+
+def _list_dump_modules(dump_file, platform_id):
+    command_line = "cdb -z \"" + dump_file + \
+    "\" -c \"%s;q\"" % LIST_MODULES_COMMAND;
+    return windebuggers.exec_debugging_tool(command_line, platform_id)
+
+def parse_modules_info(inputString):
+#ModuleName = 'AxxonNext' FileVersion = '3.0.0.465' 
+# ImageName = 'C:\Program Files\AxxonSoft\AxxonSmart\bin\AxxonNext.exe'
+    reModulesExpr = "(?<=\n)ModuleName = '(?P<module_name>[^']+)' FileVersion"\
+        " = '(?P<file_version>[^']+)' ImageName = '(?P<image_name>[^']+)'"
     modulesIterator = re.finditer(reModulesExpr, inputString)
     result = []
     for module in modulesIterator:

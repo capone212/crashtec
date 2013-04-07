@@ -14,4 +14,5 @@
 * See crashtec.symbolsmngr as example of design and unit-test coverage
 		
 
-		 
+Future:
+	- read about kafka http://kafka.apache.org/index.html, how it can help with logs and holding results?

@@ -3,30 +3,23 @@ Created on 27.03.2013
 
 @author: capone
 '''
-import subprocess
-import shlex
 import re
 import logging
 
+
 #TODO: style!!!!
 from crashtec.utils.exceptions import CtGeneralError
+from crashtec.utils import windebuggers
 
 _logger = logging.getLogger("symbolsmngr")
 
-def _execute_add_command(binaryNetworkPath, symstore_root):
+def _execute_add_command(binaryNetworkPath, symstore_root, platform_id):
     binaryNetworkPath = binaryNetworkPath.decode('ascii', 'ignore')
     symstore_root = symstore_root.decode('ascii', 'ignore')
     # TODO: think about /t and /v switchs
     commandLine = r"symstore add /r /p /l /f '" + binaryNetworkPath + \
         r"\*.*' /s '" + symstore_root + r"' /t crashtec /v 1000";
-    commandLine = str(commandLine)
-    print commandLine
-    _logger.debug(commandLine)
-    args = shlex.split(commandLine)
-    try:
-        return subprocess.check_output(args)
-    except subprocess.CalledProcessError as err:
-        raise CtGeneralError("Add binary to symbols store. error: %s" % err)
+    return windebuggers.exec_debugging_tool(commandLine, platform_id) 
         
 def _execute_delete_command(transactionId, symstore_root):
     transactionId = transactionId.decode('ascii', 'ignore')
@@ -53,9 +46,11 @@ def _parseTransactionIdFromAddOutput(commandOutput):
         raise CtGeneralError("Can't find out transaction id for added binaries")
     return str(matchTransaction.group(1))
 
-def add_binary_to_symbol_store(binary_network_path, symstore_root):
+def add_binary_to_symbol_store(binary_network_path, symstore_root, platform_id):
     _logger.info("Adding binary to Symbol Store: %s", binary_network_path)
-    commandOutput = _execute_add_command(binary_network_path, symstore_root)
+    commandOutput = _execute_add_command(binary_network_path, 
+                                         symstore_root,
+                                         platform_id)
     _logger.debug(commandOutput)
     return _parseTransactionIdFromAddOutput(commandOutput)
     

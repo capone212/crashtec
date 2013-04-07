@@ -20,13 +20,13 @@ class SymbolsManager(agentbase.AgentBase):
         try:
             products_list = self.impl.get_products_list_for_task(task)
             binaries_url = self.impl.get_binaries_url_for_products(
-                                                        products_list, task)
+                                                products_list, task)
             self._download_and_add(binaries_url)
             
             self.task_finished(task)
             _logger.debug('Task finished.')
         except CtBaseException as e:
-            _logger.error('Exception occurred while checking dump: %s', e)
+            _logger.error('Exception occurred while processing task: %s', e)
             self.task_failed(task)
     
     def _download_and_add(self, urls_list):
