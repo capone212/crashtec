@@ -21,7 +21,7 @@ class SymbolsManager(agentbase.AgentBase):
             products_list = self.impl.get_products_list_for_task(task)
             binaries_url = self.impl.get_binaries_url_for_products(
                                                 products_list, task)
-            self._download_and_add(binaries_url)
+            self._download_and_add(binaries_url, task)
             
             self.task_finished(task)
             _logger.debug('Task finished.')
@@ -29,11 +29,11 @@ class SymbolsManager(agentbase.AgentBase):
             _logger.error('Exception occurred while processing task: %s', e)
             self.task_failed(task)
     
-    def _download_and_add(self, urls_list):
+    def _download_and_add(self, urls_list, task):
         for url in urls_list:
             try:
                 binaries_directory = self.impl.download_and_unpack(url)
-                self.add_symbols_to_store(binaries_directory)
+                self.impl.add_symbols_to_store(binaries_directory, task)
             except CtBaseException as e:
                 _logger.error('Exception occurred while processing url: %s', e)
 
@@ -58,6 +58,6 @@ class Implementation(object):
     def download_and_unpack(self, url):
         return self.downloader.download_and_unpack(url)
     
-    def add_symbols_to_store(self, folder):
-        return self.symsbols_store.add_binary_path(folder)
+    def add_symbols_to_store(self, folder, task):
+        return self.symbols_store.add_binary_path(folder, task)
     
