@@ -17,10 +17,11 @@ def _execute_add_command(binaryNetworkPath, symstore_root, platform_id):
     binaryNetworkPath = binaryNetworkPath.decode('ascii', 'ignore')
     symstore_root = symstore_root.decode('ascii', 'ignore')
     # TODO: think about /t and /v switchs
-    commandLine = r"symstore add /r /p /l /f '" + binaryNetworkPath + \
+    commandLine = (r"%s add /r /p /l /f '" % windebuggers.SYMSTORE) + binaryNetworkPath + \
         r"\*.*' /s '" + symstore_root + r"' /t crashtec /v 1000";
     return windebuggers.exec_debugging_tool(commandLine, platform_id) 
-        
+
+# FIXME: fix it using windebuggers   
 def _execute_delete_command(transactionId, symstore_root):
     transactionId = transactionId.decode('ascii', 'ignore')
     commandLine = r"symstore del /i " + transactionId + r" /s " + symstore_root

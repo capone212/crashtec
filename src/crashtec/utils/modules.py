@@ -59,18 +59,15 @@ LIST_MODULES_COMMAND = "!for_each_module .echo ModuleName = '@#ModuleName'" \
 
 
 def _list_dump_modules(dump_file, platform_id):
-    command_line = "cdb -z \"" + dump_file + \
+    command_line = ("%s -z \"" % windebuggers.CDB) + dump_file + \
     "\" -c \"%s;q\"" % LIST_MODULES_COMMAND;
     return windebuggers.exec_debugging_tool(command_line, platform_id)
 
 def parse_modules_info(inputString):
-#ModuleName = 'AxxonNext' FileVersion = '3.0.0.465' 
-# ImageName = 'C:\Program Files\AxxonSoft\AxxonSmart\bin\AxxonNext.exe'
+    #ModuleName = 'AxxonNext' FileVersion = '3.0.0.465'  
+    # ImageName = 'C:\Program Files\AxxonSoft\AxxonSmart\bin\AxxonNext.exe'
     reModulesExpr = "(?<=\n)ModuleName = '(?P<module_name>[^']+)' FileVersion"\
         " = '(?P<file_version>[^']+)' ImageName = '(?P<image_name>[^']+)'"
     modulesIterator = re.finditer(reModulesExpr, inputString)
-    result = []
-    for module in modulesIterator:
-        result.append(ModuleInfo(module))
-    return result
+    return [ModuleInfo(module) for module in modulesIterator]
 
