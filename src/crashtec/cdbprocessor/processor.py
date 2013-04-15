@@ -11,6 +11,7 @@ from crashtec.infrastructure.public import agentbase
 from crashtec.config import processorconfig
 from crashtec.utils.exceptions import CtGeneralError
 from crashtec.utils.exceptions import CtBaseException
+from crashtec.utils import windebuggers
 
 import dbmodel
 
@@ -67,5 +68,10 @@ class CommandsHolder(object):
 
 class Debugger(object):
     def execute(self, task, command_list):
-        pass
+        return windebuggers.exec_cdb(command_list,
+                                     task[dbmodel.TASKS_PLATFORM_FIELD],
+                                     task[dbmodel.TASKS_DUMP_FILE_FIELD])
+
+#TODO: write parsers that expose data structures, use visitor pattern to process it later
+# Probably it better to use it abstract algh list  
             

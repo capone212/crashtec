@@ -19,8 +19,8 @@ def setup_log():
     logger = logging.getLogger('symbolsmngr')
     debug.init_debug_logger(logger)
 
-TEMP_FOLDER = r'test_data\temp'
-TEST_DATA_FOLDER = r'test_data\pdb'
+TEMP_FOLDER = r'test_data/temp'
+TEST_DATA_FOLDER = r'test_data/pdb'
 
 def clean_temp_folder(folder):
     if (os.path.exists(folder)):

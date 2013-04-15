@@ -53,15 +53,10 @@ class Modules(object):
                 return module
 
 
-
-LIST_MODULES_COMMAND = "!for_each_module .echo ModuleName = '@#ModuleName'" \
-        " FileVersion = '@#FileVersion' ImageName = '@#ImageName'"
-
-
 def _list_dump_modules(dump_file, platform_id):
-    command_line = ("%s -z \"" % windebuggers.CDB) + dump_file + \
-    "\" -c \"%s;q\"" % LIST_MODULES_COMMAND;
-    return windebuggers.exec_debugging_tool(command_line, platform_id)
+    return windebuggers.exec_cdb([windebuggers.COMMAND_LIST_MODULES,],
+                                                        platform_id, 
+                                                        dump_file)
 
 def parse_modules_info(inputString):
     #ModuleName = 'AxxonNext' FileVersion = '3.0.0.465'  
