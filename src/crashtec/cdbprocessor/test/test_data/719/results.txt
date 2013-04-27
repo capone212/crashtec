@@ -1,0 +1,99 @@
+GetUrlPageData2 (WinHttp) failed: 12007.
+
+FAULTING_IP: 
+KERNELBASE+d36f
+754dd36f c9              leave
+
+EXCEPTION_RECORD:  ffffffff -- (.exr 0xffffffffffffffff)
+ExceptionAddress: 754dd36f (KERNELBASE+0x0000d36f)
+   ExceptionCode: e0434f4d (CLR exception)
+  ExceptionFlags: 00000001
+NumberParameters: 1
+   Parameter[0]: 80131502
+
+DEFAULT_BUCKET_ID:  WRONG_SYMBOLS
+
+PROCESS_NAME:  AxxonNext.exe
+
+ADDITIONAL_DEBUG_TEXT:  
+You can run '.symfix; .reload' to try to fix the symbol path and load symbols.
+
+FAULTING_MODULE: 77300000 ntdll
+
+DEBUG_FLR_IMAGE_TIMESTAMP:  4e154bce
+
+ERROR_CODE: (NTSTATUS) 0xe0434f4d - <Unable to get error code text>
+
+EXCEPTION_CODE: (NTSTATUS) 0xe0434f4d - <Unable to get error code text>
+
+EXCEPTION_PARAMETER1:  80131502
+
+APP:  axxonnext.exe
+
+MANAGED_STACK: !dumpstack -EE
+No export dumpstack found
+
+PRIMARY_PROBLEM_CLASS:  WRONG_SYMBOLS
+
+BUGCHECK_STR:  APPLICATION_FAULT_WRONG_SYMBOLS_CLR_EXCEPTION
+
+LAST_CONTROL_TRANSFER:  from 63c8f7ec to 754dd36f
+
+STACK_TEXT:  
+WARNING: Stack unwind information not available. Following frames may be wrong.
+0014e918 63c8f7ec e0434f4d 00000001 00000001 KERNELBASE+0xd36f
+0014e978 63c926ea 205b5714 00000001 00000000 mscorwks!GetMetaDataInternalInterface+0x300e1
+0014ea1c 05eaf021 0014efec 63c925a7 0014f1e0 mscorwks!GetMetaDataInternalInterface+0x32fdf
+0014eb60 05eae939 00000000 0014eb74 1ff23308 0x5eaf021
+0014ec3c 05eae812 018ae9c4 05eae71e 00000000 0x5eae939
+0014ec60 21c55c19 4e58d01c 88cf4377 121a2c68 0x5eae812
+0014ecac 21c5f873 4e58d01c 88cf4377 205b4fe0 0x21c55c19
+0014ecc0 21c5f820 4e58d01c 88cf4377 121954e0 0x21c5f873
+0014ede4 61f0ec1e 12118a18 0014eecc 0000049e 0x21c5f820
+0014ee20 616b9178 0014ee54 03cb50d3 0014eecc System_Windows_Forms_ni+0xa5ec1e
+0014ee78 616b9125 616b8cce 27370698 63bd4960 System_Windows_Forms_ni+0x209178
+0014ef10 616b8957 00000000 ffffffff 00000000 System_Windows_Forms_ni+0x209125
+0014ef68 616b87a1 0190d538 19f7000a 00000000 System_Windows_Forms_ni+0x208957
+0014ef98 61bcde28 0198d5d8 018b012c 0014efc0 System_Windows_Forms_ni+0x2087a1
+0014efc0 63bd1b4c 0014efd0 0014f010 0014f050 System_Windows_Forms_ni+0x71de28
+0014efd0 63be88f9 0014f0a0 00000000 0014f070 mscorwks+0x1b4c
+0014f050 63bf5a44 0014f0a0 00000000 0014f070 mscorwks+0x188f9
+0014f18c 63bf5a77 003fc030 0014f258 0014f224 mscorwks!CoUninitializeEE+0x1214
+0014f1a8 63bf5a95 003fc030 0014f258 0014f224 mscorwks!CoUninitializeEE+0x1247
+0014f1c0 63cae55d 0014f224 27038fba 00000000 mscorwks!CoUninitializeEE+0x1265
+0014f324 63cae47d 003f3028 00000001 0014f360 mscorwks!StrongNameErrorInfo+0xfd79
+0014f58c 63cae99a 00000000 270386c2 00000001 mscorwks!StrongNameErrorInfo+0xfc99
+0014fa5c 63caeb84 00320000 00000000 27038632 mscorwks!StrongNameErrorInfo+0x101b6
+0014faac 63caeab4 00320000 2703866a 00000000 mscorwks!CorExeMain+0x168
+0014faf4 6adbb77b 00000000 63bd0000 0014fb10 mscorwks!CorExeMain+0x98
+0014fb04 6adbb73d 00000000 0014fb24 6adb4de3 mscoree!GetMetaDataInternalInterface+0x2ca0
+0014fb10 6adb4de3 00000000 7749ed6c 7ffd7000 mscoree!GetMetaDataInternalInterface+0x2c62
+0014fb24 7736377b 7ffd7000 7709f37b 00000000 mscoree!CorExeMain+0x8
+0014fb64 7736374e 6adb4ddb 7ffd7000 00000000 ntdll+0x6377b
+0014fb7c 00000000 6adb4ddb 7ffd7000 00000000 ntdll+0x6374e
+
+
+STACK_COMMAND:  ~0s; .ecxr ; kb
+
+FOLLOWUP_IP: 
+mscorwks!GetMetaDataInternalInterface+300e1
+63c8f7ec c745fcfeffffff  mov     dword ptr [ebp-4],0FFFFFFFEh
+
+SYMBOL_STACK_INDEX:  1
+
+SYMBOL_NAME:  mscorwks!GetMetaDataInternalInterface+300e1
+
+FOLLOWUP_NAME:  MachineOwner
+
+MODULE_NAME: mscorwks
+
+IMAGE_NAME:  mscorwks.dll
+
+BUCKET_ID:  WRONG_SYMBOLS
+
+FAILURE_BUCKET_ID:  WRONG_SYMBOLS_e0434f4d_mscorwks.dll!GetMetaDataInternalInterface
+
+WATSON_STAGEONE_URL:  http://watson.microsoft.com/StageOne/AxxonNext_exe/3_0_0_465/501c03e0/KERNELBASE_dll/6_1_7601_17651/4e2111c0/e0434f4d/0000d36f.htm?Retriage=1
+
+Followup: MachineOwner
+---------

@@ -47,11 +47,18 @@ class Implementation(object):
         self.commands = commands
         self.debugger = debugger
     
+    # Returns list of debugger commands         
     def get_debugger_commands_for_task(self, task):
         return self.commands.get_debugger_commands_for_task(task)
-
+    
+    # Returns raw output of debugger. 
+    # It should be up to several kb string.
     def exec_debugger(self, task, command_list):
         return self.debugger.exec_debugger(task, command_list)
+    
+    # Returns iteratable container of parsed results 
+    def parse_output(self, debugger_output):
+        pass
     
 
 class CommandsHolder(object):
@@ -71,6 +78,7 @@ class Debugger(object):
         return windebuggers.exec_cdb(command_list,
                                      task[dbmodel.TASKS_PLATFORM_FIELD],
                                      task[dbmodel.TASKS_DUMP_FILE_FIELD])
+
 
 #TODO: write parsers that expose data structures, use visitor pattern to process it later
 # Probably it better to use it abstract algh list  

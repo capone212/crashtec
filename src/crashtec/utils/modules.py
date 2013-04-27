@@ -58,11 +58,11 @@ def _list_dump_modules(dump_file, platform_id):
                                                         platform_id, 
                                                         dump_file)
 
-def parse_modules_info(inputString):
+def parse_modules_info(input_string):
     #ModuleName = 'AxxonNext' FileVersion = '3.0.0.465'  
     # ImageName = 'C:\Program Files\AxxonSoft\AxxonSmart\bin\AxxonNext.exe'
     reModulesExpr = "(?<=\n)ModuleName = '(?P<module_name>[^']+)' FileVersion"\
         " = '(?P<file_version>[^']+)' ImageName = '(?P<image_name>[^']+)'"
-    modulesIterator = re.finditer(reModulesExpr, inputString)
+    modulesIterator = re.finditer(reModulesExpr, input_string)
     return [ModuleInfo(module) for module in modulesIterator]
 

@@ -11,7 +11,7 @@ from psycopg2.extras import RealDictCursor
 from crashtec.config import dbconfig
 
 #TODO: think about error handling for these queries 
-
+#FIXME: replace with fields.PRIMARY_KEY
 ID_FIELD = 'id'
 
 # FIXME: replace simple dict with smart one, 
