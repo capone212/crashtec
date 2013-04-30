@@ -9,6 +9,7 @@ import logging
 # TODO: dirty implementation from early days 
 _logger = logging.getLogger("cdb_processor")
 
+# Represents a single line (in fact function call) in thread call-stack.
 class StackEntry(object):
     def __init__(self, line):
         self.line = line
@@ -25,7 +26,7 @@ class StackEntry(object):
     
 
 class ProblemStackParser(object):
-    # Returns problem thread stack lines as list of string 
+    # Returns problem thread call stack lines as list of strings 
     def extrack_stack_lines(self, raw_cdb_output):
         # matches 
         #    STACK_TEXT:\n

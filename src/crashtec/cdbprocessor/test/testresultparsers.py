@@ -23,7 +23,7 @@ class Test01_Parser(unittest.TestCase):
             mock_parser.parse.assert_called_once_with(None)
     
     def create_parser_mock(self):
-        return mock.create_autospec(resultparsers.ModulesParser(),
+        return mock.create_autospec(resultparsers.ModulesSectionParser(),
                              spec_set = True)
 
 # implement it

@@ -58,7 +58,7 @@ def exec_cdb(commands_list, platform_id, dump_file):
     if not COMMAND_QUIT in commands_list:
         commands_list.append(COMMAND_QUIT)
     SEPARATOR = ";";
-    command_line = '%s -z "%s" -c "%s"' % (CDB, dump_file, 
+    command_line = '%s -lines -z "%s" -c "%s"' % (CDB, dump_file, 
                                         SEPARATOR.join(commands_list))
     return exec_debugging_tool(command_line, platform_id)
 

@@ -33,33 +33,28 @@ class TestProblemStackParser(unittest.TestCase):
         stack_parser = signaturebuilder.ProblemStackParser();
         self.assertEqual(RESULT_LINES, stack_parser.extrack_stack_lines(content))
     
-    def test02_parseStackLines(self):
-        PEOCESSED_FILE_NAME = os.path.dirname(__file__) + "/test_data/406/results.txt"
-        f = open(PEOCESSED_FILE_NAME, 'r')
-        content = f.read()
+    def test02_strip_additional_info(self):
+        TEST_LINES = [
+                 '0006fe98 7739bde5 7739be1a 03ca4f28 00000000 ntdll!KiFastSystemCallRet',
+                 '0006fec4 77396558 03ca4f28 00000000 00000000 user32!NtUserPeekMessage+0xc',
+                 '0006fef0 78238326 03ca4f28 00000000 00000000 user32!PeekMessageA+0xda',
+                 '0006ff20 7820ccec 00f5dec0 000aaff7 00000000 mfc80!CWinThread::Run+0x7d [f:\dd\vctools\vc7libs\ship\atlmfc\src\mfc\thrdcore.cpp @ 636]',
+                 '0006ff30 0079f42a 00400000 00000000 000aaff7 mfc80!AfxWinMain+0x69 [f:\dd\vctools\vc7libs\ship\atlmfc\src\mfc\winmain.cpp @ 47]',
+                 '0006ffc0 77e6f1eb 00000000 00000000 7ffd8000 video!__tmainCRTStartup+0x140 [f:\sp\vctools\crt_bld\self_x86\crt\src\crtexe.c @ 589]',
+                 '0006fff0 00000000 0079f607 00000000 78746341 kernel32!BaseProcessStart+0x23'
+                 ]
         stack_parser = signaturebuilder.ProblemStackParser();
-        lines = stack_parser.extrack_stack_lines(content)
-        stackEntries = stack_parser.strip_additional_info(lines)
-        RESULT_STACK_ENTRIES = [
-                    'ItvSdkUtil!CCompressedBuffer::CCompressedBuffer+0x97',
-                    'ItvSdkUtil!boost::lambda::new_ptr<CCompressedBuffer>::operator()<NMMSS::IFrameBuilder * const,NMMSS::ISample * const,unsigned int const ,unsigned short const ,unsigned short const ,char const *,unsigned int,unsigned __int64,bool>+0x86',
-                    'ItvSdkUtil!CFrameFactory::CreateTypedFrame<ITV8::MFF::ICompressedBuffer,NMMSS::NMediaType::Video,boost::_bi::bind_t<CCompressedBuffer *,boost::lambda::new_ptr<CCompressedBuffer>,boost::_bi::list9<boost::arg<5>,boost::arg<1>,boost::arg<2>,boost::arg<3>,boost::arg<4>,boost::_bi::value<char const *>,boost::_bi::value<unsigned int>,boost::_bi::value<unsigned __int64>,boost::_bi::value<bool> > > >+0x7ac',
-                    'ItvSdkUtil!CFrameFactory::AllocateCompressedFrame+0x244', 
-                    'Ipint_Virtual!Virtual::VideoSource::SendSample+0x8c',
-                    'Ipint_Virtual!Virtual::CFFMpegGrabber::ProcessNextPacket+0x185',
-                    'Ipint_Virtual!Virtual::CFFMpegGrabber::TimerHandler+0x10',
-                    'Ipint_Virtual!boost::asio::asio_handler_invoke<boost::asio::detail::binder1<boost::_bi::bind_t<void,boost::_mfi::mf1<void,Virtual::CFFMpegGrabber,boost::system::error_code const &>,boost::_bi::list2<boost::_bi::value<Virtual::CFFMpegGrabber *>,boost::arg<1> > >,boost::system::error_code> >+0xd',
-                    'Ipint_Virtual!boost::asio::detail::wait_handler<boost::_bi::bind_t<void,boost::_mfi::mf1<void,Virtual::CFFMpegGrabber,boost::system::error_code const &>,boost::_bi::list2<boost::_bi::value<Virtual::CFFMpegGrabber *>,boost::arg<1> > > >::do_complete+0xa0',
-                    'IpUtil!boost::asio::detail::win_iocp_io_service::do_one+0x1a5',
-                    'IpUtil!boost::asio::detail::win_iocp_io_service::run+0xf0',
-                    'IpUtil!boost::asio::io_service::run+0x24', 
-                    "IpUtil!boost::`anonymous namespace'::thread_start_function+0x63",
-                    'msvcr100!_endthreadex+0x3f',
-                    'msvcr100!_endthreadex+0xce',
-                    'kernel32!BaseThreadInitThunk+0xe',
-                    'ntdll!__RtlUserThreadStart+0x70',
-                    'ntdll!_RtlUserThreadStart+0x1b']
-        self.assertEqual(RESULT_STACK_ENTRIES, stackEntries)
+        stack_entries = stack_parser.strip_additional_info(TEST_LINES)
+        RESULT_STACK_ENTRIES = ['ntdll!KiFastSystemCallRet',
+                                'user32!NtUserPeekMessage+0xc',
+                                'user32!PeekMessageA+0xda',
+                                'mfc80!CWinThread::Run+0x7d',
+                                'mfc80!AfxWinMain+0x69',
+                                'video!__tmainCRTStartup+0x140',
+                                'kernel32!BaseProcessStart+0x23'
+                                ]
+        print stack_entries
+        self.assertEqual(RESULT_STACK_ENTRIES, stack_entries, "Unexpected result from strip_additional_info() function")
         
         
         

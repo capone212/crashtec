@@ -18,6 +18,7 @@ import dbmodel
 _logger = logging.getLogger("cdb_processor")
 
 # FIXME: read about document python code
+
 class Processor(agentbase.AgentBase):
     '''
     Processor does a main task for analyzing crash reports. It runs
@@ -52,7 +53,7 @@ class Implementation(object):
         return self.commands.get_debugger_commands_for_task(task)
     
     # Returns raw output of debugger. 
-    # It should be up to several kb string.
+    # It should be up to several kb sized string.
     def exec_debugger(self, task, command_list):
         return self.debugger.exec_debugger(task, command_list)
     
@@ -72,6 +73,7 @@ class CommandsHolder(object):
             raise CtGeneralError("Can't find commands for problem_id %s" % \
                                  problem_id)
         return self.commands_map[problem_id]
+    
 
 class Debugger(object):
     def execute(self, task, command_list):
