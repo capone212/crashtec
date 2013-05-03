@@ -17,7 +17,7 @@ import dbmodel
 
 _logger = logging.getLogger("cdb_processor")
 
-# FIXME: read about document python code
+# FIXME: read about documenting of python code
 
 class Processor(agentbase.AgentBase):
     '''

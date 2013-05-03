@@ -9,6 +9,9 @@ import mock
 
 from crashtec.cdbprocessor import resultparsers
 
+# TODO: test with this file D:/work/test/tasksRoot/tasksRoot\110\results.txt 
+
+
 class Test01_Parser(unittest.TestCase):
     def test_parse_output(self):
         # Settup mock

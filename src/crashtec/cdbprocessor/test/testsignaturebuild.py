@@ -53,7 +53,6 @@ class TestProblemStackParser(unittest.TestCase):
                                 'video!__tmainCRTStartup+0x140',
                                 'kernel32!BaseProcessStart+0x23'
                                 ]
-        print stack_entries
         self.assertEqual(RESULT_STACK_ENTRIES, stack_entries, "Unexpected result from strip_additional_info() function")
         
         

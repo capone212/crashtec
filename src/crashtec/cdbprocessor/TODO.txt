@@ -12,3 +12,56 @@ Results:
 	
 Tasks:	
 1) Do refactoring utils.modules.py to separate parsing from debugger execution  
+
+
+Signature builder:
+	Use debugger failed stack signature and followup module when availbale.
+
+
+
+TODO!!!!
+Just check standart microsoft followup ip and followup module
+then look through all posible variants and decide wich approach is better
+
+	
+Use cases:
+	1) ntdll!DbgBreakPoint -- there is no real crash. It may be a hung dump 
+	   or manualy created (in this case signature could be ntdll!DbgBreakPoint)
+	   maybe exception had occured in another  module 
+	   counter = 1
+	   
+	2) video!CGateFrame::ReSendMsg+0x145 -- pretty enough 
+		counter = 3
+	
+	
+	3)	mfc42!CString::GetData
+		mfc42!CString::CString+0x13
+		intellect!Core::GetComputerNameA+0x21
+		
+		Should we skip this? No. Just hold all info before first entry
+		counter = 3
+	
+	4)	ntdll!KiFastSystemCallRet
+		ntdll!NtWaitForSingleObject+0xc
+		KERNELBASE!WaitForSingleObjectEx+0x98
+		kernel32!WaitForSingleObjectExImplementation+0x75
+		kernel32!WaitForSingleObject+0x12
+		AppHost!google_breakpad::ExceptionHandler::WriteMinidumpOnHandlerThread+0x65
+		AppHost!google_breakpad::ExceptionHandler::HandleException+0x108
+		kernel32!UnhandledExceptionFilter+0x127
+		ntdll!__RtlUserThreadStart+0x62
+		ntdll!_EH4_CallFilterFunc+0x12
+		ntdll!_except_handler4+0x8e
+		ntdll!ExecuteHandler2+0x26
+		ntdll!ExecuteHandler+0x24
+		ntdll!RtlDispatchException+0x127
+		ntdll!KiUserExceptionDispatcher+0xf
+		KERNELBASE!RaiseException+0x58
+		msvcr80!_CxxThrowException+0x46
+		MMClient!`anonymous namespace'::CDetectorEventFactory::CreateAppData+0x16c
+		ItvSdkUtil!CDetectorEventRaiser::CDetectorEventRaiser+0xeb
+		
+		counter = 1
+		
+		
+	5)
