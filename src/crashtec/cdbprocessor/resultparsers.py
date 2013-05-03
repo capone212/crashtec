@@ -3,7 +3,8 @@ Created on 20.04.2013
 
 @author: capone
 '''
-from crashtec.utils import modules 
+from crashtec.utils import modules
+import re
 
 # Responsible for parsing output of cdb debugger.
 # Deligates parsing operation to list of specialized parser-objects -- SectionParsers.
@@ -51,7 +52,10 @@ def results_metaclass(class_name):
                 {'delegated_accept' : Acceptor(class_name)})
 
 ModulesParserResuls = results_metaclass('ModulesSectionParserResults')  
-RawOutputParserResults = results_metaclass('RawOutpuSectionParserResults')   
+RawOutputParserResults = results_metaclass('RawOutpuSectionParserResults')
+CrashSignatureParserResults = results_metaclass('CrashSignatureParserResults') 
+
+# FIXME: move this section up
 
 # Parses loaded modules info.
 class ModulesSectionParser(object):
@@ -62,6 +66,39 @@ class ModulesSectionParser(object):
 class RawOutpuSectionParser(object):
     def parse(self, input_string):
         return RawOutputParserResults(input_string)
+
+
+class CrashSignature(object):
+    def __init__(self, problem_class, image_name, 
+                        symbol_name, failure_bucket_id):
+        self.problem_class = problem_class
+        self.image_name = image_name
+        self.symbol_name = symbol_name
+        self.failure_bucket_id = failure_bucket_id
+        
+class CrashSignatureParser(object):
+    
+    def parse(self, raw_cdb_output):
+        return CrashSignatureParserResults(
+                                    self.do_parse(raw_cdb_output))
+    
+    def do_parse(self, raw_cdb_output):
+        return CrashSignature(
+            self.get_value_for_id(raw_cdb_output, 'PRIMARY_PROBLEM_CLASS'),
+            self.get_value_for_id(raw_cdb_output, 'IMAGE_NAME'),
+            self.get_value_for_id(raw_cdb_output, 'SYMBOL_NAME'),
+            self.get_value_for_id(raw_cdb_output, 'FAILURE_BUCKET_ID')
+            )
+    
+    def get_value_for_id(self, raw_cdb_output, key):
+        re_key_value = key + r':\s+(\S+)'
+        match = re.search(re_key_value, raw_cdb_output)
+        #FIXME: is not necessary
+        if not match:
+            print "can't parse value for id %s" % key
+            return str()
+            #raise RuntimeError("can't parse value for id %s" % key)
+        return  match.group(1)
 
 
 def create_parser():

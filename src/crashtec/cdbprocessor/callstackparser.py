@@ -10,7 +10,7 @@ import logging
 _logger = logging.getLogger("cdb_processor")
 
 # FIXME: an issue with D:/work/test/tasksRoot/tasksRoot\306\results.txt, stack lnes remains unparsed
-# FIXME:  handle "Following stacks may be ..." case. Stop when encounter this line 
+
 
 
 # Represents a single line (in fact function call) in thread call-stack.
@@ -27,36 +27,6 @@ class StackEntry(object):
         if (not match):
             return None
         return match.group(1) 
-
-class SignatureBuilder(object):
-    # \param stackLines raw stack line
-    # \param modules the ModuleUtils.Module object
-    # \return tuple of (signature, truncated, product)
-    def build(self, stack_entries):
-        result = str()
-        for stack_entry in stack_entries: 
-            if result:
-                result += " | "
-            result += stack_entry.get_line()
-            module_name = stack_entry.get_module_name()
-            if not module_name:
-                _logger.debug("Can't extract module name from signature: %s", 
-                              stack_entry.get_line())
-            #TODO:
-            product = modules.getProductByModuleName(module_name)
-            if (product):
-                (signature, truncated) = _truncateSignature(signature)
-                return (signature, truncated, product)
-        (result, truncated) =  _truncateSignature(result)
-        return (result, truncated, None)
-    
-    def _truncateSignature(signature):
-        MAX_LEN = 255
-        if len(signature) > MAX_LEN:
-                signature = "%s..." % signature[:MAX_LEN - 3]
-                gLogger.debug('SignatureTool: signature truncated due to length')
-                return (signature, True)
-        return (signature, False)
 
 # Extracts and parses crash stack from debugger output.
 class ProblemStackParser(object):
@@ -92,12 +62,29 @@ class ProblemStackParser(object):
     # Will be converted to 
     #    KERNELBASE!RaiseException+0x58
     def strip_additional_info(self, stack_lines):
-        reHex = "[0-9a-fA-F]+" 
-        reStackLine = "(" + reHex + "\s+){5}(?P<signature>.+)"
+        x86_result = self.strip_additional_info_x86(stack_lines)
+        if x86_result:
+            return x86_result
+        return self.strip_additional_info_x64(stack_lines)
+        
+    
+    def strip_additional_info_x86(self, stack_lines):
         #0454f544 71e58e89 e06d7363 00000001 00000003 KERNELBASE!RaiseException+0x58
+        re_hex = "[0-9a-fA-F]+" 
+        re_stack_line = "(" + re_hex + "\s+){2,5}(?P<signature>.+)"
+        return self.strip_additional_info_impl(stack_lines, re_stack_line)
+    
+    def strip_additional_info_x64(self, stack_lines):
+        '00000000`0619efa0 00000000`00000000 : 0000006e`6f697400 000007fe`f1beaca0 00000000`00000000 00000000`00000000 : Ipint_SonyIpela+0x16acb0'
+        re_64_address = "[0-9a-fA-F`]+"
+        re_separator = r"(\s|:)+"
+        re_stack_line = "(" + re_64_address + re_separator +"){4,6}(?P<signature>.+)"
+        return self.strip_additional_info_impl(stack_lines, re_stack_line)
+    
+    def strip_additional_info_impl(self, stack_lines, re_stack_line):
         signatures = []
         for line in stack_lines:
-            match = re.search(reStackLine, line)
+            match = re.search(re_stack_line, line)
             if (not match):
                 _logger.warning("Can't parse signature string: %s", line)
                 continue
@@ -112,7 +99,4 @@ class ProblemStackParser(object):
         match = re.search(reSourceInfo, signature)
         if not match:
             return signature
-        return signature[:match.start()] 
-    
-
-    
+        return signature[:match.start()]
