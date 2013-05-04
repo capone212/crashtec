@@ -3,8 +3,11 @@ Created on 20.04.2013
 
 @author: capone
 '''
-from crashtec.utils import modules
 import re
+from crashtec.utils import modules
+
+import callstackparser
+from resultspublisher import results_metaclass 
 
 # Responsible for parsing output of cdb debugger.
 # Deligates parsing operation to list of specialized parser-objects -- SectionParsers.
@@ -20,36 +23,6 @@ class Parser(object):
     def parse_output(self, debugger_output):
         # FIXME: Use generator expression here for saving memory 
         return (parser.parse(debugger_output) for parser in self.parsers)
-
-# Utility class which used to make hack with meta-classes. See results_metaclass()  
-class Acceptor(object):
-    def __init__(self, class_name):
-        self.class_name = class_name
-    
-    def __call__(self, instance, visitor):
-        visit_method = getattr(visitor, 'visit_%s' % self.class_name)
-        visit_method(instance.parser_results)
-
-# Utility class which used to make hack with meta-classes. See results_metaclass()
-class BaseResult(object):
-    def __init__(self, parser_results):
-        self.parser_results = parser_results
-    
-    def accept(self, visitor):
-        return self.delegated_accept(self, visitor)
-    
-    # should be implemented in subclasses
-    def delegated_accept(self, instance, visitor):
-        raise RuntimeError("should't be called!")
-
-# Metaclass which generates wrapper classes for primitive parser results. 
-# Wrapper implements all necesserary methods for supporting visitors.
-# Main intention of this trick is prevent code duplication.
-# For example: If 
-def results_metaclass(class_name):
-    return type(class_name,
-                (BaseResult,),
-                {'delegated_accept' : Acceptor(class_name)})
 
 ModulesParserResuls = results_metaclass('ModulesSectionParserResults')  
 RawOutputParserResults = results_metaclass('RawOutpuSectionParserResults')
@@ -103,6 +76,8 @@ class CrashSignatureParser(object):
 
 def create_parser():
     return Parser([ModulesSectionParser(),
-                   RawOutpuSectionParser()
+                   RawOutpuSectionParser(),
+                   CrashSignatureParser(),
+                   callstackparser.ProblemStackParser()
                    ])
     

@@ -6,11 +6,10 @@ Created on 27.04.2013
 import re
 import logging
 
+from resultspublisher import results_metaclass
+
 # TODO: dirty implementation from early days 
 _logger = logging.getLogger("cdb_processor")
-
-# FIXME: an issue with D:/work/test/tasksRoot/tasksRoot\306\results.txt, stack lnes remains unparsed
-
 
 
 # Represents a single line (in fact function call) in thread call-stack.
@@ -28,10 +27,21 @@ class StackEntry(object):
             return None
         return match.group(1) 
 
+# Visitable wrapper for results of ProblemStackParser 
+ProblemStackParserResuls = results_metaclass('ProblemStackParserResuls')  
+
+# TODO: separate actual stack parsing with  SectionParser mechanics. 
+# I will allows return results_metaclass to parsers module and reuse stack 
+# parsing in another section parsers
+
 # Extracts and parses crash stack from debugger output.
 class ProblemStackParser(object):
-    # Receives cdb debugger output and returns list of StackEntry objects.
+    
     def parse(self, raw_cdb_output):
+        return ProblemStackParserResuls(self.do_parse(raw_cdb_output))
+    
+    # Receives cdb debugger output and returns list of StackEntry objects.
+    def do_parse(self, raw_cdb_output):
         stack_lines = self.extrack_stack_lines(raw_cdb_output)
         refined_lines = self.strip_additional_info(stack_lines)
         # TODO: replace with generator expression
@@ -48,11 +58,11 @@ class ProblemStackParser(object):
         reStartExpression = "STACK_TEXT:\s*\n"
         match = re.search(reStartExpression, raw_cdb_output)
         if (not match):
-            return None
+            return []
         inputString = raw_cdb_output[match.end():]
         match = re.search("\n\n", inputString)
         if (not match):
-            return None
+            return []
         inputString = inputString[:match.start()]
         return  re.split("\n", inputString, maxsplit=0, flags=0)
     

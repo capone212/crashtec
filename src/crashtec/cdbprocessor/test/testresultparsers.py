@@ -8,12 +8,13 @@ import unittest
 from mock import MagicMock
 import mock
 
+from crashtec.cdbprocessor import resultspublisher
 from crashtec.cdbprocessor import resultparsers
  
 class Test01_Parser(unittest.TestCase):
-    def test_parse_output(self):
+    def test01_parse_all_parsers_called(self):
         # Settup mock
-        mock_parsers_list = [self.create_parser_mock() for x in range(5)]
+        mock_parsers_list = [self._create_parser_mock() for x in range(5)]
         parserObject = resultparsers.Parser(mock_parsers_list)
         # Parse and iterate over results
         results = parserObject.parse_output(None)
@@ -23,7 +24,7 @@ class Test01_Parser(unittest.TestCase):
         for mock_parser in mock_parsers_list:
             mock_parser.parse.assert_called_once_with(None)
     
-    def create_parser_mock(self):
+    def _create_parser_mock(self):
         return mock.create_autospec(resultparsers.ModulesSectionParser(),
                              spec_set = True)
 
@@ -68,12 +69,16 @@ class Test02_CrashSignatureParser(unittest.TestCase):
         self.assertEqual(self.expected_results.__dict__, results.__dict__) 
         
 
-# implement it
-class Visitor():
-    pass
 
-class Test02_Results(unittest.TestCase):
-    pass
+class Test02_ResultsVisitor(unittest.TestCase):
+    def test_perser_results_support_visitor(self):
+        parser = resultparsers.create_parser()
+        results = parser.parse_output("doesn't matter what.")
+        mock_visitor = mock.create_autospec(resultspublisher.ResultsPublisher(),
+                             spec_set = True)
+        for result_item in results:
+            result_item.accept(mock_visitor)
+        # FIXME: validate calls to visitors
 
 
 if __name__ == "__main__":
