@@ -60,7 +60,7 @@ def get_compatible_agent_instances(class_type, task_record):
     #TODO: use last updated time to filter dead agents
     f = dbfilter.FieldFilterFactory
     cursor = dbroutines.select_from(dbmodel.AGENTS_TABLE,
-            filter=f(dbmodel.AGENTS_CLASS_TYPE_FIELD) == class_type)
+            db_filter=f(dbmodel.AGENTS_CLASS_TYPE_FIELD) == class_type)
     result = cursor.fetch_all()
     return result 
 
@@ -82,7 +82,7 @@ def fetch_unscheduled_tasks():
     f = dbfilter.FieldFilterFactory
     d = dbmodel 
     cursor = dbroutines.select_from(d.TASKS_TABLE,
-                            filter = (f(d.TASKS_STATUS_FIELD) == 
+                            db_filter = (f(d.TASKS_STATUS_FIELD) == 
                                       taskutils.TASK_STATUS_AGENT_FINISHED)
                         )
     return cursor.fetch_all()

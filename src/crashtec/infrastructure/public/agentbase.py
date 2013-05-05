@@ -34,7 +34,7 @@ class AgentBase(object):
     def __init__(self, class_type, instance_name):
         self.class_type = class_type
         self.instance_name = instance_name 
-        self.m_register_holder = RegistrationHolder(class_type, instance_name)
+        self.register_holder = RegistrationHolder(class_type, instance_name)
     
     def run(self):
         while (True):
@@ -59,7 +59,7 @@ class AgentBase(object):
     def fetch_task(self):
         d = dbmodel
         f = dbfilter.FieldFilterFactory
-        session = dbroutines.select_from(d.TASKS_TABLE, filter = (
+        session = dbroutines.select_from(d.TASKS_TABLE, db_filter=(
             (f(d.TASKS_AGENT_INSTANCE_FIELD) == self.instance_name) &
             (f(d.TASKS_STATUS_FIELD) == taskutils.TASK_STATUS_AGENT_SCHEDULED)),
             order = dbfilter.Ascent(fields.PRIMARY_KEY_FIELD))

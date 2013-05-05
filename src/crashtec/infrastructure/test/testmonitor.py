@@ -6,6 +6,7 @@ Created on 31.03.2013
 
 import unittest
 import logging
+from mock import patch
 
 from crashtec.infrastructure import monitor
 from crashtec.infrastructure import dbmodel
@@ -158,21 +159,22 @@ class TaskPostponedTestMock(object):
 
 
 #@unittest.skip("debug skipping")    
+@patch('crashtec.infrastructure.public.agentbase.RegistrationHolder')
 class Test03_AgentsMonitor(unittest.TestCase):
     "Checks assigning to task next agent instance"
-    def test_task_promote(self):
+    def test_task_promote(self, patched_regholder):
         self.check_agents_monitor(crashtectestconfig.CRASHMOVER_CLASS,
                                    TaskPromoteTestMock(self))
     
     "Checks that monitor assign finished state after last agent" 
     "class in job sequence"
-    def test_task_finished(self):
+    def test_task_finished(self, patched_regholder):
         self.check_agents_monitor(crashtectestconfig.PROCESSOR_X86_CLASS,
                                    TaskFinishedTestMock(self))
     
     "Checks that monitor assign finished state"
     "after last agent class in job sequence"
-    def test_task_failed(self):
+    def test_task_failed(self, patched_regholder):
         self.check_agents_monitor(crashtectestconfig.PROCESSOR_X64_CLASS,
                                    TaskFailedTestMock(self))
     
@@ -181,7 +183,7 @@ class Test03_AgentsMonitor(unittest.TestCase):
         task_record[dbmodel.TASKS_AGENT_CLASS_FIELD]  = current_agent_class
         impl = monitor.Implementation(tasks_table = mock_object,
                                 agents_instances_locator = mock_object)
-        agents_monitor = monitor.AgentsMonitor(impl)
+        agents_monitor = monitor.AgentsMonitor(impl, 'sample_monitor')
         agents_monitor.promote_task_progress(task_record)
         self.assertTrue(mock_object.task_promoted, 
                         'Task was not promoted')

@@ -24,7 +24,7 @@ AGENTS_GROUP_FIELD = 'group_id'
 
 _agents = {
             AGENTS_CLASS_TYPE_FIELD : DBSchemaTypes.short_string(),
-            AGENTS_INSTANCE_FIELD :  DBSchemaTypes.short_string(),
+            AGENTS_INSTANCE_FIELD :  DBSchemaTypes.string(),
             AGENTS_REGISTRED_TIME_FIELD :  DBSchemaTypes.datetime(),
             AGENTS_KEEPALIVE_FIELD :  DBSchemaTypes.datetime(),
             AGENTS_GROUP_FIELD : DBSchemaTypes.short_string()

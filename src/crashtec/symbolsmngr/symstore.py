@@ -20,7 +20,7 @@ class SymstoreTable(object):
         d = dbmodel
         f = filter.FieldFilterFactory
         cursor = dbroutines.select_from(d.SYMBOLS_TABLE, 
-                            filter = f(d.SYMBOLS_LOCAL_DIR) == folder)
+                            db_filter = f(d.SYMBOLS_LOCAL_DIR) == folder)
         return cursor.fetchone()
     
     def update_record(self, record):

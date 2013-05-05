@@ -60,12 +60,12 @@ def create_new_record(table, record):
     exec_sql(sql, arguments)
 
 # execute SELECT sql request and returns Cursor object
-def select_from(table_name, field_list=[],  dbfilter=None, order=None):
+def select_from(table_name, field_list=[],  db_filter=None, order=None):
     # TODO: handle field_list
     sql = "select * from %s" % (table_name)
     params = dict()
-    if (dbfilter):
-        (filter_sql, params) = dbfilter.to_sql()
+    if (db_filter):
+        (filter_sql, params) = db_filter.to_sql()
         sql = "%s where %s" % (sql, filter_sql)
     
     if (order):

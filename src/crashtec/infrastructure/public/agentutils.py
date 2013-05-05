@@ -14,7 +14,7 @@ GROUP_ID_UNSET = str()
 _f = dbfilters.FieldFilterFactory
 
 def register_agent(class_type, instance_name, group_id = GROUP_ID_UNSET):
-    cursor = dbroutines.select_from(AGENTS_TABLE, filter = _f(AGENTS_INSTANCE_FIELD) == instance_name)
+    cursor = dbroutines.select_from(AGENTS_TABLE, db_filter = _f(AGENTS_INSTANCE_FIELD) == instance_name)
     record = cursor.fetch_one()
     is_exist = True
     if not record:

@@ -37,7 +37,7 @@ class Cache(object):
         d = dbmodel
         f = filter.FieldFilterFactory
         stripped_url = self.strip_url(binary_url)
-        cursor = dbroutines.select_from(d.SYMBOLS_TABLE, filter = (
+        cursor = dbroutines.select_from(d.SYMBOLS_TABLE, db_filter=(
                                         (f(d.SYMBOLS_URL) == stripped_url) &
                                         (f(d.SYMBOLS_AGENT_ID) == self.agent_name))
                                         ) 

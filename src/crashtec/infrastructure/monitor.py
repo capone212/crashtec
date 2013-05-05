@@ -7,26 +7,33 @@ Created on 18.02.2013
 @author: anzor.apshev
 '''
 import logging
+import time
 import monitordetails
+import definitions
+from crashtec.infrastructure.public import agentbase
 from crashtec.utils import exceptions as ctexceptions
 
 _logger = logging.getLogger("infrastructure.monitor")
 
 # FIXME: use timings info with agent instances to control alive clients  
 class AgentsMonitor(object):
-    def __init__(self, impl):
+    def __init__(self, impl, instance_name, 
+                 class_type = definitions.MONITOR_CLASS_TYPE):
         self.impl = impl
+        self.register_holder = agentbase.RegistrationHolder(
+                                            class_type, instance_name)
     
     def run(self):
         #TODO: find out how to catch terminating signal for proper cleanup resources
         while (True):
             _logger.debug('fetching tasks for schedule...')
             tasks = self.impl.fetch_unscheduled_tasks()
+            _logger.debug('fetched tasks: %s', tasks)
             for record in tasks:
-                record = self.promote_task_progress(record)
+                self.promote_task_progress(record)
             #TODO: replace with sleep
             _logger.debug('One iteration done.')
-            return
+            time.sleep(10)
     
     def promote_task_progress(self, task_record):
         try:
@@ -35,6 +42,8 @@ class AgentsMonitor(object):
             next_agent_class = self.impl.get_next_agent_class(task_record)
             if not next_agent_class:
                 # All agents finished their job
+                _logger.debug('Marking task as finished: task_id = %s', 
+                              self.impl.get_task_id(task_record))
                 self.impl.set_task_finished(task_record)
                 return
             _logger.info("next agent class for task %s is %s", 
@@ -63,7 +72,6 @@ class AgentsMonitor(object):
                           " internal error occurred during promoting", 
                           self.impl.get_task_id(task_record))
 
- 
  
 class AgentClassLocator(object):
     def get_next_agent_class(self, task_record):
