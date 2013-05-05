@@ -21,6 +21,7 @@ TYPES_MAPPING = {
     DBSchemaTypes.short_string() : 'varchar(32)',
     DBSchemaTypes.string() : 'varchar(256)',
     DBSchemaTypes.long_string() : 'varchar(1024)',
+    DBSchemaTypes.text_file() : 'text',
     DBSchemaTypes.autoincrement() : 'serial PRIMARY KEY'
 }
 

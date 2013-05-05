@@ -21,7 +21,7 @@ def _execute_add_command(binaryNetworkPath, symstore_root, platform_id):
         r"\*.*' /s '" + symstore_root + r"' /t crashtec /v 1000";
     return windebuggers.exec_debugging_tool(commandLine, platform_id) 
 
-# FIXME: fix it using windebuggers   
+# TODO: fix it using windebuggers   
 def _execute_delete_command(transactionId, symstore_root):
     transactionId = transactionId.decode('ascii', 'ignore')
     commandLine = r"symstore del /i " + transactionId + r" /s " + symstore_root

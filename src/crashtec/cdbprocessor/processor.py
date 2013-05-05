@@ -92,8 +92,7 @@ class CdbDebugger(object):
 
 class DbPublisher():
     def publish_results(self, task, parsed_results):
-        #TODO: pass task inside
-        visitor = resultspublisher.ResultsPublisher()
+        visitor = resultspublisher.ResultsPublisher(task)
         for result_item in parsed_results:
             result_item.accept(visitor)
 

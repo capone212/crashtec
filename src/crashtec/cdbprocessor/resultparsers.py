@@ -28,8 +28,6 @@ ModulesParserResuls = results_metaclass('ModulesSectionParserResults')
 RawOutputParserResults = results_metaclass('RawOutpuSectionParserResults')
 CrashSignatureParserResults = results_metaclass('CrashSignatureParserResults') 
 
-# FIXME: move this section up
-
 # Parses loaded modules info.
 class ModulesSectionParser(object):
     def parse(self, input_string):
@@ -66,11 +64,9 @@ class CrashSignatureParser(object):
     def get_value_for_id(self, raw_cdb_output, key):
         re_key_value = key + r':\s+(\S+)'
         match = re.search(re_key_value, raw_cdb_output)
-        #FIXME: is not necessary
         if not match:
             print "can't parse value for id %s" % key
             return str()
-            #raise RuntimeError("can't parse value for id %s" % key)
         return  match.group(1)
 
 

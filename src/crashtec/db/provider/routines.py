@@ -9,10 +9,9 @@ Provides acces to db.
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from crashtec.config import dbconfig
+from crashtec.db.schema.fields import PRIMARY_KEY_FIELD
 
 #TODO: think about error handling for these queries 
-#FIXME: replace with fields.PRIMARY_KEY
-ID_FIELD = 'id'
 
 # FIXME: replace simple dict with smart one, 
 # which should remember old initial values. 
@@ -49,11 +48,11 @@ def create_new_record(table, record):
     fields = str()
     placeholders = str()
     arguments = ()
-    for property, value in record.iteritems():
+    for property_id, value in record.iteritems():
         if (fields) :
             fields += ', '
             placeholders += ', '
-        fields += property
+        fields += property_id
         placeholders += "%s"
         arguments += (value,)
     sql = "INSERT INTO %s (%s) VALUES (%s);" % (table, fields, placeholders)
@@ -61,12 +60,12 @@ def create_new_record(table, record):
     exec_sql(sql, arguments)
 
 # execute SELECT sql request and returns Cursor object
-def select_from(table_name, field_list=[],  filter=None, order=None):
+def select_from(table_name, field_list=[],  dbfilter=None, order=None):
     # TODO: handle field_list
     sql = "select * from %s" % (table_name)
     params = dict()
-    if (filter):
-        (filter_sql, params) = filter.to_sql()
+    if (dbfilter):
+        (filter_sql, params) = dbfilter.to_sql()
         sql = "%s where %s" % (sql, filter_sql)
     
     if (order):
@@ -75,15 +74,15 @@ def select_from(table_name, field_list=[],  filter=None, order=None):
     return exec_sql(sql, params)
 
 # TODO: add optional id parameter
-def update_record(table, record, key_field = ID_FIELD):
+def update_record(table, record, key_field = PRIMARY_KEY_FIELD):
     arguments = ()
     fields = str()
-    for property, value in record.iteritems():
-        if property == key_field:
+    for property_id, value in record.iteritems():
+        if property_id == key_field:
             continue
         if (fields) :
             fields += ', '
-        fields += '%s=%%s' % property
+        fields += '%s=%%s' % property_id
         arguments += (value,)
     sql = 'update %s SET %s WHERE %s = %%s' % (table, fields, key_field)
     arguments += (record[key_field],)

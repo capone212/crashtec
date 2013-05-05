@@ -49,7 +49,7 @@ class Test01_AgentClassLocator(unittest.TestCase):
     
     @classmethod
     def setUpClass(cls):
-        # FIXME: replace this odd thing with passing config modules
+        # TODO: replace this odd thing with passing config modules
         # as parameters to agents
         cls.original_sequence =  crashtecconfig.JOB_SEQUENCE
         crashtecconfig.JOB_SEQUENCE = crashtectestconfig.TEST_JOB_SEQUENCE

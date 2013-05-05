@@ -33,6 +33,11 @@ class DBSchemaTypes (object):
         return "long_string"
     
     @staticmethod
+    def text_file():
+        "variable unlimited length text string "
+        return "text_file"
+    
+    @staticmethod
     def autoincrement():
         return "autoincrement" 
 

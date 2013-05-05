@@ -13,7 +13,8 @@ from crashtec.infrastructure.public import definitions as infradefs
 CRAHSTEC_MODULES = ['crashtec.infrastructure',
                     'crashtec.mover',
                     'crashtec.checker',
-                    'crashtec.symbolsmngr'
+                    'crashtec.symbolsmngr',
+                    'crashtec.cdbprocessor'
                     ]
 
 

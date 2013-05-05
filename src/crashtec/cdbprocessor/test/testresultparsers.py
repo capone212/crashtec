@@ -74,11 +74,15 @@ class Test02_ResultsVisitor(unittest.TestCase):
     def test_perser_results_support_visitor(self):
         parser = resultparsers.create_parser()
         results = parser.parse_output("doesn't matter what.")
-        mock_visitor = mock.create_autospec(resultspublisher.ResultsPublisher(),
+        mock_visitor = mock.create_autospec(resultspublisher.ResultsPublisher(None),
                              spec_set = True)
         for result_item in results:
             result_item.accept(mock_visitor)
-        # FIXME: validate calls to visitors
+        
+        self.assertTrue(mock_visitor.visit_ModulesSectionParserResults.called)
+        self.assertTrue(mock_visitor.visit_RawOutpuSectionParserResults.called)
+        self.assertTrue(mock_visitor.visit_CrashSignatureParserResults.called)
+        self.assertTrue(mock_visitor.visit_ProblemStackParserResuls.called) 
 
 
 if __name__ == "__main__":

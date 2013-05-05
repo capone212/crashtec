@@ -14,6 +14,7 @@ from crashtec.utils.exceptions import  CtGeneralError
 from crashtec.utils.exceptions import CtBaseException
 from crashtec.db.provider.routines import Record
 from crashtec.infrastructure.public import definitions as infradefs
+from crashtec.db.schema.fields import PRIMARY_KEY_FIELD
 
 from crashtec.cdbprocessor import dbmodel
 from crashtec.cdbprocessor import processor
@@ -160,6 +161,44 @@ class Test03_Processor(unittest.TestCase):
         instance.task_failed = MagicMock()
         instance.task_finished = MagicMock()
         return instance
+
+
+def _get_sample_signature():
+    return resultparsers.CrashSignature('problem_class', 
+                                        'image_name', 
+                                        'symbol_name', 
+                                        'failure_bucket_id')
+
+@patch('crashtec.db.provider.routines.create_new_record')
+class Test04_DbPublisher(unittest.TestCase):
+    def test_publish_results(self, mock_create_new_record):
+        # Prepare samnple data
+        task = Record()
+        d = dbmodel
+        task[PRIMARY_KEY_FIELD] = 212
+        SAMPLE_DBG_OUTPUT = 'sample_output'
+        
+        # Call publisher
+        publisher = processor.DbPublisher()
+        r = resultparsers
+        publisher.publish_results(task, [
+                        r.CrashSignatureParserResults(_get_sample_signature()),
+                        r.RawOutputParserResults(SAMPLE_DBG_OUTPUT)])
+        
+        # Validate publisher behavior
+        s = _get_sample_signature()
+        self.assertEqual(task[d.TASKS_PROBLEM_CLASS], s.problem_class)
+        self.assertEqual(task[d.TASKS_SYMBOL_NAME], s.symbol_name)
+        self.assertEqual(task[d.TASKS_FAIL_IMAGE], s.image_name)
+        self.assertEqual(task[d.TASKS_FAILURE_BUCKET_ID], s.failure_bucket_id)
+    
+        new_record = Record()
+        new_record[d.RAWRESULTS_TASK_ID] = 212
+        new_record[d.RAWRESULTS_DBG_OUTPUT] = SAMPLE_DBG_OUTPUT
+        mock_create_new_record.assert_called_once_with(d.RAWRESULTS_TABLE,
+                                                       new_record)
+           
+ 
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']e
