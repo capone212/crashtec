@@ -102,6 +102,4 @@ def create_default_implementation():
                           resultparsers.create_parser(),
                           DbPublisher())
 
-#TODO: write parsers that expose data structures, use visitor pattern to process it later
-# Probably it better to use it abstract algh list  
             
