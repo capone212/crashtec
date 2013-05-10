@@ -62,7 +62,6 @@ def _get_agents_last_keepalive_boundary():
                     seconds=2*crashtecconfig.AGENTS_KEEPALIVE_TIMEOUT)
 
 def get_compatible_agent_instances(class_type, task_record):
-    #FIXME: implement group id filtering
     f = dbfilter.FieldFilterFactory
     d = dbmodel
     filter_object = (f(d.AGENTS_CLASS_TYPE_FIELD) == class_type) & \

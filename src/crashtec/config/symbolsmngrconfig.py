@@ -3,7 +3,9 @@ Created on 27.03.2013
 
 @author: capone
 '''
-LOCAL_ROOT = "C:/temp"
-SYMBOLS_STORE_LOCAL_DIR = "C:/temp/symstore"
-BINARY_LOCAL_ROOT = "C:/temp/binarieshome"
-NETWORK_ROOT = "capone-book"
+import os 
+
+LOCAL_ROOT = "C:\\crashtec_data"
+SYMBOLS_STORE_LOCAL_DIR = os.path.join(LOCAL_ROOT, 'symstore')
+BINARY_LOCAL_ROOT = os.path.join(LOCAL_ROOT, 'binaries_home')
+NETWORK_ROOT = '\\\\capone-book\\'

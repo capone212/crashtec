@@ -12,8 +12,7 @@ from crashtec.infrastructure.public import agentbase
 from crashtec.utils import exceptions as ctexceptions
 
 _logger = logging.getLogger("infrastructure.monitor")
-
-# FIXME: use timings info with agent instances to control alive clients  
+  
 class AgentsMonitor(object):
     def __init__(self, impl, instance_name, 
                  class_type = definitions.MONITOR_CLASS_TYPE):

@@ -71,23 +71,27 @@ class StorageProvider(object):
     # the path is unique for passed url 
     # and guarantied to be empty (at least for first time).
     # Throws on errors.
+    
+    def __init__(self, config = symbolsmngrconfig):
+        self.config = config
+    
     def create_place_for_binary(self, binary_url):
         parsed_url = urlparse.urlparse(binary_url)
         if (not parsed_url):
             raise CtCriticalError("Could not parse url: %s" %
                                    safe_log_url(binary_url))
         
-        dirrectory = symbolsmngrconfig.BINARY_LOCAL_ROOT + parsed_url.path
+        dirrectory = self.config.BINARY_LOCAL_ROOT + parsed_url.path
         try:
             if (not os.path.exists(dirrectory)):
                 os.makedirs(dirrectory) 
         except OSError as err:
-            raise CtGeneralError("Error while creating dirrectory: %s" % err) 
+            raise CtGeneralError("Error while creating directory: %s" % err) 
         return dirrectory
     
 class HttpDownloader(object):
     # Downloads specified url to destination folder.
-    # Returns downloaded file path, throws on error.
+    # Returns downloaded file path, throws on errors.
     def download_binary(self, url, dest_folder):
         self.reset_state()
         time_out = socket.getdefaulttimeout()

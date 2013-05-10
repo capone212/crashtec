@@ -11,7 +11,6 @@ from crashtec.config import windowsconfig
 from crashtec.infrastructure.public import definitions
 
 # CDB commands list
-# TODO: think about adding additional CDB_ prefix
 COMMAND_ANALYZE_V = '!analyze -v'
 COMMAND_LIST_THREADSTACKS = "~*kb"
 COMMAND_QUIT = 'q'

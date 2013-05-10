@@ -49,7 +49,6 @@ def agregate_descriptions(model_descriptions):
 def main():
     try:
         _init_logging()
-        # TODO: get package lists
         packages_list = crashtecconfig.CRAHSTEC_MODULES
         # enumerate all db model definitions from all packages
         model_descriptions = collect_model_descriptions(packages_list)

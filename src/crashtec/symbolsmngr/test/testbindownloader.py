@@ -8,6 +8,7 @@ import unittest
 import os
 import shutil
 import logging
+import mock
 
 from crashtec.symbolsmngr import bindownloader
 from crashtec.utils import debug
@@ -52,7 +53,8 @@ class Test02_StorageProvider(unittest.TestCase):
     def test_create_place_for_binary(self):
         first_url = "https://al:pass@thinkbroadband.com/pdb-23/5MB.zip"
         second_url = "https://al:pass@thinkbroadband.com/pdb-24/5MB.zip"
-        storage = bindownloader.StorageProvider()
+        
+        storage = bindownloader.StorageProvider(self.test_config)
         first_dir = storage.create_place_for_binary(first_url)
         second_dir = storage.create_place_for_binary(second_url)
         self.assertTrue(first_dir)
@@ -61,6 +63,12 @@ class Test02_StorageProvider(unittest.TestCase):
                               "Two folders path should be different")
         shutil.rmtree(first_dir)
         shutil.rmtree(second_dir)
+    
+    def setUp(self):
+        self.temp_dir = os.path.join(os.path.dirname(__file__), TEMP_FOLDER)
+        clean_temp_folder(self.temp_dir)
+        self.test_config = mock.MagicMock()
+        self.test_config.BINARY_LOCAL_ROOT =  self.temp_dir
 
 class Test03_ZipUnpacker(unittest.TestCase):
     def test_correct_zip(self):
@@ -95,7 +103,7 @@ class Test04_BinaryDownloader(unittest.TestCase):
         binary_url = 'https://raw.github.com/capone212/crashtec/master' \
                     '/src/crashtec/symbolsmngr/test/test_data/zip/correct.zip'
         cache = MockCache()
-        storage = bindownloader.StorageProvider()
+        storage = bindownloader.StorageProvider(self.test_config)
         http = bindownloader.HttpDownloader()
         unpacker = bindownloader.ZipUnpacker()
         down = bindownloader.BinaryDownloader(cache,
@@ -104,6 +112,12 @@ class Test04_BinaryDownloader(unittest.TestCase):
         result = os.path.exists(os.path.join(destination, 'correct'))
         self.assert_(result, "Can't locate unzipped file!")
         shutil.rmtree(destination)
+    
+    def setUp(self):
+        self.temp_dir = os.path.join(os.path.dirname(__file__), TEMP_FOLDER)
+        clean_temp_folder(self.temp_dir)
+        self.test_config = mock.MagicMock()
+        self.test_config.BINARY_LOCAL_ROOT = self.temp_dir
         
         
 setup_log()

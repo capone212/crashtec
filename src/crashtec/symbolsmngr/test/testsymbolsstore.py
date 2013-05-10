@@ -15,6 +15,8 @@ from crashtec.symbolsmngr import dbmodel
 from crashtec.symbolsmngr import definitions
 from crashtec.infrastructure.public import definitions as infradefs
 
+import mock
+
 def setup_log():
     logger = logging.getLogger('symbolsmngr')
     debug.init_debug_logger(logger)
@@ -29,14 +31,18 @@ def clean_temp_folder(folder):
 
 # TODO: check number of stored pointers and number of error's (optionaly)
 
-class TestHttpDownloader(unittest.TestCase):        
+class TestSymbolsStore(unittest.TestCase):        
     def test_add_binary_path(self):
-        store = symstore.SymbolsStore(self, self.temp_dir)
+        store = symstore.SymbolsStore(self, self.testconfig)
         record = dbroutines.Record()
         record[dbmodel.TASKS_PLATFORM_FIELD] = infradefs.PLATFORM_WIN64
         store.add_binary_path(self.test_data_dir, record)
     
     def setUp(self):
+        self.testconfig = mock.MagicMock()
+        self.testconfig.SYMBOLS_STORE_LOCAL_DIR = os.path.join(os.path.dirname(__file__),
+                                     TEMP_FOLDER)
+        
         self.temp_dir = os.path.join(os.path.dirname(__file__),
                                      TEMP_FOLDER)
         self.test_data_dir = os.path.join(os.path.dirname(__file__),

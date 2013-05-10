@@ -28,9 +28,10 @@ class SymstoreTable(object):
 
 class SymbolsStore(object):
     def __init__(self, symtable, 
-                 symstore_root = symbolsmngrconfig.SYMBOLS_STORE_LOCAL_DIR):
+                 config = symbolsmngrconfig):
         self.symtable = symtable
-        self.symstore_root = symstore_root
+        self.config = config
+        #symbolsmngrconfig.SYMBOLS_STORE_LOCAL_DIR
     
     def add_binary_path(self, folder, task):
         record = self.symtable.select_binary_by_path(folder)
@@ -42,8 +43,8 @@ class SymbolsStore(object):
         _logger.info("Adding binary to symbol store...")
         record[d.SYMBOLS_TRANSACTION_ID] = \
             symstoredetails.add_binary_to_symbol_store(folder, 
-                                                self.symstore_root,
-                                                task[d.TASKS_PLATFORM_FIELD])
+                                        self.config.SYMBOLS_STORE_LOCAL_DIR,
+                                        task[d.TASKS_PLATFORM_FIELD])
         self.symtable.update_record(record)
         _logger.info("Binary successfully added to symbol store.")
     
