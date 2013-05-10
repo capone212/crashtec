@@ -35,3 +35,6 @@ JOB_SEQUENCE = [
                                          infradefs.PLATFORM_WIN64 : X64_SEQUENCE}
                                         )
                 ]
+
+""" Defines agents instances keep-alive timeout in seconds"""
+AGENTS_KEEPALIVE_TIMEOUT = 10; 

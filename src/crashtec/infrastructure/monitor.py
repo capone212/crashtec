@@ -1,8 +1,6 @@
 '''
 Created on 18.02.2013
 
-- infinity loop
-- fetch tasks with status 
 -
 @author: anzor.apshev
 '''
@@ -24,6 +22,7 @@ class AgentsMonitor(object):
                                             class_type, instance_name)
     
     def run(self):
+        self.register_holder.start()
         #TODO: find out how to catch terminating signal for proper cleanup resources
         while (True):
             _logger.debug('fetching tasks for schedule...')
@@ -31,9 +30,10 @@ class AgentsMonitor(object):
             _logger.debug('fetched tasks: %s', tasks)
             for record in tasks:
                 self.promote_task_progress(record)
-            #TODO: replace with sleep
             _logger.debug('One iteration done.')
+            #TODO: use configurable settings here
             time.sleep(10)
+        self.register_holder.stop_thread()
     
     def promote_task_progress(self, task_record):
         try:
@@ -100,8 +100,6 @@ class TasksStorageProvider(object):
     def set_agent_for_task(self, agent_record, task_record):
         return monitordetails.set_agent_for_task(agent_record, task_record) 
 
-# TODO: make factory for this class, that will construct this class according
-# current application settings 
 class Implementation(object):
     
     def __init__(self,

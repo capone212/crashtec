@@ -61,7 +61,8 @@ class MocSymbolsManagerBuilder(object):
                                           self.downloader,
                                           self.symbols_store)
         return symbolsmngr.SymbolsManager(impl, self.agent_class,
-                                          self.instance_name)
+                                          self.instance_name,
+                                          'mock_group_id')
 
 class MocBuilderProductDetectorThrows(MocSymbolsManagerBuilder):
     def build_products_detector(self):

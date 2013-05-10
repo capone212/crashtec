@@ -4,7 +4,6 @@ Created on 03.05.2013
 @author: capone
 '''
 import os
-from crashtec.cdbprocessor import signaturebuilder
 
 def print_line(line):
     print line

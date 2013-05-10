@@ -19,19 +19,22 @@ import resultparsers
 
 _logger = logging.getLogger("cdb_processor")
 
-# FIXME: read about documenting of python code
-
 class Processor(agentbase.AgentBase):
     '''
-    Processor does a main task for analyzing crash reports. It runs
+    Processor does the main task for analyzing crash reports. It runs
     cdb.exe (windows debugger) against a memory dump and parses the response.    
     ''' 
-    def __init__(self, class_type, instance_name, impl):
+    def __init__(self, class_type, instance_name, group_id, impl):
         '''
         Constructor.
+        
+        Parameters
+        class_type - agent class id, see definitions module for possible values.
+        instance_name - system wide unique id of agent instance. 
+                        See parent class for more details.
         impl - provides implementation details for each step of processor
         '''
-        agentbase.AgentBase.__init__(self, class_type, instance_name)
+        agentbase.AgentBase.__init__(self, class_type, instance_name, group_id)
         self.impl = impl
     
     
@@ -47,27 +50,44 @@ class Processor(agentbase.AgentBase):
             self.task_failed(task)
 
 class Implementation(object):
+    '''
+    Hides implementation details of Processor class.
+    
+    Uses Template Method and Delegation design patterns to easily 
+    vary algorithm steps. 
+    '''
+    
     def __init__(self, commands_holder, debugger, output_parser, publisher):
+        '''
+            Constructor
+            
+            Input parameters are delegate objects that responsible for 
+            executing single algorithm step.
+            
+        '''
         self.commands_holder = commands_holder
         self.debugger = debugger
         self.parser = output_parser
         self.publisher = publisher
-    
-    # Returns list of debugger commands_holder for current task    
+        
     def get_debugger_commands_for_task(self, task):
+        '''Returns list of debugger commands_holder for current task'''
         return self.commands_holder.get_debugger_commands_for_task(task)
     
-    # Returns raw output of debugger. 
-    # It should be up to several kb sized string.
+  
     def exec_debugger(self, task, command_list):
+        '''Returns raw output of debugger. 
+        
+        It should be up to several kb sized string.
+        '''
         return self.debugger.execute(task, command_list)
-    
-    # Returns iteratable container of parsed visitable results. 
+     
     def parse_output(self, debugger_output):
+        '''Returns iteratable container of parsed visitable results.'''
         return self.parser.parse_output(debugger_output)
-    
-    # Saves processing results into DB.  
+      
     def publish_results(self, task, parsed_results):
+        '''Saves processing results into DB.'''
         self.publisher.publish_results(task, parsed_results)
     
 

@@ -4,11 +4,24 @@ Created on 18.02.2013
 @author: anzor.apshev
 '''
 
+def _logical_or(left, right):
+    return _AggregatedCondition(left, 'or', right)
+
+def _logical_and(left, right):
+    return _AggregatedCondition(left, 'and', right)
+
 class _AggregatedCondition(object):
     def __init__(self, lvalue, tag, rvalue):
         self.m_lvalue = lvalue
         self.m_tag = tag
         self.m_rvalue = rvalue
+    
+    # | operator
+    def __or__(self, other):
+        return _logical_or(self, other)
+    # & operator
+    def __and__(self, other):
+        return _logical_and(self, other)
     
     def to_sql(self):
         (lvalue_sql, lvalue_params) = self.m_lvalue.to_sql()
@@ -27,10 +40,11 @@ class _ConditionBase(object):
         self.m_value = value
     # | operator
     def __or__(self, other):
-        return _AggregatedCondition(self, 'or', other)
+        return _logical_or(self, other)
+    
     # & operator
     def __and__(self, other):
-        return _AggregatedCondition(self, 'and', other)
+        return _logical_and(self, other)
     
     def to_sql(self):
         value_id = "%s%s" % (self.m_field, id(self.m_value))

@@ -8,13 +8,14 @@ from crashtec.db.provider import filter as dbfilters
 from crashtec.infrastructure.dbmodel import *  
 import datetime
 
-GROUP_ID_UNSET = str()
+GROUP_ID_UNSET = '*'
 
 # Create short name alias
 _f = dbfilters.FieldFilterFactory
 
 def register_agent(class_type, instance_name, group_id = GROUP_ID_UNSET):
-    cursor = dbroutines.select_from(AGENTS_TABLE, db_filter = _f(AGENTS_INSTANCE_FIELD) == instance_name)
+    cursor = dbroutines.select_from(AGENTS_TABLE, 
+                    db_filter = _f(AGENTS_INSTANCE_FIELD) == instance_name)
     record = cursor.fetch_one()
     is_exist = True
     if not record:
@@ -31,9 +32,8 @@ def register_agent(class_type, instance_name, group_id = GROUP_ID_UNSET):
         dbroutines.create_new_record(AGENTS_TABLE, record)
 
 def send_keepalive_message(instance_name):
-    record = {AGENTS_INSTANCE_FIELD : instance_name,  AGENTS_KEEPALIVE_FIELD: datetime.datetime.now()}
-    dbroutines.update_record(AGENTS_TABLE, record, key_field = AGENTS_INSTANCE_FIELD)
-    pass
+    record = {AGENTS_INSTANCE_FIELD : instance_name,
+               AGENTS_KEEPALIVE_FIELD: datetime.datetime.now()}
+    dbroutines.update_record(AGENTS_TABLE, record,
+                             key_field = AGENTS_INSTANCE_FIELD)
         
-#register_agent('sample_class', 'sample_instance@someserver')
-#send_keepalive_message('sample_instance@someserver')

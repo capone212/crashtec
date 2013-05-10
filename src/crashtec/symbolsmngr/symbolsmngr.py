@@ -10,10 +10,12 @@ from crashtec.utils.exceptions import CtBaseException
 
 _logger = logging.getLogger("symbolsmngr")
 
+# FIXME: Expose symbols server path, hold it in db
+
 class SymbolsManager(agentbase.AgentBase):
-    def __init__(self, impl, class_type, instance_name):
+    def __init__(self, impl, class_type, instance_name, group_id):
         self.impl = impl
-        agentbase.AgentBase.__init__(self, class_type, instance_name)
+        agentbase.AgentBase.__init__(self, class_type, instance_name, group_id)
     
     def process_task(self, task):
         _logger.debug('About to start processing task: %s', task)

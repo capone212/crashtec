@@ -69,5 +69,13 @@ class TestFileldFilterFactory(unittest.TestCase):
         self.assertEqual(cond1.to_sql(), cond2.to_sql())
 
 
+class TestExpressionAgregation(unittest.TestCase):
+    def test_complex_expressions(self):
+        f = pfilter.FieldFilterFactory
+        filter_object = (f('Field1') == 'value1') & (f('Field2') > 'value2')
+        # Adding additional conditions
+        filter_object = filter_object & (f('field3') == 'value3')
+        self.assertTrue(filter_object.to_sql())
+
 if __name__ == '__main__':
     unittest.main()

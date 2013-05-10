@@ -5,12 +5,14 @@ TASKS_TABLE ='tasks'
 
 TASKS_AGENT_INSTANCE_FIELD = 'agent_instance_name'
 TASKS_AGENT_CLASS_FIELD = 'agent_class_type'
+TASKS_AGENTS_GROUP_ID = 'agent_group_id'
 TASKS_STATUS_FIELD = 'status'
-TASKS_PLATFORM_FIELD = 'platform' 
+TASKS_PLATFORM_FIELD = 'platform'
 
 _task = { 
             TASKS_AGENT_INSTANCE_FIELD : DBSchemaTypes.short_string(),
             TASKS_AGENT_CLASS_FIELD :  DBSchemaTypes.short_string(),
+            TASKS_AGENTS_GROUP_ID : DBSchemaTypes.short_string(),
             TASKS_STATUS_FIELD : DBSchemaTypes.short_string(),
             TASKS_PLATFORM_FIELD : DBSchemaTypes.short_string()
         }

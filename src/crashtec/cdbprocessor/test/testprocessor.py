@@ -101,7 +101,8 @@ class MockProcessorBuilder(object):
                                         self.debugger,
                                         self.parser,
                                         self.publisher)
-        return processor.Processor('class_type', 'instance_name', impl)
+        return processor.Processor('class_type', 'instance_name', 
+                                   'group_id', impl)
 
 class MockProcessorOneStepThrowsBuilder(MockProcessorBuilder):
     def build_publisher(self):

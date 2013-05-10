@@ -9,12 +9,14 @@ import itertools
 import random
 import collections
 import logging
+import datetime
 
 from crashtec.config import crashtecconfig
 from crashtec.db.provider import routines as dbroutines
 from crashtec.db.provider import filter as dbfilter
 from crashtec.db.schema.fields import PRIMARY_KEY_FIELD
 from crashtec.utils import exceptions as ctexceptions
+from crashtec.infrastructure.public import agentutils
 
 from public import taskutils
 from public.jobsequence import GetJobEntryValueVisitor
@@ -55,12 +57,22 @@ def get_next_agent_class(task):
         # this means that current agent is the last in the job sequence
         return None
 
+def _get_agents_last_keepalive_boundary():
+    return datetime.datetime.now() - datetime.timedelta(
+                    seconds=2*crashtecconfig.AGENTS_KEEPALIVE_TIMEOUT)
+
 def get_compatible_agent_instances(class_type, task_record):
-    #TODO: use platform field 
-    #TODO: use last updated time to filter dead agents
+    #FIXME: implement group id filtering
     f = dbfilter.FieldFilterFactory
-    cursor = dbroutines.select_from(dbmodel.AGENTS_TABLE,
-            db_filter=f(dbmodel.AGENTS_CLASS_TYPE_FIELD) == class_type)
+    d = dbmodel
+    filter_object = (f(d.AGENTS_CLASS_TYPE_FIELD) == class_type) & \
+        (f(d.AGENTS_KEEPALIVE_FIELD) > _get_agents_last_keepalive_boundary())
+    # Filter agents by group id, if necessary     
+    if (task_record[d.TASKS_AGENTS_GROUP_ID] != agentutils.GROUP_ID_UNSET):
+        filter_object = filter_object & (f(d.AGENTS_GROUP_FIELD) == \
+                                         task_record[d.TASKS_AGENTS_GROUP_ID])
+    
+    cursor = dbroutines.select_from(d.AGENTS_TABLE, db_filter=filter_object)
     result = cursor.fetch_all()
     return result 
 
@@ -71,10 +83,10 @@ def chose_best_agent_for_task(agents_list, task):
 
 def set_agent_for_task(agent_record, task_record):
     d = dbmodel
-    task_record[d.TASKS_AGENT_CLASS_FIELD] = \
-                    agent_record[d.AGENTS_CLASS_TYPE_FIELD]
-    task_record[d.TASKS_AGENT_INSTANCE_FIELD] = \
-                    agent_record[d.AGENTS_INSTANCE_FIELD]
+    taskutils.set_agent_for_task(task_record, 
+                                 agent_record[d.AGENTS_CLASS_TYPE_FIELD], 
+                                 agent_record[d.AGENTS_INSTANCE_FIELD], 
+                                 agent_record[d.AGENTS_GROUP_FIELD])
     task_record[d.TASKS_STATUS_FIELD] = taskutils.TASK_STATUS_AGENT_SCHEDULED
     dbroutines.update_record(d.TASKS_TABLE, task_record)
     

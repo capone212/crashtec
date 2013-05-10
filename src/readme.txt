@@ -1,18 +1,22 @@
-- Current tasks:	
-	1) Refactoring code*
-		- Use template design pattern and DI (were necessary) in platform code
-		- Introduce separate classes for working with DB. It will allow 
-			writing unit test without separate BD for it. Do this both for
-			platform and domain code.
-		 
-	2) Writing unit tests* :
-		- Unit test should be implemented both for domain and platform code
-		
-	3) Implementing symbolsmngr daemon
-
--------------
-* See crashtec.symbolsmngr as example of design and unit-test coverage
-		
+[Current plan]
+	- Refine agents implementation
+		- Look through TODO list in code
+		- Identify and fix critical issues
+		- Make list of second phase activities for refining
+	- Do high load testing
+	- Make installer and reproducible work environment
+		- Use vagrant, virtualenv, puppet and so on
+	- Build Api and Server Side report scripts
+	- Make UI (Django Best Practices http://lincolnloop.com/django-best-practices/index.html)
+	
+[Agents Critical issues]
+	- Overal
+		- How to comment code in python. read code style
+		- Logging for agents
+		- find out how to catch terminating signal for Agents proper cleanup resources
+		- Documenting code
+		- versioning code
+		- Think about DB involved unit tests tests
 
 Future:
 	- read about kafka http://kafka.apache.org/index.html, how it can help with logs and holding results?

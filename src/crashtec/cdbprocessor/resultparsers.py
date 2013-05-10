@@ -9,19 +9,21 @@ from crashtec.utils import modules
 import callstackparser
 from resultspublisher import results_metaclass 
 
-# Responsible for parsing output of cdb debugger.
-# Deligates parsing operation to list of specialized parser-objects -- SectionParsers.
-# Each SectionParser responsible for extracting one well defined entity from the 
-# debugger output, for example crash call stack, loaded modules list, exception code and so on.
-# All SectionParsers receives the same input (raw debugger output),
-# and they expected to return visitable object with parsing operation result.
 class Parser(object):
+    '''Responsible for parsing output of cdb debugger.
+    
+    Deligates parsing operation to list of specialized parser-objects -- SectionParsers.
+    Each SectionParser responsible for extracting one well defined entity from the 
+    debugger output, for example crash call stack, loaded modules list, exception code and so on.
+    All SectionParsers receives the same input (raw debugger output),
+    and they expected to return visitable object with parsing operation result.
+    '''
+    
     def __init__(self, parsers_list):
         self.parsers = parsers_list
         
     # Returns iteratable container of parsed results  
     def parse_output(self, debugger_output):
-        # FIXME: Use generator expression here for saving memory 
         return (parser.parse(debugger_output) for parser in self.parsers)
 
 ModulesParserResuls = results_metaclass('ModulesSectionParserResults')  
