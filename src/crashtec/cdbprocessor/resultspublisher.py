@@ -51,6 +51,7 @@ class ResultsPublisher(object):
         pass
     
     def visit_RawOutpuSectionParserResults(self, raw_debugger_output):
+        raw_debugger_output = raw_debugger_output.decode('ascii', 'ignore')
         d = dbmodel
         new_record = dbroutines.Record()
         new_record[d.RAWRESULTS_TASK_ID] = self.task[PRIMARY_KEY_FIELD]
