@@ -18,7 +18,7 @@ class TestCheckerImplementation(unittest.TestCase):
                      'test_data/x64.txt' : 'win64'}
         for file_name, expected in test_data.iteritems():
             impl = checker.Implementation()
-            f = open(_get_full_path(file_name), 'rb')
+            f = open(_get_full_path(file_name), 'r')
             result = impl.parse_checker_output(f.read())
             self.assertEqual(expected, result['platform'], 
                              'platform value mismatch')

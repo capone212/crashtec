@@ -26,7 +26,8 @@ _PLATFORMS_MAP = {
 def parse_checker_output(checker_output):
     if (not checker_output):
         raise CtGeneralError('empty input passed to parse_checker_output')
-    SUCCESS_STRING = 'Finished dump check\r\n'
+    SUCCESS_STRING = 'Finished dump check'
+    checker_output = checker_output.rstrip('\r\n')
     if (not checker_output.endswith(SUCCESS_STRING)):
         raise CtGeneralError("Can't parse dump checker response."\
                              " Probably invalid dump passed.")
