@@ -91,27 +91,25 @@ class Test03_ZipUnpacker(unittest.TestCase):
                                          TEST_DATA_FOLDER, "zip")
         clean_temp_folder(self.temp_dir)
 
-class MockCache(object):
-    def lookup_binary_path(self, binary_url):
-        pass
-    
-    def register_binary(self, url, binary_dirrectory):
-        pass
 
 class Test04_BinaryDownloader(unittest.TestCase):
     def test_download_and_unpack(self):
         binary_url = 'https://raw.github.com/capone212/crashtec/master' \
                     '/src/crashtec/symbolsmngr/test/test_data/zip/correct.zip'
-        cache = MockCache()
+        # Create cache mock object
+        cache = mock.create_autospec(bindownloader.Cache('mock'), spec_set=True)
+        cache.lookup_binary_path = mock.MagicMock(return_value = None)
+        
         storage = bindownloader.StorageProvider(self.test_config)
         http = bindownloader.HttpDownloader()
         unpacker = bindownloader.ZipUnpacker()
         down = bindownloader.BinaryDownloader(cache,
                                     storage, http, unpacker)
+        # Validate results
         destination = down.download_and_unpack(binary_url)
         result = os.path.exists(os.path.join(destination, 'correct'))
-        self.assert_(result, "Can't locate unzipped file!")
-        shutil.rmtree(destination)
+        self.assertTrue(result, "Can't locate unzipped file!")
+        cache.register_binary.assert_called_once_with(binary_url, destination)
     
     def setUp(self):
         self.temp_dir = os.path.join(os.path.dirname(__file__), TEMP_FOLDER)

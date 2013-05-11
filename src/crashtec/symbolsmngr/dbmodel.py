@@ -11,10 +11,12 @@ from crashtec.db.schema.types import DBSchemaTypes
 TASKS_TABLE ='tasks'
 TASKS_DUMP_FILE_FIELD = 'dump_file_name'
 TASKS_PLATFORM_FIELD = 'platform'
+TASKS_SYMBOLS_PATH = 'symbols_path'
 
 _task = {
             TASKS_DUMP_FILE_FIELD : DBSchemaTypes.long_string(),
-            TASKS_PLATFORM_FIELD : DBSchemaTypes.short_string()
+            TASKS_PLATFORM_FIELD : DBSchemaTypes.short_string(),
+            TASKS_SYMBOLS_PATH : DBSchemaTypes.long_string()
         } 
  
 #------------------------------------------------------------    

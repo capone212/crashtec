@@ -4,6 +4,7 @@ Created on 17.02.2013
 @author: capone
 '''
 from crashtec.infrastructure import dbmodel
+from crashtec.db.schema.fields import PRIMARY_KEY_FIELD
 
 from agentutils import GROUP_ID_UNSET
 
@@ -38,4 +39,7 @@ def new_task_record():
     new_task = DbRecord()
     new_task[dbmodel.TASKS_AGENTS_GROUP_ID] = GROUP_ID_UNSET
     return new_task
+
+def get_task_id(task_record):
+    return task_record[PRIMARY_KEY_FIELD]
     

@@ -16,7 +16,7 @@ from crashtec.symbolsmngr import symbolsmngr
 
 from crashtec.utils import debug 
 
-_sample_task = dict()
+_sample_task = {'id' : 1}
 _sample_products_list = {'prod1' : ['1.0.0.', '1.0.2']}
 _sample_urls = ['url1', 'url2']
 _binary_folder_list = ['folder1', 'folder2']

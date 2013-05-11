@@ -12,9 +12,11 @@ from resultspublisher import results_metaclass
 class Parser(object):
     '''Responsible for parsing output of cdb debugger.
     
-    Deligates parsing operation to list of specialized parser-objects -- SectionParsers.
-    Each SectionParser responsible for extracting one well defined entity from the 
-    debugger output, for example crash call stack, loaded modules list, exception code and so on.
+    Delegates parsing operation to list of specialized 
+    parser-objects -- SectionParsers. Each SectionParser responsible for 
+    extracting one well defined entity from the debugger output,
+    for example crash call stack, loaded modules list, exception code and so on.
+    
     All SectionParsers receives the same input (raw debugger output),
     and they expected to return visitable object with parsing operation result.
     '''

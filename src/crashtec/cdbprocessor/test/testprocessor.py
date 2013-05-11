@@ -47,23 +47,29 @@ class Test01_CommandsHolder(unittest.TestCase):
 
 class Test02_Debugger(unittest.TestCase):
     def test_positive_execute(self):
-        debugger = processor.CdbDebugger()
+        debugger = processor.CdbDebugger(self.mock_config)
         task = Record()
         task[dbmodel.TASKS_PLATFORM_FIELD] = infradefs.PLATFORM_WIN32
         task[dbmodel.TASKS_DUMP_FILE_FIELD] = DUMP_FILE_NAME
+        task[dbmodel.TASKS_SYMBOLS_PATH] = 'c:\\mock_path'
         result = debugger.execute(task, testconfig.HANG_COMMANDS_LIST)
         self.assertTrue(result, "Should not be empty")
     
     def test_negative_execute(self):
-        debugger = processor.CdbDebugger()
+        debugger = processor.CdbDebugger(self.mock_config)
         task = Record()
         task[dbmodel.TASKS_PLATFORM_FIELD] = infradefs.PLATFORM_WIN32
         task[dbmodel.TASKS_DUMP_FILE_FIELD] = "z:\\unknown_dump.dmp"
+        task[dbmodel.TASKS_SYMBOLS_PATH] = 'c:\\mock_path'
         with self.assertRaises(CtBaseException):
             debugger.execute(task, testconfig.HANG_COMMANDS_LIST)
+    
+    def setUp(self):
+        self.mock_config = mock.MagicMock()
+        self.mock_config.STANDARD_SYMBOLS_PATH = str()
 
 
-_sample_task = dict()
+_sample_task = {'id':1}
 _sample_debugger_commnds = ['coommand1', 'command2']
 _sample_debugger_output = 'sample output'
 _sample_parsed_results = 'parsed_results'

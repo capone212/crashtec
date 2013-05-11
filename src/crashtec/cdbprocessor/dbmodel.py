@@ -8,6 +8,7 @@ TASKS_PROBLEM_CLASS = 'problem_class'
 TASKS_SYMBOL_NAME = 'symbol_name'
 TASKS_FAIL_IMAGE = 'failure_image_name'
 TASKS_FAILURE_BUCKET_ID = 'failure_bucket_id'
+TASKS_SYMBOLS_PATH = 'symbols_path'
 
 _task = {
             TASKS_DUMP_FILE_FIELD : DBSchemaTypes.long_string(),
@@ -16,7 +17,8 @@ _task = {
             TASKS_PROBLEM_CLASS: DBSchemaTypes.short_string(),
             TASKS_SYMBOL_NAME : DBSchemaTypes.long_string(),
             TASKS_FAIL_IMAGE : DBSchemaTypes.short_string(),
-            TASKS_FAILURE_BUCKET_ID : DBSchemaTypes.long_string()
+            TASKS_FAILURE_BUCKET_ID : DBSchemaTypes.long_string(),
+            TASKS_SYMBOLS_PATH : DBSchemaTypes.long_string()
         } 
 
 RAWRESULTS_TABLE = 'raw_results'

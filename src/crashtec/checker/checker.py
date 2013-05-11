@@ -33,7 +33,8 @@ class Checker(agentbase.AgentBase):
         agentbase.AgentBase.__init__(self, class_type, instance_name)
     
     def process_task(self, task):
-        _logger.debug('About to start processing task: %s',  task)
+        _logger.debug('About to start processing task: %s', 
+                                                taskutils.get_task_id(task))
         try:
             checker_output = self.impl.execute_dump_checker(
                                 task[dbmodel.TASKS_DUMP_FILE_FIELD])

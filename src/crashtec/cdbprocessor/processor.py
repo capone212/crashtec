@@ -11,6 +11,7 @@ from crashtec.config import processorconfig
 from crashtec.utils.exceptions import CtGeneralError
 from crashtec.utils.exceptions import CtBaseException
 from crashtec.utils import windebuggers
+from crashtec.infrastructure.public import taskutils
  
 
 import dbmodel
@@ -40,10 +41,14 @@ class Processor(agentbase.AgentBase):
     
     def process_task(self, task):
         try:
+            _logger.info('Start processing new task is = %s', 
+                         taskutils.get_task_id(task))
             comands_list = self.impl.get_debugger_commands_for_task(task)
             debugger_output = self.impl.exec_debugger(task, comands_list)
             parsed_results = self.impl.parse_output(debugger_output)
             self.impl.publish_results(task, parsed_results)
+            _logger.info('Finished processing new is = %s', 
+                         taskutils.get_task_id(task))
             self.task_finished(task)
         except CtBaseException as e:
             _logger.error('Exception occurred while processing task: %s', e)
@@ -105,10 +110,24 @@ class CdbCommandsHolder(object):
     
 
 class CdbDebugger(object):
+    
+    def __init__(self, config = processorconfig):
+        self.config = config
+    
     def execute(self, task, command_list):
+        image_path = str()
+        symbols_path = self.config.STANDARD_SYMBOLS_PATH
+        if (task[dbmodel.TASKS_SYMBOLS_PATH]):
+            image_path = task[dbmodel.TASKS_SYMBOLS_PATH] 
+            symbols_path = "%s;%s" % (symbols_path, 
+                                      task[dbmodel.TASKS_SYMBOLS_PATH])
+        print image_path
+        print symbols_path
         return windebuggers.exec_cdb(command_list,
                                      task[dbmodel.TASKS_PLATFORM_FIELD],
-                                     task[dbmodel.TASKS_DUMP_FILE_FIELD])
+                                     task[dbmodel.TASKS_DUMP_FILE_FIELD],
+                                     image_path,
+                                     symbols_path)
 
 class DbPublisher():
     def publish_results(self, task, parsed_results):

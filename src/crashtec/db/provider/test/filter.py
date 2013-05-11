@@ -72,9 +72,11 @@ class TestFileldFilterFactory(unittest.TestCase):
 class TestExpressionAgregation(unittest.TestCase):
     def test_complex_expressions(self):
         f = pfilter.FieldFilterFactory
-        filter_object = (f('Field1') == 'value1') & (f('Field2') > 'value2')
+        filter_object = (f('Field1') == 'value1') | (f('Field2') > 'value2') &\
+                (f('Field0') < 'value0')  
         # Adding additional conditions
         filter_object = filter_object & (f('field3') == 'value3')
+        filter_object = filter_object | (f('field4') != 'value4')
         self.assertTrue(filter_object.to_sql())
 
 if __name__ == '__main__':

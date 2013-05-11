@@ -3,6 +3,7 @@ Created on 07.04.2013
 
 @author: capone
 '''
+import os
 import subprocess
 import shlex
 
@@ -44,23 +45,30 @@ def get_debugger_root_for(platform_id):
         raise CtGeneralError("Unknown debugger platform: %s" % platform_id)
     return PLATFORMS_MAP[platform_id]
 
-def exec_debugging_tool(command_line, platform_id):
+def exec_debugging_tool(command_line, platform_id, env_vars=os.environ.copy()):
     command_line = PathWrapper.unwrap_app_name(command_line,
                                             get_debugger_root_for(platform_id))
     args = shlex.split(command_line)
     try:
-        return subprocess.check_output(args)
+        return subprocess.check_output(args, env=env_vars)
     except subprocess.CalledProcessError as err:
-        raise CtGeneralError("Error occurred while executing tool: " % err)
+        raise CtGeneralError("Error occurred while executing tool: %s " % err)
 
-def exec_cdb(commands_list, platform_id, dump_file):
+VAR_EXECUTABLE_IMAGE_PATH = "_NT_EXECUTABLE_IMAGE_PATH"
+VAR_SYMBOLS_IMAGE_PATH = "_NT_SYMBOL_PATH"
+ 
+def exec_cdb(commands_list, platform_id, dump_file,
+                        binaries_path=str(), symbols_path=str()):
     if not COMMAND_QUIT in commands_list:
         commands_list.append(COMMAND_QUIT)
+    # Prepare commands
     SEPARATOR = ";";
     command_line = '%s -lines -z "%s" -c "%s"' % (CDB, dump_file, 
                                         SEPARATOR.join(commands_list))
-    return exec_debugging_tool(command_line, platform_id)
-
-#exec_cdb([COMMAND_ANALYZE_V, COMMAND_LIST_THREADSTACKS], 
-#"win32", "d\\dumps\exec.dmp")
+    # Set image and symbols image path
+    cdb_env = os.environ.copy() 
+    cdb_env[VAR_EXECUTABLE_IMAGE_PATH] = binaries_path
+    cdb_env[VAR_SYMBOLS_IMAGE_PATH] = symbols_path
+    
+    return exec_debugging_tool(command_line, platform_id, cdb_env)
 

@@ -82,7 +82,7 @@ class ProblemStackParser(object):
         Will be converted to 
            KERNELBASE!RaiseException+0x58
         '''
-        
+        # FIXME: use task info here to chose appropriate function
         x86_result = self.strip_additional_info_x86(stack_lines)
         if x86_result:
             return x86_result

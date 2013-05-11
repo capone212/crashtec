@@ -38,10 +38,10 @@ class Cache(object):
         f = filter.FieldFilterFactory
         stripped_url = self.strip_url(binary_url)
         cursor = dbroutines.select_from(d.SYMBOLS_TABLE, db_filter=(
-                                        (f(d.SYMBOLS_URL) == stripped_url) &
-                                        (f(d.SYMBOLS_AGENT_ID) == self.agent_name))
-                                        ) 
-        record = cursor.fetchone()
+                                    (f(d.SYMBOLS_URL) == stripped_url) &
+                                    (f(d.SYMBOLS_AGENT_ID) == self.agent_name))
+                                    ) 
+        record = cursor.fetch_one()
         if record:
             return record[d.SYMBOLS_LOCAL_DIR]
     
@@ -80,8 +80,8 @@ class StorageProvider(object):
         if (not parsed_url):
             raise CtCriticalError("Could not parse url: %s" %
                                    safe_log_url(binary_url))
-        
-        dirrectory = self.config.BINARY_LOCAL_ROOT + parsed_url.path
+        dirrectory = os.path.normpath(self.config.BINARY_LOCAL_ROOT +
+                                  parsed_url.path)
         try:
             if (not os.path.exists(dirrectory)):
                 os.makedirs(dirrectory) 
@@ -98,6 +98,7 @@ class HttpDownloader(object):
         parsed_url = urlparse.urlparse(url)
         file_name = os.path.join(dest_folder, os.path.basename(parsed_url.path))
         try:
+            # TODO: make it configurable
             socket.setdefaulttimeout(10)
             urllib.urlretrieve(url, file_name, self.reportHook);
         except Exception as exc:
@@ -154,6 +155,7 @@ class BinaryDownloader(object):
         unpacked_binaries_folder = self.unpacker.unpack(package_file,
                                                         destination_folder)
         self.drop_package_file(package_file)
+        self.cache.register_binary(url, unpacked_binaries_folder)
         _logger.debug("Processing binary url finished : %s", safe_log_url(url))
         return unpacked_binaries_folder
     

@@ -28,7 +28,7 @@ class BaseResult(object):
     
     # should be implemented in subclasses
     def delegated_accept(self, instance, visitor):
-        raise RuntimeError("should't be called!")
+        raise RuntimeError("shouldn't be called!")
 
 # Metaclass which generates wrapper classes for primitive parser results. 
 # Wrapper implements all necesserary methods for supporting visitors.
