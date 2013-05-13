@@ -26,7 +26,6 @@ class AgentsMonitor(object):
         while (True):
             _logger.debug('fetching tasks for schedule...')
             tasks = self.impl.fetch_unscheduled_tasks()
-            _logger.debug('fetched tasks: %s', tasks)
             for record in tasks:
                 self.promote_task_progress(record)
             _logger.debug('One iteration done.')

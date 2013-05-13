@@ -72,13 +72,16 @@ class Cursor(object):
         self._cursor_impl = cursor_impl
     
     def fetch_one(self):
-        return Record(self._cursor_impl.fetchone())
+        fetched = self._cursor_impl.fetchone()
+        if not fetched:
+            return fetched
+        return Record(fetched)
     
     def fetch_many(self, count):
-        return (Record(x) for x in self._cursor_impl.fetchmany(count))
+        return [Record(x) for x in self._cursor_impl.fetchmany(count)]
     
     def fetch_all(self):
-        return (Record(x) for x in self._cursor_impl.fetchall())
+        return [Record(x) for x in self._cursor_impl.fetchall()]
 
 def exec_sql(sql, params):
 #    with psycopg2.connect(DSN) as connection:
@@ -119,13 +122,14 @@ def update_record(table, record, key_field = PRIMARY_KEY_FIELD):
     updated_values = record.updated_values()
     if not updated_values:
         return
-    if key_field in updated_values.keys():
-        raise CtCriticalError('Key field value is updated.' 
-        'This should be a bug in called module')
-    
+#     if key_field in updated_values.keys():
+#         raise CtCriticalError('Key field value is updated.' 
+#         'This should be a bug in called module')
+    keys = [property_id for property_id in updated_values.keys()
+                       if property_id != key_field]
     fields = ', '.join('%s=%%s' %
-                       property_id for property_id in updated_values.keys())
-    arguments = updated_values.values()
+                       property_id for property_id in keys)
+    arguments = [updated_values[key] for key in keys]
     sql = 'update %s SET %s WHERE %s = %%s' % (table, fields, key_field)
     arguments.append(record[key_field])
     return exec_sql(sql, arguments)

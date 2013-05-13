@@ -47,7 +47,7 @@ class Processor(agentbase.AgentBase):
             debugger_output = self.impl.exec_debugger(task, comands_list)
             parsed_results = self.impl.parse_output(debugger_output)
             self.impl.publish_results(task, parsed_results)
-            _logger.info('Finished processing new is = %s', 
+            _logger.info('Finished processing task id is = %s', 
                          taskutils.get_task_id(task))
             self.task_finished(task)
         except CtBaseException as e:

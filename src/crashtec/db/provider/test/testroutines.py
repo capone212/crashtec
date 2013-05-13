@@ -5,6 +5,7 @@ Created on 12.05.2013
 '''
 import unittest
 from mock import patch
+from mock import MagicMock
 
 from crashtec.db.provider.routines import Record
 from crashtec.db.provider import routines
@@ -58,6 +59,78 @@ class TestRecord(unittest.TestCase):
         self.assertEqual(updated_values, modifier2)
 
 
+class TestCursor(unittest.TestCase):
+    def test_fetch_one_returns_record(self):
+        # Prepare mock object
+        mock_impl = MagicMock(spec_set = ['fetchone'])
+        mock_impl.fetchone = MagicMock(return_value = self.get_sample_record())
+        # Do test
+        cursor = routines.Cursor(mock_impl)
+        record = cursor.fetch_one()
+        # Validate results
+        self.check_equal(record, self.get_sample_record())
+    
+    def test_fetch_one_returns_none(self):
+        # Prepare mock object
+        mock_impl = MagicMock(spec_set = ['fetchone'])
+        mock_impl.fetchone = MagicMock(return_value = None)
+        # Do test
+        cursor = routines.Cursor(mock_impl)
+        record = cursor.fetch_one()
+        # Validate results
+        self.assertEqual(record, None)
+    
+    def test_fetch_many_returns_records(self):
+        self.check_fetch_many(5)
+    
+    def test_fetch_many_returns_empty(self):
+        self.check_fetch_many(0)
+    
+    def test_fetch_all_returns_records(self):
+        self.check_fetch_all(5)
+    
+    def test_fetch_all_returns_empty(self):
+        self.check_fetch_all(0)
+    
+    def check_fetch_many(self, count):
+        # Prepare mock object
+        mock_impl = MagicMock(spec_set = ['fetchmany'])
+        mock_impl.fetchmany = MagicMock(return_value = \
+                            (self.get_sample_record() for x in range(count)))
+        # Do test
+        cursor = routines.Cursor(mock_impl)
+        records = cursor.fetch_many(count)
+        # Validate results
+        mock_impl.fetchmany.assert_called_with(count)
+        self.assertEqual(len(records), count)
+        for record in records:
+            self.check_equal(record, self.get_sample_record())
+    
+    def check_fetch_all(self, count):
+        # Prepare mock object
+        mock_impl = MagicMock(spec_set = ['fetchall'])
+        mock_impl.fetchall = MagicMock(return_value = \
+                            (self.get_sample_record() for x in range(count)))
+        # Do test
+        cursor = routines.Cursor(mock_impl)
+        records = cursor.fetch_all()
+        # Validate results
+        mock_impl.fetchall.assert_called_with()
+        self.assertEqual(len(records), count)
+        for record in records:
+            self.check_equal(record, self.get_sample_record())
+           
+    def check_equal(self, record, dict_value):
+        self.assertEqual(record.keys(), dict_value.keys(), 
+                         'keys are not equal')
+        self.assertEqual(record.values(), dict_value.values(), 
+                         'values are not equal')
+    
+    def get_sample_record(self):
+        return {'key1':'value1', 'key2':'value2'}
+    
+
+
 @patch('crashtec.db.provider.routines.exec_sql')
 class Test_create_new_record(unittest.TestCase):
     def test_with_dictionary(self, pached_exec_sql):
@@ -91,8 +164,11 @@ class Test_update_record(unittest.TestCase):
         record = Record()
         for key, value in self.get_mock_record().iteritems():
             record[key] = value 
-        with self.assertRaises(CtCriticalError):
-            self._do_test(record, pached_exec_sql)
+        
+        (sql_string, values), keywords = self._do_test(record, pached_exec_sql)
+        EXPECTED_STRING = 'update mock_table SET field2=%s, field1=%s WHERE id = %s'
+        self.assertEqual(EXPECTED_STRING, sql_string)
+        self.assertEqual(values, record.values())
         
     
     def test_no_updated_values(self, pached_exec_sql):
